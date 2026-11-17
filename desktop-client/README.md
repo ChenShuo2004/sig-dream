@@ -33,6 +33,25 @@ npm run build
 npm run electron:pack
 ```
 
+## 打包三端安装包
+
+| 命令 | 产物（`release/`） |
+|------|------|
+| `npm run dist:win` | Windows `.exe` 安装版与 `.zip` 免安装版（x64） |
+| `npm run dist:mac` | macOS `.dmg` 与 `.zip`（Intel x64 / Apple 芯片 arm64，需在 Mac 上执行） |
+| `npm run dist:linux` | Linux `.AppImage` 与 `.deb`（x64） |
+
+正式发布由 GitHub Actions 完成：把 `package.json` 的 `version` 改好并提交后，推送同版本号的标签即可，例如：
+
+```bash
+git tag v0.2.0
+git push origin v0.2.0
+```
+
+工作流 `.github/workflows/desktop-release.yml` 会在 Windows、macOS、Linux 三台机器上分别打包，并把全部安装包发布到 GitHub Releases。也可以在 Actions 页面手动运行，只构建不发布。
+
+安装包**不包含**任何服务器地址或凭据：用户首次打开时在登录页填写「服务器地址」（保存在本机 userData 的 `server-settings.json`）。仓库公开后客户端检查更新也无需 GitHub Token。
+
 ## 主要源码
 
 | 路径 | 说明 |

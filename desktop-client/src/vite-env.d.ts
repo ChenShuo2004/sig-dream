@@ -14,7 +14,9 @@ declare global {
         jsonPath?: string;
         settingsFileMissing?: boolean;
         usesNextApiProxy?: boolean;
+        serverOrigin?: string;
       }>;
+      saveServerOrigin?: (origin: string) => Promise<{ ok: boolean; message?: string }>;
       probeHttpGet?: (url: string, timeoutMs?: number) => Promise<{ ok: boolean; status?: number; error?: string }>;
       getDesktopLocalSettings?: () => Promise<{
         material_assets_root: string;

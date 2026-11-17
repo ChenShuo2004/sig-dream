@@ -3,7 +3,7 @@ const path = require("path");
 const fs = require("fs");
 const { spawnSync } = require("child_process");
 
-const { getBootConfig } = require("./boot-config.cjs");
+const { getBootConfig, saveUserServerOrigin } = require("./boot-config.cjs");
 const { getDesktopClientRoot } = require("./app-paths.cjs");
 const { listMaterialAssetsRootCandidates, resolveAbsolutePathWithRoots, normalizeFileRelativePath } = require("./material-roots.cjs");
 const { ensurePackagedFirstRunDefaults } = require("./first-run-settings.cjs");
@@ -39,6 +39,7 @@ function userDataDir() {
 
 /** Packaged app: login SMB before file access (reads resources/nas-smb-credentials.json). */
 function tryEnsureNasSmbLogin() {
+  if (process.platform !== "win32") return;
   const ps1 = path.join(process.resourcesPath, "ensure-nas-smb.ps1");
   const creds = path.join(process.resourcesPath, "nas-smb-credentials.json");
   if (!fs.existsSync(ps1) || !fs.existsSync(creds)) return;
@@ -172,6 +173,15 @@ app.whenReady().then(() => {
   ensurePackagedFirstRunDefaults(userDataDir(), desktopClientRoot());
 
   ipcMain.handle("lcp:get-boot-config", () => getBootConfig(desktopClientRoot()));
+
+  ipcMain.handle("lcp:save-server-origin", (_event, origin) => {
+    try {
+      saveUserServerOrigin(origin);
+      return { ok: true, boot: getBootConfig(desktopClientRoot()) };
+    } catch (e) {
+      return { ok: false, message: String(e?.message || e) };
+    }
+  });
 
   ipcMain.handle("lcp:get-desktop-local-settings", () => ({
     material_assets_root: effectiveMaterialAssetsRoot(),

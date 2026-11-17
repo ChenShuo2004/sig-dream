@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const { readMaterialAssetsRootFromUserStore, DEFAULT_MATERIAL_ASSETS_ROOT_WINDOWS, DEFAULT_MATERIAL_ASSETS_ROOT_MACOS } = require("./desktop-local-settings.cjs");
+const { readMaterialAssetsRootFromUserStore, DEFAULT_MATERIAL_ASSETS_ROOT_WINDOWS, DEFAULT_MATERIAL_ASSETS_ROOT_MACOS, DEFAULT_MATERIAL_ASSETS_ROOT_LINUX } = require("./desktop-local-settings.cjs");
 const { getBootConfig } = require("./boot-config.cjs");
 const { getDesktopClientRoot } = require("./app-paths.cjs");
 const { resolveMaterialAssetsPath, checkFileExists, pickExistingAbsolutePath } = require("./material-path.cjs");
@@ -84,6 +84,8 @@ function listMaterialAssetsRootCandidates(userDataDir, desktopClientRoot, platfo
 
   if (platform === "darwin") {
     add(DEFAULT_MATERIAL_ASSETS_ROOT_MACOS);
+  } else if (platform === "linux") {
+    add(DEFAULT_MATERIAL_ASSETS_ROOT_LINUX);
   } else {
     add(DEFAULT_MATERIAL_ASSETS_ROOT_WINDOWS);
   }

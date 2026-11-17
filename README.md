@@ -1,10 +1,14 @@
 > **English:** A self-hosted AI creation canvas and asset workspace for content teams — image, video, voice and song generation on an infinite canvas, backed by a shared material library with LAN-first file transfer.
 
 [![中文](https://img.shields.io/badge/%E4%B8%AD%E6%96%87-8d4d2e?style=for-the-badge)](README.md)
+[![English](https://img.shields.io/badge/English-f3dfc7?style=for-the-badge&labelColor=f3dfc7&color=bc7650)](README.en.md)
+[![日本語](https://img.shields.io/badge/%E6%97%A5%E6%9C%AC%E8%AA%9E-f3dfc7?style=for-the-badge&labelColor=f3dfc7&color=bc7650)](README.ja.md)
+[![한국어](https://img.shields.io/badge/%ED%95%9C%EA%B5%AD%EC%96%B4-f3dfc7?style=for-the-badge&labelColor=f3dfc7&color=bc7650)](README.ko.md)
 [![关注作者 X](https://img.shields.io/badge/%E5%85%B3%E6%B3%A8%E4%BD%9C%E8%80%85-%40ChenshuoAI-bc7650?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ChenshuoAI)
+[![Release](https://img.shields.io/github/v/release/ChenShuo2004/sig-dream?style=for-the-badge&color=bc7650)](https://github.com/ChenShuo2004/sig-dream/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-f3dfc7?style=for-the-badge&labelColor=f3dfc7&color=bc7650)](LICENSE)
 
-🚀 **[从部署一套团队画布开始](#安装)**
+🚀 **[从部署一套团队画布开始](#安装)** · 💻 **[下载桌面客户端](#桌面客户端)**
 
 # sig-dream · sig画布
 
@@ -19,7 +23,7 @@ flowchart LR
     B -->|任务队列| C
     C -->|缩略图 · H.264 预览 · 入库| D[(NAS 存储)]
     A -->|歌声转换 / 改词翻唱| E[GPU 服务<br/>Seed-VC · SVS]
-    D[(NAS 存储)] -.->|桌面素材助手| F[Electron 客户端]
+    D[(NAS 存储)] -.->|素材拖拽| F[桌面客户端<br/>Win · macOS · Linux]
 ```
 
 | 工作区 | 入口 | 适合做什么 |
@@ -126,6 +130,36 @@ Copy-Item ecs-api-url.txt.example ecs-api-url.txt             # 填入后端地�
 
 画布仅对「素材管理员」和「超级管理员」角色开放；其他成员可在系统设置中按权限点授权。
 
+## 桌面客户端
+
+桌面客户端提供 Windows、macOS 和 Linux 三个版本，可以登录团队服务器浏览素材库与集合、打开画布，并把素材直接拖进剪辑软件。在 [Releases](https://github.com/ChenShuo2004/sig-dream/releases/latest) 下载对应安装包：
+
+| 系统 | 安装包 | 说明 |
+| --- | --- | --- |
+| **Windows 10/11** | `sig-dream-<版本>-win-x64-setup.exe` | 安装版；另有 `.zip` 免安装版 |
+| **macOS（Apple 芯片）** | `sig-dream-<版本>-mac-arm64.dmg` | M1 / M2 / M3 / M4 等 |
+| **macOS（Intel）** | `sig-dream-<版本>-mac-x64.dmg` | Intel 处理器的 Mac |
+| **Linux** | `sig-dream-<版本>-linux-x86_64.AppImage` | 通用格式；Debian / Ubuntu 也可用 `.deb` |
+
+首次打开时，在登录页的 **服务器地址** 中填写团队部署的网站地址（与浏览器访问的地址相同），保存后再登录。地址只保存在本机，安装包本身不包含任何服务器地址或凭据。
+
+安装包暂未做代码签名，首次打开时系统可能会拦截：
+
+- **Windows**：出现「Windows 已保护你的电脑」时，点 **更多信息 → 仍要运行**。
+- **macOS**：提示「已损坏」或「无法验证开发者」时，把应用拖进「应用程序」后执行一次：
+
+  ```bash
+  xattr -cr /Applications/sig-dream.app
+  ```
+
+- **Linux**：AppImage 需要先赋予执行权限：
+
+  ```bash
+  chmod +x sig-dream-*-linux-x86_64.AppImage
+  ```
+
+客户端会自动检查 GitHub Releases 上的新版本，也可以在设置页手动检查更新。从源码运行或打包请见 [desktop-client/README.md](desktop-client/README.md)。
+
 ## 核心能力
 
 | 能力 | 说明 |
@@ -146,7 +180,7 @@ Copy-Item ecs-api-url.txt.example ecs-api-url.txt             # 填入后端地�
 | 缩略图与预览 | 文件机异步生成缩略图与 H.264 预览 MP4，服务器不承担转码压力。 |
 | 角色与权限 | 角色-权限点矩阵统一管理，所有写操作记录操作日志，可按用户审计。 |
 | 新手教程 | 页面内交互式引导，记录每位成员的教程进度。 |
-| 桌面素材助手 | Electron 客户端，映射 NAS 盘符，支持 GitHub Releases 自动更新。 |
+| 桌面客户端 | Windows / macOS / Linux 三端，素材可直接拖进剪辑软件，自动从 GitHub Releases 更新。 |
 
 ## 使用建议
 
@@ -181,6 +215,9 @@ Copy-Item ecs-api-url.txt.example ecs-api-url.txt             # 填入后端地�
 # 前端工作台：生产构建
 (cd frontend && npm run build)
 
+# 桌面客户端：界面构建（三端安装包由 GitHub Actions 构建）
+(cd desktop-client && npm run build)
+
 # 文件机：缩略图与人物识别流水线测试
 (cd nas-client && python test_studio_media.py && python test_person_pipeline.py)
 ```
@@ -193,7 +230,7 @@ Copy-Item ecs-api-url.txt.example ecs-api-url.txt             # 填入后端地�
 ├── backend/              # FastAPI 后端：鉴权、素材、标签、集合、画布与工作室接口
 ├── frontend/             # Next.js 工作台：素材库、系统设置、教程，内嵌 sig画布
 ├── canvas-app/           # sig画布（基于 infinite-canvas 二次开发的 Vite 应用）
-├── desktop-client/       # Electron 桌面素材助手
+├── desktop-client/       # Electron 桌面客户端（Windows / macOS / Linux）
 ├── nas-client/           # 文件机：下载服务、任务 Worker、缩略图与预览转码
 ├── seed-vc-service/      # Seed-VC 歌声转换服务
 ├── svs-service/          # SVS 改词翻唱导唱服务

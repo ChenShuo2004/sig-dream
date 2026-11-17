@@ -35,28 +35,23 @@ function loadUpdaterGithubToken() {
 function formatUpdateError(err) {
   const msg = String(err?.message || err);
   if (msg.includes("404") && msg.includes("releases")) {
-    return (
-      "检查更新失败（404）：私有仓库需读取 GitHub Releases。" +
-      "请用含 github-updater-token.txt 的安装包（打包时写入 GH_TOKEN），" +
-      "并确认已在 GitHub 发布新版本 Release。"
-    );
+    return "检查更新失败（404）：请确认 GitHub 上已发布新版本 Release。";
   }
   return msg;
 }
 
-/** private repo: electron-updater needs token (see providerFactory.js) */
+/**
+ * Public repo: no token needed. A token file is only used by self-hosted builds
+ * that point the updater at a private fork; never ship one in public installers.
+ */
 function configureGithubUpdateFeed() {
   if (!autoUpdater) return { ok: false, reason: "updater_module_missing" };
   const token = loadUpdaterGithubToken();
-  if (!token) {
-    return { ok: false, reason: "no_updater_token" };
-  }
   autoUpdater.setFeedURL({
     provider: "github",
     owner: GITHUB_OWNER,
     repo: GITHUB_REPO,
-    private: true,
-    token,
+    ...(token ? { private: true, token } : {}),
   });
   return { ok: true };
 }
@@ -135,13 +130,6 @@ function setupAutoUpdater(getMainWindow) {
     if (!autoUpdater) {
       return { ok: false, message: "自动更新模块未打包，请安装新版本安装包" };
     }
-    if (!loadUpdaterGithubToken()) {
-      return {
-        ok: false,
-        message:
-          "未配置 GitHub 更新凭据。请使用打包机重新发布安装包（打包时 GH_TOKEN 会写入 github-updater-token.txt），或联系管理员。",
-      };
-    }
     configureGithubUpdateFeed();
     try {
       const r = await autoUpdater.checkForUpdates();
@@ -172,7 +160,7 @@ function setupAutoUpdater(getMainWindow) {
   });
 
   setTimeout(() => {
-    if (!app.isPackaged || !autoUpdater || !loadUpdaterGithubToken()) return;
+    if (!app.isPackaged || !autoUpdater) return;
     configureGithubUpdateFeed();
     void autoUpdater.checkForUpdates().catch(() => {});
   }, 8000);

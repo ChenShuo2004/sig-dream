@@ -3,6 +3,7 @@ const { contextBridge, ipcRenderer } = require("electron");
 contextBridge.exposeInMainWorld("desktopClient", {
   platform: process.platform,
   getBootConfig: () => ipcRenderer.invoke("lcp:get-boot-config"),
+  saveServerOrigin: (origin) => ipcRenderer.invoke("lcp:save-server-origin", origin),
   probeHttpGet: (url, timeoutMs) => ipcRenderer.invoke("lcp:probe-http-get", { url, timeoutMs }),
   getDesktopLocalSettings: () => ipcRenderer.invoke("lcp:get-desktop-local-settings"),
   saveDesktopLocalSettings: (patch) => ipcRenderer.invoke("lcp:save-desktop-local-settings", patch),

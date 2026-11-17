@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { fetchWithBase, getApiBaseUrl } from "@/lib/apiClient";
 import { saveAuthSession } from "@/lib/auth";
-import { usesNextApiProxyMode } from "@/lib/bootConfig";
+import { getBootServerOrigin, usesNextApiProxyMode } from "@/lib/bootConfig";
 
 type LoginResponse = { access_token: string; role: string };
 type MeResponse = { username: string; role: string; permissions: string[] };
@@ -18,6 +18,27 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
+  const [serverOrigin, setServerOrigin] = useState(() => getBootServerOrigin());
+  const [serverBusy, setServerBusy] = useState(false);
+  const [serverMessage, setServerMessage] = useState("");
+  const canSaveServer = typeof window !== "undefined" && Boolean(window.desktopClient?.saveServerOrigin);
+
+  async function onSaveServer(e: FormEvent) {
+    e.preventDefault();
+    if (!window.desktopClient?.saveServerOrigin) return;
+    setServerBusy(true);
+    setServerMessage("");
+    try {
+      const r = await window.desktopClient.saveServerOrigin(serverOrigin);
+      if (!r.ok) {
+        setServerMessage(r.message || "保存失败");
+        return;
+      }
+      window.location.reload();
+    } finally {
+      setServerBusy(false);
+    }
+  }
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -122,6 +143,30 @@ export default function LoginPage() {
             尚未配置 API。请查看下方「本机连接与缓存」中的说明，或复制示例文件后重启应用。
           </p>
         )}
+        {canSaveServer ? (
+          <form className="mt-4 space-y-2" onSubmit={onSaveServer}>
+            <label className="block text-xs font-medium text-slate-300">服务器地址</label>
+            <div className="flex gap-2">
+              <input
+                className="min-w-0 flex-1 rounded-lg border border-slate-600 px-3 py-2 text-sm"
+                placeholder="https://your-team.example.com"
+                value={serverOrigin}
+                onChange={(e) => setServerOrigin(e.target.value)}
+                inputMode="url"
+                autoComplete="url"
+              />
+              <button
+                type="submit"
+                disabled={serverBusy}
+                className="shrink-0 rounded-lg border border-white/15 px-3 py-2 text-sm text-slate-200 hover:bg-white/5 disabled:opacity-50"
+              >
+                {serverBusy ? "保存中…" : "保存"}
+              </button>
+            </div>
+            <p className="text-xs text-slate-500">填写团队部署的网站地址（与浏览器访问的地址相同）；留空则使用本机默认 http://127.0.0.1:8000。</p>
+            {serverMessage ? <p className="text-xs text-amber-200">{serverMessage}</p> : null}
+          </form>
+        ) : null}
         <form className="mt-5 space-y-4" onSubmit={onSubmit}>
           <div>
             <label className="mb-1 block text-xs font-medium text-slate-300">用户名</label>

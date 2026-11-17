@@ -7,6 +7,8 @@ export type LcpBootPayload = {
   settingsFileMissing?: boolean;
   /** 与 Web 一致：请求发往 Next 的 /api-proxy */
   usesNextApiProxy?: boolean;
+  /** 登录页保存的服务器地址 */
+  serverOrigin?: string;
 };
 
 let resolved: LcpBootPayload | null = null;
@@ -30,6 +32,7 @@ export function resolveBootConfig(): Promise<LcpBootPayload> {
     let jsonPath: string | undefined;
     let settingsFileMissing: boolean | undefined;
     let usesNextApiProxy: boolean | undefined;
+    let serverOrigin = "";
 
     if (typeof window !== "undefined" && window.desktopClient?.getBootConfig) {
       try {
@@ -39,6 +42,7 @@ export function resolveBootConfig(): Promise<LcpBootPayload> {
         jsonPath = r?.jsonPath;
         settingsFileMissing = r?.settingsFileMissing;
         usesNextApiProxy = r?.usesNextApiProxy;
+        serverOrigin = r?.serverOrigin ?? "";
       } catch {
         /* ignore */
       }
@@ -64,6 +68,7 @@ export function resolveBootConfig(): Promise<LcpBootPayload> {
       jsonPath,
       settingsFileMissing,
       usesNextApiProxy: Boolean(usesNextApiProxy),
+      serverOrigin,
     };
     return resolved;
   })();
@@ -82,4 +87,8 @@ export function getBootCacheRoot(): string {
 
 export function usesNextApiProxyMode(): boolean {
   return Boolean(resolved?.usesNextApiProxy);
+}
+
+export function getBootServerOrigin(): string {
+  return resolved?.serverOrigin ?? "";
 }

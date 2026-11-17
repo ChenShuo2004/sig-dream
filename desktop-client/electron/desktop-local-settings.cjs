@@ -4,9 +4,12 @@ const path = require("path");
 /** 局域网多机通用：优先 UNC，避免仅某台机器存在的 Z: 盘符 */
 const DEFAULT_MATERIAL_ASSETS_ROOT_WINDOWS = "\\\\192.168.1.2\\nas-file\\material-assets";
 const DEFAULT_MATERIAL_ASSETS_ROOT_MACOS = "/Volumes/material-assets";
+const DEFAULT_MATERIAL_ASSETS_ROOT_LINUX = "/mnt/material-assets";
 
 function defaultMaterialAssetsRootForPlatform(platform) {
-  return platform === "darwin" ? DEFAULT_MATERIAL_ASSETS_ROOT_MACOS : DEFAULT_MATERIAL_ASSETS_ROOT_WINDOWS;
+  if (platform === "darwin") return DEFAULT_MATERIAL_ASSETS_ROOT_MACOS;
+  if (platform === "linux") return DEFAULT_MATERIAL_ASSETS_ROOT_LINUX;
+  return DEFAULT_MATERIAL_ASSETS_ROOT_WINDOWS;
 }
 
 function pickRootFromJson(o) {
@@ -87,6 +90,7 @@ module.exports = {
   defaultMaterialAssetsRootForPlatform,
   DEFAULT_MATERIAL_ASSETS_ROOT_WINDOWS,
   DEFAULT_MATERIAL_ASSETS_ROOT_MACOS,
+  DEFAULT_MATERIAL_ASSETS_ROOT_LINUX,
   /** @deprecated */
   readNasMountRoot: readMaterialAssetsRootFromBootFile,
   readNasMountFromUserStore: readMaterialAssetsRootFromUserStore,
