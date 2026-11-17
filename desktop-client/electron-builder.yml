@@ -1,0 +1,79 @@
+# electron-builder 配置：与 package.json 中 build 字段二选一；此处独立文件便于维护
+appId: com.lightcontent.material-assistant
+productName: 桌面素材助手
+copyright: Copyright © Light Content Workflow Platform
+
+directories:
+  output: release
+  buildResources: build
+
+files:
+  - dist/**/*
+  - electron/**/*
+  - package.json
+  - "!**/*.map"
+
+extraResources:
+  - from: local.settings.example.json
+    to: local.settings.example.json
+  - from: build/local.settings.json
+    to: local.settings.json
+  - from: build/github-updater-token.txt
+    to: github-updater-token.txt
+  - from: build/nas-smb-credentials.json
+    to: nas-smb-credentials.json
+  - from: ensure-nas-smb.ps1
+    to: ensure-nas-smb.ps1
+  - from: resolve-nas-smb.ps1
+    to: resolve-nas-smb.ps1
+  - from: _nas-share-map.ps1
+    to: _nas-share-map.ps1
+  - from: 映射NAS-Z盘.example.bat
+    to: 映射NAS-Z盘.example.bat
+
+asar: true
+
+win:
+  # 内网/开发机无符号链接权限时，禁用可执行文件签名编辑（避免 winCodeSign 解压失败）
+  signAndEditExecutable: false
+  target:
+    - target: nsis
+      arch:
+        - x64
+    - target: zip
+      arch:
+        - x64
+  artifactName: ${productName}-${version}-win-${arch}.${ext}
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  shortcutName: ${productName}
+
+mac:
+  target:
+    - target: dmg
+      arch:
+        - x64
+        - arm64
+    - target: zip
+      arch:
+        - x64
+        - arm64
+  category: public.app-category.productivity
+  artifactName: ${productName}-${version}-mac-${arch}.${ext}
+  hardenedRuntime: true
+  gatekeeperAssess: false
+
+dmg:
+  title: ${productName} ${version}
+
+# GitHub Releases 自动更新（打包时加 --publish always 且设置 GITHUB_TOKEN）
+publish:
+  provider: github
+  owner: ChenShuo2004
+  repo: sig-dream
+  releaseType: release
+  private: true

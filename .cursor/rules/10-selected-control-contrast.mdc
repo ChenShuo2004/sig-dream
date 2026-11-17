@@ -1,0 +1,27 @@
+---
+description: Light/white UI surfaces must keep dark, readable text (esp. DarkScope)
+alwaysApply: true
+---
+
+# 浅底控件可读性规则（禁止白底看不清字）
+
+暗色工作室（`DarkScope` / Ant Design dark）里，**白底 / 浅底控件禁止只靠 Tailwind `text-*` 设字色**——父级常强制 `-webkit-text-fill-color` / `color` 为浅色，类名会被盖掉，出现「白底白字」。
+
+## 强制要求
+
+1. **白底 / 近白底**（`bg-white`、`bg-neutral-100`、主 CTA 白胶囊等）上的文字与图标必须是**深色**，对比度可读。
+2. 在 `DarkScope` 或同类暗色壳内，白底文字必须用 **`inkOnWhiteStyle`**（`color` + `WebkitTextFillColor`），或直接用 **`DarkButton tone="primary"`** / 已带该 style 的选中控件。
+3. **禁止**仅写 `className="... bg-white text-neutral-900"` / `text-black` 就当作完成——在暗色主题下不够。
+4. 选中态若用浅色高亮：必须同步加深文字与边框；默认仍优先「加深背景」表达选中（见下）。
+5. 禁用态白底按钮：用 `disabledPillStyle` 或保持深色字 + 明确禁用样式，不要靠「发白字」表达禁用。
+
+## 选中态（selected/active）
+
+- 默认用**颜色加深**表达选中，不使用「发白/浅灰导致文字发淡」。
+- 选中态文本颜色需**显式**设置（含 `inkOnWhiteStyle` 若背景为白）。
+- 列表项、卡片、按钮、标签、步骤 pill 统一遵循。
+
+## 实现参照
+
+- `canvas-app/web/src/studios/components/studio-dark-ui.tsx`：`inkOnWhiteStyle`、`DarkButton`、`disabledPillStyle`
+- 新建白底按钮前自检：有无 `style={inkOnWhiteStyle}` 或等价 inline fill。

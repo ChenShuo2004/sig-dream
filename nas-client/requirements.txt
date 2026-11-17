@@ -1,0 +1,6 @@
+requests
+numpy
+opencv-python-headless<4.11
+onnxruntime
+demucs
+soundfile

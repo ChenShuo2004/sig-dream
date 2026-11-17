@@ -1,0 +1,35 @@
+---
+description: 轻量内容流程平台 — 新对话必读上下文与防误改规则
+alwaysApply: true
+---
+
+# 项目上下文（交接约束）
+
+以下规则来自当前仓库真实设计与实现约束；**修改前后端逻辑前必须自检**。
+
+## 业务语义
+
+- **素材集合**是**引用关系**（`asset_collection_items` → `materials` / `material_files`），**不是**磁盘目录或素材物理树；**分组** `asset_collection_groups` 仅作权限与导航组织，勿把 NAS 路径树语义当成「集合文件夹」。
+- **素材库域**（`asset_libraries`：`auto` 汽车 / `personal_video` 个人视频）隔离列表、标签、未整理、上传、集合；请求带 **`X-Asset-Library`** 或 **`?library=`**，**禁止默认跨库**。个人视频用一二级分类树 + `keywords` + `copy_fit` + 适用主题，**不要**把心理字段塞进汽车标签十类，**不要**用集合或存储池当第二套库。
+- **已实现**：后端 **`/collections/*`**、表 **`asset_collections` / `asset_collection_items` / …**、前端 **`/collections`**；与工作流节点、导出等深度能力以产品为准另列。
+- **未整理素材**通过 **本库「未整理」标签** 或 **无任何标签** 判断（见 `list_unorganized_materials`），**不**通过 `material.status` 表示未整理。
+- 未整理页**打标签 / 应用标签**后：实现为**移除全部旧标签行并写入所选标签**（等价移除「未整理」），**不**通过把 `status` 改为「可用」来表达完成整理。
+- **标签分类**动态来自**当前库**的标签管理（如 `GET /tags/categories`），**禁止**把汽车十类写成全平台唯一真理源。
+- 后端 **`POST /tags/merge`** 在前端标签页称**「标签替换」**（UI 文案「替换成」）；**不要**与未整理 **`PATCH .../unorganized/batch-tags`** 混淆。
+
+## 传输与缩略图
+
+- **大文件下载**：优先 **LAN 文件机**，再 **WAN 文件机**；失败则 **`prepare_download`** + **`download-cache`**（ECS 缓存兜底）。顺序与 **`recommended_order`**（`lan` / `wan` / `ecs_fallback`）一致。
+- **ECS** 主要负责**鉴权、票据、元数据、日志与任务编排**，**不作为**大文件主路径搬运。
+- **缩略图**与 **H.264 预览 MP4**（**`preview-video-url`**）由 **NAS 文件机上的 Worker** 消费 **`generate_derivatives`** 等异步队列生成（ffmpeg），**不是** ECS 同步生成主路径；**`POST .../regenerate-derivatives`** 为 **`asset.edit_all`** 下人工重排队。
+
+## 权限与审计
+
+- **所有写操作应**记录**操作日志**（`record_operation_log`）；若某路由尚未记录，属**缺口**应补齐，**不要**默认「已有全局中间件自动记库」。
+- **权限**统一走**系统设置**中的角色与权限点（`ensure_permission` / `get_user_permissions`），**不在**各业务模块写死角色名称逻辑（超级管理员集中校验除外）。
+
+## 文档
+
+- 更完整的模块、API、表结构与流程见仓库 **`docs/PROJECT_CONTEXT/`** 下 `00`～`09` 文档。
+- 后续封装 **Windows / macOS 桌面客户端** 的预备说明见 **`docs/PROJECT_CONTEXT/2026年5月12日桌面应用封装技术说明.md`**。
+- **`desktop-client`**：产品界面与功能以 **`frontend`** 为基准对齐（路由、顶栏、各业务页）；细则见 **`.cursor/rules/desktop_client_integration.mdc`**。

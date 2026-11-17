@@ -1,0 +1,11 @@
+# INSTRUCTIONS - read before you save as nas-client-token.txt
+#
+# The file nas-client-token.txt must contain ONLY the token value on its own line.
+# Do NOT put the token inside a # comment line - comments are skipped and the next line is used.
+# Wrong:  # my token is abc123...   (worker would use "REPLACE..." placeholder if left below)
+# Right:  one line, no quotes, no spaces, matching ECS backend/.env NAS_CLIENT_TOKEN:
+#
+# REPLACE_WITH_SAME_TOKEN_AS_ECS
+#
+# Copy a real token into nas-client-token.txt as the ONLY line, OR as first non-# line.
+# Never commit nas-client-token.txt (gitignored).

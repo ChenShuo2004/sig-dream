@@ -1,0 +1,2 @@
+# Kept for reference; prefer requirements-infer.txt via 一键启动.bat
+-r requirements-infer.txt
