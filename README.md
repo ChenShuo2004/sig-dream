@@ -149,7 +149,7 @@ npm run dev
 
 打开 [http://127.0.0.1:3000/](http://127.0.0.1:3000/)。前端会通过同源的 `/api-proxy` 转发到后端，默认后端地址为 `http://127.0.0.1:8000`；如需修改，参考 `frontend/.env.local.example` 设置 `NEXT_PUBLIC_API_BASE_URL`。
 
-生产环境使用 `npm run build && npm run start`，再用 Nginx 反向代理到 `3000` 端口。完整的服务器部署步骤见 [后端部署指南](后端部署指南_V1_Ubuntu22.04.md) 与 [部署与环境变量](docs/PROJECT_CONTEXT/07_部署与环境变量.md)。
+生产环境使用 `npm run build && npm run start`，再用 Nginx 反向代理到 `3000` 端口。完整的服务器部署步骤见 [后端部署指南](docs/后端部署指南_V1_Ubuntu22.04.md) 与 [部署与环境变量](docs/PROJECT_CONTEXT/07_部署与环境变量.md)。
 
 ### 4. 文件机（可选）
 
@@ -286,12 +286,13 @@ Copy-Item ecs-api-url.txt.example ecs-api-url.txt             # 填入后端地�
 ├── nas-client/           # 文件机：下载服务、任务 Worker、缩略图与预览转码
 ├── seed-vc-service/      # Seed-VC 歌声转换服务
 ├── svs-service/          # SVS 改词翻唱导唱服务
+├── docs/                 # 开发历程、部署指南、标签说明；archive/ 为过程文档归档
 ├── docs/PROJECT_CONTEXT/ # 架构、模块、数据库、API 与部署文档
 ├── scripts/ · tools/     # 数据库备份、预览回填等运维脚本
 └── deploy.sh             # 服务器端一键发布脚本
 ```
 
-想深入了解实现，建议从 [项目总览](docs/PROJECT_CONTEXT/00_项目总览.md) 和 [系统架构](docs/PROJECT_CONTEXT/01_系统架构.md) 开始阅读。
+想了解项目是怎么一步步做出来的，可以读 [开发历程](docs/开发历程.md)；想深入了解实现，建议从 [项目总览](docs/PROJECT_CONTEXT/00_项目总览.md) 和 [系统架构](docs/PROJECT_CONTEXT/01_系统架构.md) 开始阅读。
 
 ## 致谢
 

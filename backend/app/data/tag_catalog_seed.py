@@ -1,4 +1,4 @@
-"""V1 标签目录种子数据，与仓库根目录《标签说明.md》对齐；供 Alembic 迁移与文档对照。"""
+"""V1 标签目录种子数据，与仓库 docs/标签说明.md 对齐；供 Alembic 迁移与文档对照。"""
 
 _TAG_BLOCKS: dict[str, list[tuple[str, str]]] = {
     "品牌": [],

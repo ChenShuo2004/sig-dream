@@ -69,7 +69,7 @@ REM set "BACKUP_OUTPUT_DIR=D:\db-backups"
 REM Integrated DB backup (deploy-oneclick.ps1): pg_dump+scp BEFORE remote deploy.sh; set 0 to skip
 REM set "DEPLOY_POST_RELEASE_DB_BACKUP=0"
 
-REM DB backup pull (file PC): pull-ecs-database-backup.bat uses SERVER_* , DEPLOY_SSH_* , BACKUP_OUTPUT_DIR. Doc: 2026年5月4日ECS数据库备份到文件机.md
+REM DB backup pull (file PC): pull-ecs-database-backup.bat uses SERVER_* , DEPLOY_SSH_* , BACKUP_OUTPUT_DIR. Doc: docs/archive/2026年5月4日ECS数据库备份到文件机.md
 REM Optional if ECS uses non-default dump path: set "ECS_BACKUP_REMOTE_FILE=/root/light-content-db-backups/light-content-latest.sql"
 REM ECS cron: scripts/ecs-backup-db-local.sh
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 服务器一键发布：与《2026年4月26日更新发布流程》一致，并针对小内存 ECS 优化 git 拉取。
+# 服务器一键发布：与《docs/archive/2026年4月26日更新发布流程》一致，并针对小内存 ECS 优化 git 拉取。
 set -euo pipefail
 # 保留 SSH 非登录会话里已有的 PATH（如 /opt/...），避免「只写死标准路径」导致找不到 python3
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH"
@@ -218,7 +218,7 @@ if [ "$need_local_pg" -eq 1 ]; then
       else
         echo "[error] DATABASE_URL 指向本机 Postgres，但 127.0.0.1:5432 / localhost:5432 无监听。"
         echo "  新 ECS 可选：在本机一键发布环境变量中设置 DEPLOY_BOOTSTRAP_POSTGRES=1 后重试，将自动 apt 安装 PostgreSQL 并建库 light_content。"
-        echo "  或手动安装：仓库文档 2026年5月3日新ECS部署PostgreSQL与.env.md；或把 backend/.env 的 DATABASE_URL 改为 RDS/外库。"
+        echo "  或手动安装：仓库文档 docs/archive/2026年5月3日新ECS部署PostgreSQL与.env.md；或把 backend/.env 的 DATABASE_URL 改为 RDS/外库。"
         exit 1
       fi
     fi

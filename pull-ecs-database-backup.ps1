@@ -1,6 +1,6 @@
 # Run on file PC (or any machine with scp): pull ECS fixed-path DB dump to a local folder.
 # release-new-version.bat / deploy-oneclick.ps1 runs pg_dump on ECS + scp before remote deploy.sh by default; use this script for an extra pull without releasing.
-# ECS should have run scripts/ecs-backup-db-local.sh at least once (cron or last release). See 2026年5月4日ECS数据库备份到文件机.md.
+# ECS should have run scripts/ecs-backup-db-local.sh at least once (cron or last release). See docs/archive/2026年5月4日ECS数据库备份到文件机.md.
 # Reuses SERVER_USER, SERVER_HOST, DEPLOY_SSH_*, BACKUP_OUTPUT_DIR from local-env.bat like backup-ecs-database.ps1.
 
 param(

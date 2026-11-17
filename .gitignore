@@ -54,3 +54,6 @@ tmp_check_*.py
 clash*.yaml
 .tmp-*.json
 *.lnk
+
+# local runtime data created by the backend (canvas LAN cache etc.)
+/backend/data/

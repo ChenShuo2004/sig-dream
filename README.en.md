@@ -153,7 +153,7 @@ npm run dev
 
 Open [http://127.0.0.1:3000/](http://127.0.0.1:3000/). The frontend forwards API calls to the backend through the same-origin `/api-proxy` path; the default backend is `http://127.0.0.1:8000`. To change it, set `NEXT_PUBLIC_API_BASE_URL` as shown in `frontend/.env.local.example`.
 
-For production, run `npm run build && npm run start` and put Nginx in front of port `3000`. Full server deployment steps (in Chinese) are in the [backend deployment guide](后端部署指南_V1_Ubuntu22.04.md) and [deployment & environment variables](docs/PROJECT_CONTEXT/07_部署与环境变量.md).
+For production, run `npm run build && npm run start` and put Nginx in front of port `3000`. Full server deployment steps (in Chinese) are in the [backend deployment guide](docs/后端部署指南_V1_Ubuntu22.04.md) and [deployment & environment variables](docs/PROJECT_CONTEXT/07_部署与环境变量.md).
 
 ### 4. File machine (optional)
 
@@ -290,12 +290,13 @@ For database schema changes, add a new Alembic migration rather than editing exi
 ├── nas-client/           # File machine: download server, job worker, thumbnails and preview transcoding
 ├── seed-vc-service/      # Seed-VC singing voice conversion service
 ├── svs-service/          # SVS lyric-rewrite guide vocal service
+├── docs/                 # Development history, deployment guide, tag guide; archive/ holds the original stage docs
 ├── docs/PROJECT_CONTEXT/ # Architecture, modules, database, API and deployment docs (Chinese)
 ├── scripts/ · tools/     # Database backup, preview backfill and other ops scripts
 └── deploy.sh             # One-step server release script
 ```
 
-To dig into the implementation, start with the [project overview](docs/PROJECT_CONTEXT/00_项目总览.md) and [system architecture](docs/PROJECT_CONTEXT/01_系统架构.md) (in Chinese).
+For how the project came together step by step, read the [development history](docs/开发历程.md) (in Chinese). To dig into the implementation, start with the [project overview](docs/PROJECT_CONTEXT/00_项目总览.md) and [system architecture](docs/PROJECT_CONTEXT/01_系统架构.md) (in Chinese).
 
 ## Acknowledgements
 
