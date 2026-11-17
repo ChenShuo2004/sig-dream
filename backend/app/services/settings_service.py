@@ -187,6 +187,8 @@ def ensure_settings_seeded(db: Session) -> None:
             key = (rid, str(pid))
             if key not in existing_pairs:
                 db.add(RolePermission(id=uuid.uuid4(), role_id=rid, permission_id=pid))
+                # Track it so the backfills below don't insert the same pair again on a fresh database.
+                existing_pairs.add(key)
 
     # Backfill: ensure material_admin always has tag.delete (for delete/permanent-delete tag operations).
     material_admin_rid = role_code_to_id.get("material_admin")

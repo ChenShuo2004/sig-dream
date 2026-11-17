@@ -18,6 +18,8 @@ sig-dream is a self-hosted workspace for content teams. The browser is where you
 
 > The UI is currently in Chinese. Contributions for other UI languages are welcome.
 
+<img src="docs/screenshots/canvas-board.png" alt="sig Canvas: one creative brief wired to four style explorations" width="1000">
+
 ```mermaid
 flowchart LR
     A[Browser<br/>Next.js workspace + sig Canvas] -->|Auth / metadata / tickets| B[FastAPI backend<br/>PostgreSQL]
@@ -34,6 +36,58 @@ flowchart LR
 | **Studios** | Script / Replication / Replacement | Go from script to storyboard, recreate a reference video shot by shot, swap people and objects in footage. |
 | **Voice & songs** | Voice / Song / Cover assistant | Record or upload audio for voice-over, split vocals from accompaniment, rewrite lyrics and sing them in a chosen voice. |
 | **Material library** | `/materials` | Upload, tag, organize, search and download team assets, isolated per library domain. |
+
+
+## Screenshots
+
+Captured from a fresh local demo deployment. The canvas images are style previews that ship with the repository; no real business data or keys are shown.
+
+### Select an image to edit it
+
+Select any node, describe the change below, pick a model and image count, and generate — results come back as new nodes linked to the source.
+
+<img src="docs/screenshots/canvas-edit.png" alt="Select an image to edit it" width="1000">
+
+### Prompt library
+
+1,700+ open-source prompts, filterable by source and tag; copy one or add it to your assets for reuse on the canvas.
+
+<img src="docs/screenshots/prompt-library.png" alt="Prompt library" width="1000">
+
+<details>
+<summary>Expand: script studio, voice cloning, cover assistant and the team platform</summary>
+
+### Script studio
+
+Paste or upload a script, lock in a visual style, then break it into characters, scenes and storyboard frames.
+
+<img src="docs/screenshots/studio-script.png" alt="Script studio" width="1000">
+
+### Voice cloning
+
+Upload a reference voice and type text to generate a voice-over; steer emotion by reference audio, emotion vectors or a text description.
+
+<img src="docs/screenshots/voice-clone.png" alt="Voice cloning" width="1000">
+
+### Cover assistant
+
+Upload a track to split vocals and accompaniment, rewrite lyrics line by line in a chosen voice, and A/B against the original.
+
+<img src="docs/screenshots/cover-assistant.png" alt="Cover assistant" width="1000">
+
+### Team platform home
+
+Material center, tags & logs, toolbox and administration in one workspace.
+
+<img src="docs/screenshots/platform-home.png" alt="Team platform home" width="1000">
+
+### System settings
+
+Users, groups, roles and permission points in one place; every write is recorded in the operation log.
+
+<img src="docs/screenshots/system-settings.png" alt="System settings" width="1000">
+
+</details>
 
 ## Installation
 

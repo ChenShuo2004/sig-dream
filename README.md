@@ -1,20 +1,20 @@
-> **English:** A self-hosted AI creation canvas and asset workspace for content teams — image, video, voice and song generation on an infinite canvas, backed by a shared material library with LAN-first file transfer.
-
 [![中文](https://img.shields.io/badge/%E4%B8%AD%E6%96%87-8d4d2e?style=for-the-badge)](README.md)
-[![English](https://img.shields.io/badge/English-f3dfc7?style=for-the-badge&labelColor=f3dfc7&color=bc7650)](README.en.md)
+[![English](https://img.shields.io/badge/English-1f6feb?style=for-the-badge&logo=readme&logoColor=white)](README.en.md)
 [![日本語](https://img.shields.io/badge/%E6%97%A5%E6%9C%AC%E8%AA%9E-f3dfc7?style=for-the-badge&labelColor=f3dfc7&color=bc7650)](README.ja.md)
 [![한국어](https://img.shields.io/badge/%ED%95%9C%EA%B5%AD%EC%96%B4-f3dfc7?style=for-the-badge&labelColor=f3dfc7&color=bc7650)](README.ko.md)
 [![关注作者 X](https://img.shields.io/badge/%E5%85%B3%E6%B3%A8%E4%BD%9C%E8%80%85-%40ChenshuoAI-bc7650?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ChenshuoAI)
 [![Release](https://img.shields.io/github/v/release/ChenShuo2004/sig-dream?style=for-the-badge&color=bc7650)](https://github.com/ChenShuo2004/sig-dream/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-f3dfc7?style=for-the-badge&labelColor=f3dfc7&color=bc7650)](LICENSE)
 
-🚀 **[从部署一套团队画布开始](#安装)** · 💻 **[下载桌面客户端](#桌面客户端)**
+🚀 **[从部署一套团队画布开始](#安装)** · 💻 **[下载桌面客户端](#桌面客户端)** · 🌐 **[English](README.en.md)**
 
 # sig-dream · sig画布
 
 **把团队的素材、模型和创意，放进同一张画布。** 在无限画布上串起 AI 生图、参考图编辑、视频生成、配音与翻唱；画布用到的每一份素材，都来自团队共用、可检索、有权限管理的素材库。
 
 这是一个可自行部署的内容团队工作台：浏览器负责创作，FastAPI 后端负责鉴权、元数据和任务编排，局域网里的文件机负责大文件存储、缩略图与预览转码。素材原件不经云端中转，团队在办公室内以局域网速度上传和下载。
+
+<img src="docs/screenshots/canvas-board.png" alt="sig画布：用一段创作提示连接四张风格探索图" width="1000">
 
 ```mermaid
 flowchart LR
@@ -32,6 +32,58 @@ flowchart LR
 | **工作室** | 剧本 / 复刻 / 替换 | 从剧本到分镜、按参考视频逐段复刻、替换画面中的人物与物体。 |
 | **声音与歌曲** | 配音 / 歌曲 / 翻唱助手 | 录制或上传音频生成配音，分离人声伴奏，改词翻唱并换成指定音色。 |
 | **素材库** | `/materials` | 上传、打标签、整理、检索和下载团队素材，按素材库域隔离。 |
+
+
+## 界面预览
+
+截图来自本地全新部署的演示环境：画布中的图片是仓库自带的风格预览图，未包含任何真实业务数据或密钥。
+
+### 选中图片即可改图
+
+选中任意节点，在下方输入修改要求，选择模型与张数后直接生成；生成结果会作为新节点连回原图。
+
+<img src="docs/screenshots/canvas-edit.png" alt="选中图片即可改图" width="1000">
+
+### 提示词库
+
+内置 1700+ 条开源提示词，按来源与标签筛选，一键复制或加入资产后在画布中复用。
+
+<img src="docs/screenshots/prompt-library.png" alt="提示词库" width="1000">
+
+<details>
+<summary>展开查看：剧本工作室、声音克隆、翻唱助手与团队平台</summary>
+
+### 剧本工作室
+
+粘贴或上传剧本，统一视觉风格后拆分角色、场景与分镜。
+
+<img src="docs/screenshots/studio-script.png" alt="剧本工作室" width="1000">
+
+### 声音克隆
+
+上传参考音色，输入文本即可生成配音，可按参考音频、情感向量或文字描述控制情感。
+
+<img src="docs/screenshots/voice-clone.png" alt="声音克隆" width="1000">
+
+### 翻唱助手
+
+上传原曲后分离人声与伴奏，逐句改词并换成指定音色，与原声对比试听。
+
+<img src="docs/screenshots/cover-assistant.png" alt="翻唱助手" width="1000">
+
+### 团队平台首页
+
+素材中心、标签与日志、工具箱和系统管理集中在一个工作台。
+
+<img src="docs/screenshots/platform-home.png" alt="团队平台首页" width="1000">
+
+### 系统设置
+
+用户、分组、角色与权限点统一管理，所有写操作都会记录操作日志。
+
+<img src="docs/screenshots/system-settings.png" alt="系统设置" width="1000">
+
+</details>
 
 ## 安装
 
