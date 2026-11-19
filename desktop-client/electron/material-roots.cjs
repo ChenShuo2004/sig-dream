@@ -116,7 +116,7 @@ function resolveAbsolutePathWithRoots(fileRelativePath, roots) {
         message:
           `NAS 文件在本机不可读。元数据里是绝对路径（如 Z:），其它电脑无法使用。\n` +
           `请在本机「本机连接与缓存」确认 material_assets_root 为 UNC，并重新「同步素材元数据」。\n` +
-          `示例 UNC：\\\\192.168.1.2\\nas-file\\material-assets`,
+          `示例 UNC：\\\\YOUR_NAS_HOST\\nas-file\\material-assets`,
         triedRoots: roots,
       };
     }
@@ -154,7 +154,7 @@ function resolveAbsolutePathWithRoots(fileRelativePath, roots) {
     error: "file_not_accessible",
     message:
       `NAS 文件在本机不可读。请确认：\n` +
-      `1) 「本机连接与缓存」中 material_assets_root 为本机可打开的 UNC（如 \\\\192.168.1.2\\nas-file\\material-assets），勿用 Z: 盘符；\n` +
+      `1) 「本机连接与缓存」中 material_assets_root 为本机可打开的 UNC（如 \\\\YOUR_NAS_HOST\\nas-file\\material-assets），勿用 Z: 盘符；\n` +
       `2) 已在资源管理器打开该 UNC 并完成 SMB 登录（如需账号密码）；\n` +
       `3) 已登录并执行「同步素材元数据」；\n` +
       `4) 当前尝试的根目录：\n${rootPreview || "（无）"}\n` +

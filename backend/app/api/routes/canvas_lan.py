@@ -1,8 +1,8 @@
-"""Queue canvas TTS, ASR, Seed-VC, ComfyUI and YuE2 jobs for the office GPU machine.
+"""Queue canvas TTS, ASR, Seed-VC, ComfyUI and YuE2 jobs for a LAN GPU machine.
 
-The public site cannot reach 192.168.1.88. The file-machine worker polls these
-jobs and calls IndexTTS (:7860), VoiceStudio ASR (:3901), Seed-VC (:7865), ComfyUI (:8188),
-or YuE2 Studio (:8190). Short YuE2 API calls are reverse-proxied via the file machine.
+When deployed on a public server that cannot reach LAN GPU hosts directly, the file-machine
+worker polls these jobs and calls IndexTTS (:7860), VoiceStudio ASR (:3901), Seed-VC (:7865),
+ComfyUI (:8188), or YuE2 Studio (:8190). Short YuE2 API calls are reverse-proxied via the file machine.
 """
 
 from __future__ import annotations
@@ -338,7 +338,7 @@ def create_tts_job(
                 "inputs": inputs,
                 "tts": {
                     "engine": tts_engine,
-                    "endpoint": "http://192.168.1.88:7860" if tts_engine == "indextts" else "",
+                    "endpoint": os.getenv("LAN_INDEXTTS_URL", "").strip() if tts_engine == "indextts" else "",
                     "emo_control_method": method,
                     "emo_weight": weight,
                     "emo_text": (emo_text or "").strip()[:500] if method == 3 else "",
@@ -617,7 +617,7 @@ def create_seedvc_job(
                 "owner": user.username,
                 "inputs": inputs,
                 "seedvc": {
-                    "endpoint": "http://192.168.1.88:17860",
+                    "endpoint": os.getenv("LAN_SEEDVC_PAGE_URL", "").strip(),
                     "diffusion_steps": steps,
                     "length_adjust": length,
                     "inference_cfg_rate": cfg,
@@ -952,7 +952,7 @@ def _yue2_proxy_bases(db: Session) -> list[str]:
             value = item.strip().rstrip("/")
             if value and value not in bases:
                 bases.append(value)
-        for fallback in ("http://127.0.0.1:9001", "http://192.168.1.2:9001"):
+        for fallback in ("http://127.0.0.1:9001",):
             if fallback not in bases:
                 bases.append(fallback)
     # Drop private targets unless LAN mode is on — belt and suspenders.

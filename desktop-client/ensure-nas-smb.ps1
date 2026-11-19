@@ -93,7 +93,7 @@ if ($env:NAS_USER) { $nasUser = $env:NAS_USER.Trim() }
 $mapDrive = if ($env:NAS_MAP_DRIVE) { $env:NAS_MAP_DRIVE.Trim() } else { 'Z:' }
 
 if (-not $nasHost) {
-  Write-Host '[LCP NAS] ERROR: Set NAS_HOST or LCP_MATERIAL_ASSETS_ROOT (SMB on 192.168.1.66, not HTTP PC 192.168.1.2).'
+  Write-Host '[LCP NAS] ERROR: Set NAS_HOST or LCP_MATERIAL_ASSETS_ROOT (SMB NAS host).'
   exit 1
 }
 
@@ -102,7 +102,7 @@ if (-not $nasPass) {
   exit 1
 }
 
-# Match nas-client worker: /user:PA (not 192.168.1.2\PA unless you set NAS_USER that way)
+# Match nas-client worker: /user:PA (or HOST\USER if you set NAS_USER that way)
 $cmdKeyUser = $nasUser
 if ($nasUser -notmatch '\\') {
   $cmdKeyUser = "$nasHost\$nasUser"

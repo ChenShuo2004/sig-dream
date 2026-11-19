@@ -35,7 +35,7 @@ CHUNK_SIZE = int(os.getenv("NAS_DOWNLOAD_STREAM_CHUNK_BYTES", str(1024 * 1024)))
 NAS_STORAGE_POOL_ID = os.getenv("NAS_STORAGE_POOL_ID", "").strip()
 # When 1/true: prefer first X-Forwarded-For hop as client IP (use behind a reverse proxy).
 _TRUST_XFF = os.getenv("NAS_DOWNLOAD_TRUST_X_FORWARDED_FOR", "").strip().lower() in ("1", "true", "yes")
-YUE2_ORIGIN = (os.getenv("LAN_YUE2_URL") or "http://192.168.1.88:8190").rstrip("/")
+YUE2_ORIGIN = (os.getenv("LAN_YUE2_URL") or "http://127.0.0.1:8190").rstrip("/")
 YUE2_PROXY_PREFIX = "/yue2-proxy"
 YUE2_PROXY_TIMEOUT = max(30, int(os.getenv("LAN_YUE2_PROXY_TIMEOUT", "180")))
 YUE2_PROXY_MAX_BODY = max(1, int(os.getenv("LAN_YUE2_PROXY_MAX_BODY", str(80 * 1024 * 1024))))

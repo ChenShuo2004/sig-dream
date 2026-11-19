@@ -18,7 +18,7 @@ _BASE_SPLIT_RE = re.compile(r"[,;\s]+")
 
 
 def split_base_urls(raw: str) -> list[str]:
-    """心跳/环境变量可写逗号分隔的多网段根地址，例如 https://192.168.1.2:9443,https://192.168.2.88:9443。"""
+    """心跳/环境变量可写逗号分隔的多网段根地址，例如 https://192.168.1.100:9443,https://192.168.2.100:9443。"""
     out: list[str] = []
     seen: set[str] = set()
     for token in _BASE_SPLIT_RE.split((raw or "").strip()):

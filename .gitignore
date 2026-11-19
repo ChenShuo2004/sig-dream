@@ -59,3 +59,6 @@ clash*.yaml
 
 # local runtime data created by the backend (canvas LAN cache etc.)
 /backend/data/
+
+# TypeScript incremental build info
+*.tsbuildinfo

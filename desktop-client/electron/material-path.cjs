@@ -3,7 +3,7 @@ const path = require("path");
 
 /**
  * 拼接 material_assets_root + file_relative_path（支持 UNC 与盘符映射）。
- * @param {string} materialAssetsRoot 如 \\192.168.1.66\nas-file\material-assets 或 Z:\material-assets
+ * @param {string} materialAssetsRoot 如 \\YOUR_NAS_HOST\nas-file\material-assets 或 Z:\material-assets
  * @param {string} fileRelativePath 如 originals/2026/05/xxx.mp4
  */
 function resolveMaterialAssetsPath(materialAssetsRoot, fileRelativePath) {

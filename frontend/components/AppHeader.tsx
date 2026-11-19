@@ -97,12 +97,6 @@ export default function AppHeader() {
           if (item.href === "/settings/api") return role === "super_admin";
           return true;
         });
-        if (g.label === "系统管理" && role === "super_admin") {
-          return {
-            ...g,
-            items: [...nextItems, { href: "/admin/business-acceptance", label: "业务验收测试" }],
-          };
-        }
         return { ...g, items: nextItems };
       })
       .filter((g) => g.items.length > 0);
@@ -110,15 +104,13 @@ export default function AppHeader() {
 
   const mobileQuickLinks = useMemo(() => {
     const canViewOperationLogs = permissions.includes("log.view");
-    const links = baseMobileQuickLinks.filter((item) => {
+    return baseMobileQuickLinks.filter((item) => {
       if (item.href === "/operations") return canViewOperationLogs;
       if (item.href === "/collections") return permissions.includes("collection.view");
       if (item.href === "/canvas" || item.href === "/file-machine") return role === "super_admin" || role === "material_admin";
       if (item.href === "/settings/api") return role === "super_admin";
       return true;
     });
-    if (role !== "super_admin") return links;
-    return [...links, { href: "/admin/business-acceptance", label: "验收" }];
   }, [permissions, role]);
 
   useEffect(() => {

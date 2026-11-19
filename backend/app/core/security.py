@@ -2,6 +2,7 @@ import base64
 import hashlib
 import hmac
 import json
+import logging
 import os
 import time
 from dataclasses import dataclass
@@ -10,6 +11,8 @@ from fastapi import Header, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from app.core.config import settings
+
+logger = logging.getLogger(__name__)
 
 
 bearer_scheme = HTTPBearer(auto_error=False)
@@ -27,15 +30,20 @@ ROLE_SUPER_ADMIN = "super_admin"
 ROLE_MATERIAL_ADMIN = "material_admin"
 ROLE_MEMBER = "member"
 
-# Prefer TOKEN_SECRET / JWT_SECRET from env (ECS backend/.env).
-# Fallback kept for existing deployments that never set TOKEN_SECRET; rotate via env for production.
+_DEFAULT_DEV_TOKEN_SECRET = "light-content-workflow-secret"
 _TOKEN_SECRET = (
     os.getenv("TOKEN_SECRET")
     or settings.token_secret
     or os.getenv("JWT_SECRET")
     or settings.jwt_secret
-    or "light-content-workflow-secret"
+    or _DEFAULT_DEV_TOKEN_SECRET
 ).strip()
+
+if _TOKEN_SECRET == _DEFAULT_DEV_TOKEN_SECRET:
+    logger.warning(
+        "TOKEN_SECRET is not configured; using insecure default development secret. "
+        "Set TOKEN_SECRET in backend/.env before exposing this service on a network."
+    )
 
 
 def _b64_encode(data: bytes) -> str:

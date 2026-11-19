@@ -96,7 +96,7 @@ echo.
 echo ========================================
 echo  Seed-VC voice convert service
 echo  Local:  http://127.0.0.1:%PORT%
-echo  LAN:    http://192.168.1.88:%PORT%
+echo  LAN:    http://^<THIS_HOST_IP^>:%PORT%
 echo  Health: GET /health  (need cuda:true)
 echo  Convert: POST /convert
 echo  Force GPU reinstall: start.bat cuda

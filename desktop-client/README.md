@@ -2,12 +2,7 @@
 
 Electron + Vite + React 19 + TypeScript + Tailwind，**HashRouter**（生产 `loadFile` 可用）。API 请求与 Web 一致时可配置 **`LCP_WEB_ORIGIN`** → **`{origin}/api-proxy/*`**；或直连 FastAPI（**`LCP_API_BASE_URL`** / **`local.settings.json`**），**不使用** Web 页内的同源路径，但转发目标与 **`next.config.ts`** 一致。
 
-**怎么运行**：优先 **`一键运行.bat`**（内部调用 **`run-desktop.ps1`**，文件名全 ASCII，避免 cmd 编码与 `-File` 乱码）；详见 **`2026年5月14日桌面素材助手运行说明.md`** § 二。亦可在本目录执行 **`npm start`**（等同 `npm run electron:dev`，需已安装依赖）。
-
-开发与约束见：
-
-- **`desktop-client/桌面素材助手开发技术文档V1..md`**
-- **`.cursor/rules/desktop_client_integration.mdc`**（与 Web 冲突时以 Web 与后端为准；界面中文为主）
+**怎么运行**：直接从 [GitHub Releases](https://github.com/ChenShuo2004/sig-dream/releases/latest) 下载 Windows / macOS / Linux 安装包，首次打开填写局域网或服务器工作台地址（例如 `http://192.168.1.100:3000`）即可登录。源码运行可双击 **`一键运行.bat`** 或执行 **`npm start`**。
 
 ## 环境要求
 

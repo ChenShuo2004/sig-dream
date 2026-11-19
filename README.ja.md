@@ -139,7 +139,7 @@ Copy-Item .env.example .env   # データベース接続と 3 つのシークレ
 
 ```bash
 cd canvas-app/web
-npm ci
+npm ci --legacy-peer-deps
 npm run build
 ```
 
@@ -153,7 +153,7 @@ npm run dev
 
 [http://127.0.0.1:3000/](http://127.0.0.1:3000/) を開きます。フロントエンドは同一オリジンの `/api-proxy` 経由でバックエンドに転送します（既定は `http://127.0.0.1:8000`）。変更する場合は `frontend/.env.local.example` を参考に `NEXT_PUBLIC_API_BASE_URL` を設定してください。
 
-本番環境では `npm run build && npm run start` を実行し、Nginx で `3000` 番ポートにリバースプロキシします。サーバーへの詳しいデプロイ手順（中国語）は [バックエンドデプロイガイド](docs/后端部署指南_V1_Ubuntu22.04.md) と [デプロイと環境変数](docs/PROJECT_CONTEXT/07_部署与环境变量.md) を参照してください。
+本番環境では `npm run build && npm run start` を実行し、Nginx で `3000` 番ポートにリバースプロキシします。クラウドサーバーなしの社内 LAN 構成は [LAN デプロイガイド](docs/局域网部署指南.md)（中国語）、Linux サーバー構成は [サーバーデプロイガイド](docs/服务器部署指南.md) を参照してください。
 
 ### 4. ファイルサーバー（任意）
 
@@ -291,12 +291,11 @@ Copy-Item ecs-api-url.txt.example ecs-api-url.txt             # バックエン�
 ├── seed-vc-service/      # Seed-VC 歌声変換サービス
 ├── svs-service/          # SVS 替え歌ガイドボーカルサービス
 ├── docs/                 # 開発の歩み、デプロイガイド、タグ説明。archive/ は過程ドキュメントの保管場所
-├── docs/PROJECT_CONTEXT/ # アーキテクチャ、モジュール、データベース、API、デプロイのドキュメント（中国語）
 ├── scripts/ · tools/     # データベースのバックアップ、プレビューの再生成などの運用スクリプト
 └── deploy.sh             # サーバー側のワンステップリリーススクリプト
 ```
 
-プロジェクトがどう作られてきたかは [開発の歩み](docs/开发历程.md)（中国語）にまとめています。実装を詳しく知りたい場合は、[プロジェクト概要](docs/PROJECT_CONTEXT/00_项目总览.md) と [システムアーキテクチャ](docs/PROJECT_CONTEXT/01_系统架构.md)（中国語）から読むのがおすすめです。
+ドキュメント（中国語）：[LAN デプロイ](docs/局域网部署指南.md) · [サーバーデプロイ](docs/服务器部署指南.md) · [デスクトップクライアント](desktop-client/README.md) · [タグ説明](docs/标签说明.md)。
 
 ## 謝辞
 
@@ -310,7 +309,7 @@ sig キャンバスは [basketikun/infinite-canvas](https://github.com/basketiku
 
 ## コントリビューション
 
-Issue や Pull Request を歓迎します。変更の前に [主要な設計判断](docs/PROJECT_CONTEXT/09_关键设计决策.md) をお読みください。ライブラリ領域の分離、コレクションの参照セマンティクス、LAN 優先の転送、権限ポイントのチェックには明確な制約があります。データを書き込むエンドポイントでは、操作ログの記録も追加してください。
+Issue や Pull Request を歓迎します。ライブラリ領域の分離、コレクションの参照セマンティクス、LAN 優先の転送、権限ポイントのチェックを壊さないようにしてください。データを書き込むエンドポイントでは、操作ログの記録も追加してください。
 
 ## ライセンス
 

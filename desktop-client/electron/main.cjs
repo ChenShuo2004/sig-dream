@@ -90,7 +90,7 @@ function resolvePayloadToAbsolutePath(payload) {
       ok: false,
       error: "material_assets_root_not_configured",
       message:
-        "未配置 material_assets_root。请在「本机连接与缓存」填写本机可访问的 UNC，例如 \\\\192.168.1.2\\nas-file\\material-assets",
+        "未配置 material_assets_root。请在「本机连接与缓存」填写本机可访问的 UNC，例如 \\\\YOUR_NAS_HOST\\nas-file\\material-assets",
       material_assets_root: "",
       file_relative_path: rel,
     };

@@ -62,11 +62,6 @@ const menuSections = [
       { href: "/sync-ops", title: "同步异常", desc: "NAS 同步死信查看、上报与重试排队" },
       { href: "/file-machine", title: "文件机与队列", desc: "查看文件服务心跳、任务进程，以及正在执行和排队的任务" },
       { href: "/operations", title: "操作日志", desc: "按 log.view 查询全局操作审计记录" },
-      {
-        href: "/admin/business-acceptance",
-        title: "业务验收测试",
-        desc: "仅超级管理员：业务 Checklist 勾选与备注（不含工作流/任务/接口自动化）",
-      },
     ],
     gradient: "from-amber-300/30 to-orange-500/10",
   },

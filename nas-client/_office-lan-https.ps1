@@ -74,7 +74,7 @@ function Get-OfficeLanHttpsBases {
     foreach ($part in ($b -split '[,;\s]+')) { Add-Base $part }
   }
   if ($out.Count -eq 0) {
-    Add-Base "https://192.168.1.2:$TlsPort"
+    Add-Base "https://127.0.0.1:$TlsPort"
   }
   return @($out)
 }
@@ -99,7 +99,7 @@ function Get-OfficeLanSanHosts {
     foreach ($part in ($h -split '[,;\s]+')) { Add-Host $part.Trim() }
   }
   if (-not ($hosts | Where-Object { $_ -like '192.168.1.*' })) {
-    Add-Host "192.168.1.2"
+    Add-Host "127.0.0.1"
   }
   return @($hosts)
 }

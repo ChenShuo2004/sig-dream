@@ -1,5 +1,5 @@
 # Resolve SMB host/share/UNC root for desktop client. ASCII-only.
-# HTTP file server (DEPLOY_LAN_* :9001) may run on 192.168.1.2; SMB share nas-file is on NAS 192.168.1.66.
+# HTTP file server (DEPLOY_LAN_* :9001) and SMB share host may differ; configure NAS_HOST explicitly.
 
 function Resolve-LcpNasSmbConfig {
   $nasHost = ""
@@ -20,7 +20,7 @@ function Resolve-LcpNasSmbConfig {
   if ($env:NAS_SHARE) { $nasShare = $env:NAS_SHARE.Trim() }
 
   if (-not $nasHost) {
-    $nasHost = "192.168.1.66"
+    $nasHost = ""
   }
 
   if (-not $materialRoot -or ($materialRoot -notmatch [regex]::Escape("\\$nasHost\\"))) {

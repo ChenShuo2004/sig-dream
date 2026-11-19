@@ -139,7 +139,7 @@ Copy-Item .env.example .env   # 데이터베이스 연결과 세 가지 시크�
 
 ```bash
 cd canvas-app/web
-npm ci
+npm ci --legacy-peer-deps
 npm run build
 ```
 
@@ -153,7 +153,7 @@ npm run dev
 
 [http://127.0.0.1:3000/](http://127.0.0.1:3000/)을 엽니다. 프런트엔드는 같은 출처의 `/api-proxy`를 통해 백엔드로 요청을 전달하며, 기본 백엔드 주소는 `http://127.0.0.1:8000`입니다. 바꾸려면 `frontend/.env.local.example`을 참고해 `NEXT_PUBLIC_API_BASE_URL`을 설정하세요.
 
-운영 환경에서는 `npm run build && npm run start`를 실행하고 Nginx로 `3000` 포트에 리버스 프록시합니다. 서버 배포 절차(중국어)는 [백엔드 배포 가이드](docs/后端部署指南_V1_Ubuntu22.04.md)와 [배포 및 환경 변수](docs/PROJECT_CONTEXT/07_部署与环境变量.md)를 참고하세요.
+운영 환경에서는 `npm run build && npm run start`를 실행하고 Nginx로 `3000` 포트에 리버스 프록시합니다. 클라우드 서버 없는 사내 LAN 배포는 [LAN 배포 가이드](docs/局域网部署指南.md)(중국어), Linux 서버 배포는 [서버 배포 가이드](docs/服务器部署指南.md)를 참고하세요.
 
 ### 4. 파일 서버(선택)
 
@@ -291,12 +291,11 @@ Copy-Item ecs-api-url.txt.example ecs-api-url.txt             # 백엔드 주소
 ├── seed-vc-service/      # Seed-VC 노래 음색 변환 서비스
 ├── svs-service/          # SVS 가사 바꿔 부르기 가이드 보컬 서비스
 ├── docs/                 # 개발 과정, 배포 가이드, 태그 설명. archive/에 과정 문서 보관
-├── docs/PROJECT_CONTEXT/ # 아키텍처, 모듈, 데이터베이스, API, 배포 문서(중국어)
 ├── scripts/ · tools/     # 데이터베이스 백업, 미리보기 재생성 등 운영 스크립트
 └── deploy.sh             # 서버 측 원스텝 배포 스크립트
 ```
 
-프로젝트가 어떻게 만들어졌는지는 [개발 과정](docs/开发历程.md)(중국어)에 정리되어 있습니다. 구현을 자세히 알고 싶다면 [프로젝트 개요](docs/PROJECT_CONTEXT/00_项目总览.md)와 [시스템 아키텍처](docs/PROJECT_CONTEXT/01_系统架构.md)(중국어)부터 읽어 보세요.
+사용 가이드(중국어): [LAN 배포](docs/局域网部署指南.md) · [서버 배포](docs/服务器部署指南.md) · [데스크톱 클라이언트](desktop-client/README.md) · [태그 설명](docs/标签说明.md).
 
 ## 감사의 말
 
@@ -310,7 +309,7 @@ sig 캔버스는 [basketikun/infinite-canvas](https://github.com/basketikun/infi
 
 ## 기여하기
 
-Issue와 Pull Request를 환영합니다. 수정하기 전에 [핵심 설계 결정](docs/PROJECT_CONTEXT/09_关键设计决策.md)을 읽어 주세요. 라이브러리 영역 분리, 컬렉션의 참조 의미, LAN 우선 전송, 권한 항목 검사에는 명확한 제약이 있습니다. 데이터를 쓰는 엔드포인트에는 작업 로그 기록도 함께 추가해 주세요.
+Issue와 Pull Request를 환영합니다. 라이브러리 영역 분리, 컬렉션의 참조 의미, LAN 우선 전송, 권한 항목 검사 제약을 유지해 주세요. 데이터를 쓰는 엔드포인트에는 작업 로그 기록도 함께 추가해 주세요.
 
 ## 라이선스
 

@@ -49,7 +49,7 @@ echo.
 echo ========================================
 echo  SVS lyric-remake guide service
 echo  Local:  http://127.0.0.1:%PORT%
-echo  LAN:    http://192.168.1.88:%PORT%
+echo  LAN:    http://^<THIS_HOST_IP^>:%PORT%
 echo  Needs:  VoiceStudio on :3901  + Seed-VC on :7865
 echo  Reinstall: start.bat reinstall
 echo ========================================

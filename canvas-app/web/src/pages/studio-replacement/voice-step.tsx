@@ -274,8 +274,8 @@ export function VoiceStep({ document, runner }: { document: ReplacementStudioDoc
                             value={ttsEngine}
                             onChange={(value) => runner.update((current) => ({ ...current, settings: { ...current.settings, ttsEngine: value as ReplacementTtsEngine } }))}
                             options={[
-                                { value: "indextts", label: "IndexTTS · 192.168.1.88:7860" },
-                                { value: "voicestudio", label: "VoiceStudio · 192.168.1.88:3901" },
+                                { value: "indextts", label: "IndexTTS（本地 GPU）" },
+                                { value: "voicestudio", label: "VoiceStudio（本地 GPU）" },
                             ]}
                         />
                         <DarkButton size="sm" disabled={busy} onClick={() => void runner.transcribe(source.id)}>
@@ -474,7 +474,7 @@ export function VoiceStep({ document, runner }: { document: ReplacementStudioDoc
                         </div>
                     </>
                 ) : (
-                    <EmptyHint icon={<AudioLines className="size-6" />} title="还没有分析句子" hint="点击「开始分析」经 VoiceStudio 听写人声并归属说话人；先提取清晰人声更准确，需 192.168.1.88 VoiceStudio（:3901）与文件机在线">
+                    <EmptyHint icon={<AudioLines className="size-6" />} title="还没有分析句子" hint="点击「开始分析」经 VoiceStudio 听写人声并归属说话人；先提取清晰人声更准确，需局域网 GPU 主机的 VoiceStudio（:3901）与文件机在线">
                         <DarkButton size="sm" tone="primary" disabled={busy} onClick={() => void runner.transcribe(source.id)}>
                             <Sparkles className="size-3.5" />
                             开始分析

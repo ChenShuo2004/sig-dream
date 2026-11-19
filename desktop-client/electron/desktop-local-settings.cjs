@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 /** 局域网多机通用：优先 UNC，避免仅某台机器存在的 Z: 盘符 */
-const DEFAULT_MATERIAL_ASSETS_ROOT_WINDOWS = "\\\\192.168.1.2\\nas-file\\material-assets";
+const DEFAULT_MATERIAL_ASSETS_ROOT_WINDOWS = "";
 const DEFAULT_MATERIAL_ASSETS_ROOT_MACOS = "/Volumes/material-assets";
 const DEFAULT_MATERIAL_ASSETS_ROOT_LINUX = "/mnt/material-assets";
 

@@ -1,6 +1,6 @@
 param(
   [string]$ApiBaseUrl = "",
-  [string]$NasShare = "\\192.168.1.66\nas-file",
+  [string]$NasShare = "\\YOUR_NAS_HOST\nas-file",
   [string]$NasDrive = "Z:",
   [string]$NasUser = "PA",
   [string]$NasPassword = "",

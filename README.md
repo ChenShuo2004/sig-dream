@@ -6,15 +6,15 @@
 [![Release](https://img.shields.io/github/v/release/ChenShuo2004/sig-dream?style=for-the-badge&color=bc7650)](https://github.com/ChenShuo2004/sig-dream/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-f3dfc7?style=for-the-badge&labelColor=f3dfc7&color=bc7650)](LICENSE)
 
-🚀 **[从部署一套团队画布开始](#安装)** · 💻 **[下载桌面客户端](#桌面客户端)** · 🌐 **[English](README.en.md)**
+🚀 **[局域网版本部署](docs/局域网部署指南.md)** · 💻 **[下载桌面端](#桌面客户端)** · 🖥️ **[服务器部署](#安装)** · 🌐 **[English](README.en.md)**
 
 # sig-dream · sig画布
 
 **把团队的素材、模型和创意，放进同一张画布。** 在无限画布上串起 AI 生图、参考图编辑、视频生成、配音与翻唱；画布用到的每一份素材，都来自团队共用、可检索、有权限管理的素材库。
 
-这是一个可自行部署的内容团队工作台：浏览器负责创作，FastAPI 后端负责鉴权、元数据和任务编排，局域网里的文件机负责大文件存储、缩略图与预览转码。素材原件不经云端中转，团队在办公室内以局域网速度上传和下载。
+提供 **局域网版本**（办公室主机 + 局域网文件机直传，不依赖云服务器，素材原件不出内网）与 **三端桌面客户端**（Windows / macOS / Linux，支持直接把素材拖进剪辑软件），也可按需部署到独立 Linux 服务器。
 
-<img src="docs/screenshots/canvas-board.png" alt="sig画布：用一段创作提示连接四张风格探索图" width="1000">
+<img src="docs/screenshots/canvas-board.png" alt="sig画布：按剧本、角色、场景、道具、关键帧与成片分组的无限画布工作流" width="1000">
 
 ```mermaid
 flowchart LR
@@ -131,11 +131,11 @@ Copy-Item .env.example .env   # 修改数据库连接与三个密钥
 
 ### 2. 构建 sig画布
 
-画布是独立的 Vite 应用，构建产物会直接输出到 `frontend/public/canvas-app`，由前端以 iframe 方式加载：
+画布是独立的 Vite 应用，仓库已附带构建产物；如需从源码重新构建（输出到 `frontend/public/canvas-app`）：
 
 ```bash
 cd canvas-app/web
-npm ci
+npm ci --legacy-peer-deps
 npm run build
 ```
 
@@ -149,7 +149,8 @@ npm run dev
 
 打开 [http://127.0.0.1:3000/](http://127.0.0.1:3000/)。前端会通过同源的 `/api-proxy` 转发到后端，默认后端地址为 `http://127.0.0.1:8000`；如需修改，参考 `frontend/.env.local.example` 设置 `NEXT_PUBLIC_API_BASE_URL`。
 
-生产环境使用 `npm run build && npm run start`，再用 Nginx 反向代理到 `3000` 端口。完整的服务器部署步骤见 [后端部署指南](docs/后端部署指南_V1_Ubuntu22.04.md) 与 [部署与环境变量](docs/PROJECT_CONTEXT/07_部署与环境变量.md)。
+- **办公室局域网使用（局域网版本）**：无需云服务器，按 [局域网部署指南](docs/局域网部署指南.md) 监听 `0.0.0.0` 即可供局域网浏览器与桌面端访问。
+- **公网 / Linux 服务器部署**：使用 `npm run build && npm run start` 并配 Nginx 反向代理到 `3000` 端口，完整步骤见 [服务器部署指南](docs/服务器部署指南.md)。
 
 ### 4. 文件机（可选）
 
@@ -286,13 +287,12 @@ Copy-Item ecs-api-url.txt.example ecs-api-url.txt             # 填入后端地�
 ├── nas-client/           # 文件机：下载服务、任务 Worker、缩略图与预览转码
 ├── seed-vc-service/      # Seed-VC 歌声转换服务
 ├── svs-service/          # SVS 改词翻唱导唱服务
-├── docs/                 # 开发历程、部署指南、标签说明；archive/ 为过程文档归档
-├── docs/PROJECT_CONTEXT/ # 架构、模块、数据库、API 与部署文档
+├── docs/                 # 局域网部署指南、服务器部署指南、标签说明与界面截图
 ├── scripts/ · tools/     # 数据库备份、预览回填等运维脚本
 └── deploy.sh             # 服务器端一键发布脚本
 ```
 
-想了解项目是怎么一步步做出来的，可以读 [开发历程](docs/开发历程.md)；想深入了解实现，建议从 [项目总览](docs/PROJECT_CONTEXT/00_项目总览.md) 和 [系统架构](docs/PROJECT_CONTEXT/01_系统架构.md) 开始阅读。
+按使用场景选择文档：[局域网部署指南](docs/局域网部署指南.md) · [服务器部署指南](docs/服务器部署指南.md) · [桌面客户端说明](desktop-client/README.md) · [标签说明](docs/标签说明.md)。
 
 ## 致谢
 
@@ -306,7 +306,7 @@ sig画布基于 [basketikun/infinite-canvas](https://github.com/basketikun/infin
 
 ## 贡献
 
-欢迎提交 Issue 或 Pull Request。修改前请先阅读 [关键设计决策](docs/PROJECT_CONTEXT/09_关键设计决策.md)：素材库域隔离、集合的引用语义、局域网优先传输和权限点校验都有明确约束。涉及写操作的接口，请同时补上操作日志。
+欢迎提交 Issue 或 Pull Request。提交前请确保素材库域隔离、集合引用语义、局域网优先传输和权限点校验不被破坏；涉及写操作的接口，请同时补上操作日志。
 
 ## 许可证
 

@@ -1,6 +1,6 @@
 param(
   [string]$ApiBaseUrl = "",
-  [string]$NasShare = "\\192.168.1.66\nas-file",
+  [string]$NasShare = "\\YOUR_NAS_HOST\nas-file",
   [string]$NasDrive = "Z:",
   [string]$NasUser = "PA",
   [string]$NasPassword = "",
@@ -104,7 +104,7 @@ Write-Host ("DOWNLOAD={0}:{1}" -f $env:NAS_DOWNLOAD_HOST, $env:NAS_DOWNLOAD_PORT
 if ($env:NAS_DOWNLOAD_TLS_PORT) {
   Write-Host ("DOWNLOAD_TLS={0}:{1}" -f $env:NAS_DOWNLOAD_HOST, $env:NAS_DOWNLOAD_TLS_PORT)
   $httpsBases = @(Get-OfficeLanHttpsBases -TlsPort $TlsPort)
-  if ($httpsBases.Count -eq 0) { $httpsBases = @("https://192.168.1.2:$TlsPort") }
+  if ($httpsBases.Count -eq 0) { $httpsBases = @("https://127.0.0.1:$TlsPort") }
   Write-Host "First visit each LAN HTTPS /health once and continue past the cert warning:" -ForegroundColor Yellow
   foreach ($b in $httpsBases) {
     Write-Host ("  {0}/health" -f $b) -ForegroundColor Yellow

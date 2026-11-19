@@ -1,11 +1,11 @@
-"""Call the office GPU machine from the file-machine worker.
+"""Call a local or LAN GPU machine from the file-machine worker.
 
-The 4090 has two addresses. Voice clone (IndexTTS) calls only http://192.168.1.88:7860.
-TTS is IndexTTS (Gradio :7860, with a FastAPI /api/tts fallback).
-ASR is VoiceStudio OpenAI-compatible (:3901 /v1/audio/transcriptions).
-Singing / voice convert is Seed-VC (:7865 /convert).
-Timbre replacement on the voice-clone page is the Seed-VC Gradio app (:17860 /convert), not :7865.
-Video is ComfyUI (:8188) using the same MiniMax H3 workflows as the whiteboard studio.
+Configure LAN_GPU_HOST (default 127.0.0.1) or individual LAN_*_URL env vars:
+- TTS: IndexTTS (Gradio :7860, with a FastAPI /api/tts fallback)
+- ASR: VoiceStudio OpenAI-compatible (:3901 /v1/audio/transcriptions)
+- Singing / voice convert: Seed-VC (:7865 /convert)
+- Timbre replacement on the voice-clone page: Seed-VC Gradio app (:17860 /convert)
+- Video: ComfyUI (:8188 / :8189)
 """
 
 from __future__ import annotations
@@ -23,41 +23,28 @@ import requests
 from comfy_converter import apply_studio_h3_params, apply_video_params, graph_to_prompt
 
 WORKFLOW_DIR = Path(__file__).resolve().parent / "comfy_workflows"
-# 声音克隆只打这一台 IndexTTS。不回落到 192.168.2.88。
-INDEXTTS_URL = "http://192.168.1.88:7860"
+_GPU_HOST = (os.getenv("LAN_GPU_HOST") or "127.0.0.1").strip()
+
+
+def _url_list(primary_env: str, secondary_env: str, default_port_path: str) -> list[str]:
+    urls = [os.getenv(primary_env, f"http://{_GPU_HOST}:{default_port_path}").rstrip("/")]
+    secondary = (os.getenv(secondary_env) or "").strip().rstrip("/")
+    if secondary and secondary not in urls:
+        urls.append(secondary)
+    return urls
+
+
+INDEXTTS_URL = os.getenv("LAN_INDEXTTS_URL", f"http://{_GPU_HOST}:7860").rstrip("/")
 TTS_URLS = [INDEXTTS_URL]
-ASR_URLS = [
-    os.getenv("LAN_ASR_URL", "http://192.168.1.88:3901/v1").rstrip("/"),
-    os.getenv("LAN_ASR_URL_2", "http://192.168.2.88:3901/v1").rstrip("/"),
-]
+ASR_URLS = _url_list("LAN_ASR_URL", "LAN_ASR_URL_2", "3901/v1")
 # VoiceStudio root (not /v1) — POST /generate accepts ref_audio multipart.
-VOICESTUDIO_URLS = [
-    os.getenv("LAN_VOICESTUDIO_URL", "http://192.168.1.88:3901").rstrip("/"),
-    os.getenv("LAN_VOICESTUDIO_URL_2", "http://192.168.2.88:3901").rstrip("/"),
-]
-SEEDVC_URLS = [
-    os.getenv("LAN_SEEDVC_URL_1", "http://192.168.1.88:7865").rstrip("/"),
-    os.getenv("LAN_SEEDVC_URL_2", "http://192.168.2.88:7865").rstrip("/"),
-]
-# 声音克隆页的 Seed-VC 只打这一台 Gradio。不改歌声转换的 7865。
-SEEDVC_PAGE_URL = "http://192.168.1.88:17860"
-SVS_URLS = [
-    os.getenv("LAN_SVS_URL_1", "http://192.168.1.88:7866").rstrip("/"),
-    os.getenv("LAN_SVS_URL_2", "http://192.168.2.88:7866").rstrip("/"),
-]
-COMFY_URLS = [
-    os.getenv("LAN_COMFY_URL_1", "http://192.168.1.88:8188").rstrip("/"),
-    os.getenv("LAN_COMFY_URL_2", "http://192.168.2.88:8188").rstrip("/"),
-]
-# Separate ComfyUI. The two studio graphs (人脸优化 / YZ金鱼) live only here.
-COMFY_H3_URLS = [
-    os.getenv("LAN_COMFY_H3_URL", "http://192.168.1.88:8189").rstrip("/"),
-    os.getenv("LAN_COMFY_H3_URL_2", "http://192.168.2.88:8189").rstrip("/"),
-]
-YUE2_URLS = [
-    os.getenv("LAN_YUE2_URL", "http://192.168.1.88:8190").rstrip("/"),
-    os.getenv("LAN_YUE2_URL_2", "http://192.168.2.88:8190").rstrip("/"),
-]
+VOICESTUDIO_URLS = _url_list("LAN_VOICESTUDIO_URL", "LAN_VOICESTUDIO_URL_2", "3901")
+SEEDVC_URLS = _url_list("LAN_SEEDVC_URL_1", "LAN_SEEDVC_URL_2", "7865")
+SEEDVC_PAGE_URL = os.getenv("LAN_SEEDVC_PAGE_URL", f"http://{_GPU_HOST}:17860").rstrip("/")
+SVS_URLS = _url_list("LAN_SVS_URL_1", "LAN_SVS_URL_2", "7866")
+COMFY_URLS = _url_list("LAN_COMFY_URL_1", "LAN_COMFY_URL_2", "8188")
+COMFY_H3_URLS = _url_list("LAN_COMFY_H3_URL", "LAN_COMFY_H3_URL_2", "8189")
+YUE2_URLS = _url_list("LAN_YUE2_URL", "LAN_YUE2_URL_2", "8190")
 YUE2_WAIT_SECONDS = max(10 * 60, int(os.getenv("LAN_YUE2_WAIT_SECONDS", str(60 * 60))))
 YUE2_POLL_SECONDS = max(2.0, float(os.getenv("LAN_YUE2_POLL_SECONDS", "3")))
 # Do not hammer ECS progress on every YuE2 poll tick (was ~3s and could wedge single uvicorn).
@@ -121,7 +108,7 @@ def transcribe_audio(audio: Path, options: dict[str, Any] | None = None) -> tupl
             root = probe[: -len("/v1")] if probe.endswith("/v1") else probe
             if not _alive(f"{probe}/models") and not _alive(root):
                 last_error = RuntimeError(
-                    f"无法连接 VoiceStudio ASR（{probe}）。请确认 192.168.1.88 已启动 VoiceStudio（端口 3901）。"
+                    f"无法连接 VoiceStudio ASR（{probe}）。请确认局域网 GPU 主机已启动 VoiceStudio（端口 3901），并检查 LAN_GPU_HOST / LAN_VOICESTUDIO_URL。"
                 )
                 continue
             with audio.open("rb") as handle:
@@ -153,7 +140,7 @@ def transcribe_audio(audio: Path, options: dict[str, Any] | None = None) -> tupl
             return payload, probe
         except Exception as exc:  # noqa: BLE001
             last_error = exc
-    raise RuntimeError(str(last_error or "无法连接 VoiceStudio ASR（默认 http://192.168.1.88:3901/v1）"))
+    raise RuntimeError(str(last_error or "无法连接 VoiceStudio ASR（请配置 LAN_ASR_URL 或 LAN_GPU_HOST）"))
 
 
 def synthesize_voice(reference: Path, text: str, target: Path, options: dict[str, Any] | None = None) -> str:
@@ -181,7 +168,7 @@ def synthesize_voice(reference: Path, text: str, target: Path, options: dict[str
             return base
         except Exception as exc:  # noqa: BLE001
             last_error = exc
-    raise RuntimeError(str(last_error or "无法连接局域网 IndexTTS（默认 192.168.1.88:7860）"))
+    raise RuntimeError(str(last_error or "无法连接局域网 IndexTTS（请配置 LAN_INDEXTTS_URL 或 LAN_GPU_HOST）"))
 
 
 def synthesize_svs_guide(
@@ -235,7 +222,7 @@ def synthesize_svs_guide(
             return base
         except Exception as exc:  # noqa: BLE001
             last_error = exc
-    raise RuntimeError(str(last_error or "无法连接 SVS（默认 http://192.168.1.88:7866）"))
+    raise RuntimeError(str(last_error or "无法连接 SVS（请配置 LAN_SVS_URL_1 或 LAN_GPU_HOST）"))
 
 
 def remake_singing(lyrics: str, melody: Path, reference: Path, target: Path, options: dict[str, Any] | None = None) -> dict[str, str]:
@@ -307,7 +294,7 @@ def convert_voice(source: Path, reference: Path, target: Path, options: dict[str
             return base
         except Exception as exc:  # noqa: BLE001
             last_error = exc
-    raise RuntimeError(str(last_error or "无法连接 Seed-VC（默认 http://192.168.1.88:7865）"))
+    raise RuntimeError(str(last_error or "无法连接 Seed-VC（请配置 LAN_SEEDVC_URL_1 或 LAN_GPU_HOST）"))
 
 
 def convert_seedvc_page(source: Path, reference: Path, target: Path, options: dict[str, Any] | None = None) -> str:
@@ -356,7 +343,7 @@ def synthesize_voicestudio(reference: Path, text: str, target: Path, options: di
         try:
             if not _alive(f"{base}/v1/models") and not _alive(base):
                 last_error = RuntimeError(
-                    f"无法连接 VoiceStudio（{base}）。请确认 192.168.1.88 已启动 VoiceStudio（端口 3901）。"
+                    f"无法连接 VoiceStudio（{base}）。请确认局域网 GPU 主机已启动 VoiceStudio（端口 3901），并检查 LAN_GPU_HOST / LAN_VOICESTUDIO_URL。"
                 )
                 continue
             data: dict[str, str] = {"text": spoken, "denoise": "true", "effect_preset": "broadcast"}
@@ -375,7 +362,7 @@ def synthesize_voicestudio(reference: Path, text: str, target: Path, options: di
             return base
         except Exception as exc:  # noqa: BLE001
             last_error = exc
-    raise RuntimeError(str(last_error or "无法连接 VoiceStudio（默认 http://192.168.1.88:3901）"))
+    raise RuntimeError(str(last_error or "无法连接 VoiceStudio（请配置 LAN_VOICESTUDIO_URL 或 LAN_GPU_HOST）"))
 
 
 _DESIGN_ATTR_ORDER = ("Gender", "Age", "Pitch", "Style", "EnglishAccent", "ChineseDialect")
@@ -405,7 +392,7 @@ def describe_voicestudio(description: str) -> dict[str, Any]:
     for base in _unique(VOICESTUDIO_URLS):
         try:
             if not _alive(base):
-                last_error = RuntimeError(f"无法连接 VoiceStudio（{base}）。请确认 192.168.1.88 已启动 VoiceStudio（端口 3901）。")
+                last_error = RuntimeError(f"无法连接 VoiceStudio（{base}）。请确认局域网 GPU 主机已启动 VoiceStudio（端口 3901），并检查 LAN_GPU_HOST / LAN_VOICESTUDIO_URL。")
                 continue
             response = requests.post(f"{base}/design/describe", json={"description": text}, timeout=60)
             if response.status_code >= 400:
@@ -424,7 +411,7 @@ def describe_voicestudio(description: str) -> dict[str, Any]:
             }
         except Exception as exc:  # noqa: BLE001
             last_error = exc
-    raise RuntimeError(str(last_error or "无法连接 VoiceStudio（默认 http://192.168.1.88:3901）"))
+    raise RuntimeError(str(last_error or "无法连接 VoiceStudio（请配置 LAN_VOICESTUDIO_URL 或 LAN_GPU_HOST）"))
 
 
 def synthesize_voice_design(text: str, target: Path, options: dict[str, Any] | None = None) -> tuple[str, dict[str, Any]]:
@@ -468,7 +455,7 @@ def synthesize_voice_design(text: str, target: Path, options: dict[str, Any] | N
     for base in _unique(VOICESTUDIO_URLS):
         try:
             if not _alive(f"{base}/v1/models") and not _alive(base):
-                last_error = RuntimeError(f"无法连接 VoiceStudio（{base}）。请确认 192.168.1.88 已启动 VoiceStudio（端口 3901）。")
+                last_error = RuntimeError(f"无法连接 VoiceStudio（{base}）。请确认局域网 GPU 主机已启动 VoiceStudio（端口 3901），并检查 LAN_GPU_HOST / LAN_VOICESTUDIO_URL。")
                 continue
             response = requests.post(f"{base}/generate", data=data, timeout=900)
             if response.status_code >= 400:
@@ -487,7 +474,7 @@ def synthesize_voice_design(text: str, target: Path, options: dict[str, Any] | N
             return base, design
         except Exception as exc:  # noqa: BLE001
             last_error = exc
-    raise RuntimeError(str(last_error or "无法连接 VoiceStudio（默认 http://192.168.1.88:3901）"))
+    raise RuntimeError(str(last_error or "无法连接 VoiceStudio（请配置 LAN_VOICESTUDIO_URL 或 LAN_GPU_HOST）"))
 
 
 class _TryGradio(Exception):

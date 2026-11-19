@@ -202,13 +202,13 @@ export default function DesktopSettingsPage() {
                   className="w-full rounded-lg border border-slate-600 px-3 py-2 font-mono text-xs"
                   value={materialAssetsRoot}
                   onChange={(e) => setMaterialAssetsRoot(e.target.value)}
-                  placeholder="\\\\192.168.1.2\\nas-file\\material-assets"
+                  placeholder="\\\\YOUR_NAS_HOST\\nas-file\\material-assets"
                 />
                 <button type="button" className="mt-1 text-xs text-sky-400 hover:text-sky-300" onClick={useDefaultMaterialAssetsRoot}>
                   使用当前平台默认路径
                 </button>
                 <p className="mt-1 text-xs text-slate-500">
-                  局域网<strong>每台电脑</strong>请填本机可打开的 UNC（如 \\192.168.1.2\nas-file\material-assets），勿填仅个别机器才有的 Z: 盘符。保存后请同步元数据再拖放。
+                  局域网<strong>每台电脑</strong>请填本机可打开的 UNC（如 \\YOUR_NAS_HOST\nas-file\material-assets），勿填仅个别机器才有的 Z: 盘符。保存后请同步元数据再拖放。
                 </p>
               </div>
               <div>

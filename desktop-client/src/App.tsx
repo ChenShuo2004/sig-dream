@@ -88,11 +88,8 @@ export default function App() {
           <Route path="/operations" element={pending("操作日志", "frontend/app/operations/page.tsx")} />
           <Route path="/feedback" element={pending("意见反馈", "frontend/app/feedback/page.tsx")} />
           <Route path="/tutorials" element={pending("教程中心", "frontend/app/tutorials/page.tsx")} />
-          <Route path="/tester" element={pending("接口测试", "frontend/app/tester/page.tsx")} />
           <Route path="/tasks" element={pending("任务中心", "frontend/app/tasks/page.tsx")} />
-          <Route path="/workflows" element={pending("工作流", "frontend/app/workflows/page.tsx")} />
           <Route path="/workflows/:id" element={<WorkflowEditorPage />} />
-          <Route path="/admin/business-acceptance" element={pending("业务验收测试", "frontend/app/admin/business-acceptance/page.tsx")} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

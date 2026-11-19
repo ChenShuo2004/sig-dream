@@ -24,7 +24,6 @@ export function createPromptSource(source?: Partial<PromptSource>): PromptSource
 }
 
 export const DEFAULT_PROMPT_SOURCES: PromptSource[] = [
-    localPromptSource("local-seedance-real-person", "seedance过真人", "prompts/seedance-real-person.json"),
     registrySource("banana-prompt-quicker", "Banana Prompt Quicker", "https://glidea.github.io/banana-prompt-quicker/"),
     registrySource("davidwu-gpt-image2-prompts", "DavidWu GPT Image 2", "https://github.com/davidwuw0811-boop/awesome-gpt-image2-prompts"),
     registrySource("freestylefly-gpt-image-2", "Freestylefly GPT Image 2", "https://github.com/freestylefly/awesome-gpt-image-2"),
@@ -32,15 +31,8 @@ export const DEFAULT_PROMPT_SOURCES: PromptSource[] = [
     registrySource("awesome-gpt4o-image-prompts", "Awesome GPT-4o", "https://github.com/ImgEdify/Awesome-GPT4o-Image-Prompts"),
     registrySource("youmind-gpt-image-2", "YouMind GPT Image 2", "https://github.com/YouMind-OpenLab/awesome-gpt-image-2"),
     registrySource("youmind-nano-banana-pro", "YouMind Nano Banana Pro", "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts"),
-    localPromptSource("local-cinematic-character-board", "电影提案板", "prompts/cinematic-character-board.json"),
 ];
 
 function registrySource(id: string, name: string, homepage: string): PromptSource {
     return { id, name, url: `${PROMPT_REGISTRY_SOURCE_BASE}/${id}.json`, homepage, enabled: true, builtIn: true };
-}
-
-function localPromptSource(id: string, name: string, file: string): PromptSource {
-    const base = String(import.meta.env.BASE_URL || "/");
-    const prefix = base.endsWith("/") ? base : `${base}/`;
-    return { id, name, url: `${prefix}${file}`, homepage: prefix, enabled: true, builtIn: true };
 }

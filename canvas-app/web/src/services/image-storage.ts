@@ -197,9 +197,7 @@ function loadRemoteImage(storageKey: string, fallback: string) {
     return task;
 }
 
-const recoveredImages: Record<string, string> = {
-    "image:kLOu1_xfP0bfKznF31APo": "prompts/privacy-board-recovered.png",
-};
+const recoveredImages: Record<string, string> = {};
 
 export function recoveredCanvasImageUrl(storageKey?: string) {
     const file = storageKey ? recoveredImages[storageKey] : "";

@@ -58,20 +58,20 @@ export function ReplacementSettingsPanel({ settings, disabled, onChange }: { set
                     <ModelPicker config={config} value={settings.visionModel} onChange={(value) => onChange({ visionModel: value })} capability="text" fullWidth placeholder="默认同画布文本模型" onMissingConfig={() => openConfigDialog(true)} />
                 </div>
             </Field>
-            <Field label="人声听写（VoiceStudio ASR）" hint="经文件机调用局域网 VoiceStudio /v1/audio/transcriptions（默认 http://192.168.1.88:3901/v1）。未启动时会提示连接失败。">
+            <Field label="人声听写（VoiceStudio ASR）" hint="经文件机调用局域网 VoiceStudio /v1/audio/transcriptions（在后端环境变量配置地址）。未启动时会提示连接失败。">
                 <div className="flex gap-2">
                     <Input disabled={disabled} className="flex-1" value={settings.asrModel || "whisper-1"} placeholder="whisper-1" onChange={(event) => onChange({ asrModel: event.target.value })} />
                     <Input disabled={disabled} className="w-24" value={settings.asrLanguage ?? "zh"} placeholder="语言" onChange={(event) => onChange({ asrLanguage: event.target.value })} />
                 </div>
             </Field>
-            <Field label="声音克隆引擎" hint="IndexTTS 在局域网 GPU（192.168.1.88:7860）；VoiceStudio 同机（192.168.1.88:3901 /generate）。声音工作室页也可切换。">
+            <Field label="声音克隆引擎" hint="在局域网 GPU 主机上运行 IndexTTS（:7860）或 VoiceStudio（:3901）。声音工作室页也可切换。">
                 <Select
                     disabled={disabled}
                     value={settings.ttsEngine || "indextts"}
                     onChange={(value) => onChange({ ttsEngine: value })}
                     options={[
-                        { value: "indextts", label: "IndexTTS · 192.168.1.88:7860" },
-                        { value: "voicestudio", label: "VoiceStudio · 192.168.1.88:3901" },
+                        { value: "indextts", label: "IndexTTS（本地 GPU）" },
+                        { value: "voicestudio", label: "VoiceStudio（本地 GPU）" },
                     ]}
                 />
             </Field>
