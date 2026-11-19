@@ -1,9 +1,0 @@
-upstream/
-checkpoints/
-__pycache__/
-*.pyc
-.venv/
-venv/
-*.wav
-*.mp3
-*.flac

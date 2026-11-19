@@ -1,7 +1,0 @@
-{
-  "webOrigin": "",
-  "apiBaseUrl": "http://127.0.0.1:8000",
-  "cacheRoot": "D:\\LCP-Material-Cache",
-  "material_assets_root": "\\\\YOUR_NAS_HOST\\nas-file\\material-assets",
-  "nasMountRoot": "\\\\YOUR_NAS_HOST\\nas-file\\material-assets"
-}

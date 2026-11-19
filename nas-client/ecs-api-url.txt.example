@@ -1,3 +1,0 @@
-# Copy to ecs-api-url.txt (gitignored). One line: ECS FastAPI base URL (no trailing slash).
-# Switch ECS: edit ecs-api-url.txt and restart worker / download_server / heartbeat on this machine.
-http://127.0.0.1:8000

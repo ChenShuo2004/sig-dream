@@ -1,64 +1,9 @@
-# dependencies
 node_modules/
-frontend/node_modules/
-backend/.venv/
-.venv/
-nas-client/.venv/
-# env / secrets (never commit real values; keep *.example)
+dist/
 .env
 .env.*
 !.env.example
-!.env.local.example
-local-env.bat
-desktop-client/local-env.bat
-desktop-client/local.settings.json
-desktop-client/nas-smb-credentials.json
-desktop-client/build/
-desktop-client/build/github-updater-token.txt
-desktop-client/build/nas-smb-credentials.json
-nas-client/ecs-api-url.txt
-nas-client/nas-client-token.txt
-nas-client/logs/
-nas-client/certs/
-# accidental local copies that often contain real credentials
-*副本*
-*副本.*
-# Office network inventory / Wi‑Fi / router passwords — local only
-左侧.md
-**/左侧.md
-desktop-client/map-nas-z-drive.bat
-desktop-client/映射NAS-Z盘.bat
-# build/cache
-frontend/.next/
-frontend/out/
-# Windows reserved names: a real file named `NUL` breaks `git add` (e.g. mistaken `tailwindcss ... -o NUL` under frontend/)
-**/NUL
-# Local-only DB dumps from deploy-oneclick (pre-deploy / scp); do not commit
-/light-content-pre-deploy-*.sql
-# backup-ecs-database.ps1 / manual pg_dump pull (default prefix ecs-db-backup-*.sql)
-/ecs-db-backup-*.sql
-__pycache__/
-*.pyc
-*.log
-*.log.*
-*.bak
-# file-machine ONNX models, downloaded on first use by nas-client/person_pipeline.py
-/nas-client/models/
-# local test artifacts (do not deploy)
-tmp_auto_*.mp4
-tmp_*.mp4
-tmp_*.py
-tmp-*.txt
-tmp_check_*.py
-
-# proxy/VPN subscription configs, temp API query dumps, Windows shortcuts — never commit
-/[0-9]*.yaml
-clash*.yaml
-.tmp-*.json
-*.lnk
-
-# local runtime data created by the backend (canvas LAN cache etc.)
-/backend/data/
-
-# TypeScript incremental build info
 *.tsbuildinfo
+*.log
+.DS_Store
+Thumbs.db
