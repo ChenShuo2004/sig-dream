@@ -6,6 +6,8 @@ class Settings(BaseSettings):
     app_name: str = "light-content-workflow-platform"
     app_build_version: str = ""
     database_url: str = "postgresql+psycopg://postgres:postgres@localhost:5432/light_content"
+    token_secret: str = ""
+    jwt_secret: str = ""
     nas_client_token: str = "change-this-nas-client-token"
     nas_base_url: str = "http://127.0.0.1:8000"
     nas_mount_root: str = ""
@@ -37,7 +39,7 @@ class Settings(BaseSettings):
             return v.strip().lstrip("\ufeff")
         return v
 
-    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
+    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
 
 settings = Settings()

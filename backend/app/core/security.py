@@ -9,6 +9,8 @@ from dataclasses import dataclass
 from fastapi import Header, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
+from app.core.config import settings
+
 
 bearer_scheme = HTTPBearer(auto_error=False)
 
@@ -29,7 +31,9 @@ ROLE_MEMBER = "member"
 # Fallback kept for existing deployments that never set TOKEN_SECRET; rotate via env for production.
 _TOKEN_SECRET = (
     os.getenv("TOKEN_SECRET")
+    or settings.token_secret
     or os.getenv("JWT_SECRET")
+    or settings.jwt_secret
     or "light-content-workflow-secret"
 ).strip()
 

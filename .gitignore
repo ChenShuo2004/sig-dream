@@ -40,6 +40,8 @@ frontend/out/
 __pycache__/
 *.pyc
 *.log
+*.log.*
+*.bak
 # file-machine ONNX models, downloaded on first use by nas-client/person_pipeline.py
 /nas-client/models/
 # local test artifacts (do not deploy)

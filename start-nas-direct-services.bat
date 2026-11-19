@@ -173,7 +173,7 @@ if not "%NAS_CLIENT_TOKEN:"=%"=="%NAS_CLIENT_TOKEN%" (
 )
 
 echo.
-echo ==> Starting NAS worker, derivative worker, and download server...
+echo ==^> Starting NAS worker, derivative worker, and download server...
 echo     MAIN window style: %MAIN_WIN_STYLE%. Child windows: %PS_WIN_STYLE%.
 echo     Close MAIN OR press Enter there to stop ALL child workers ^(interactive only^).
 echo     Log: "%LOG_FILE%"
