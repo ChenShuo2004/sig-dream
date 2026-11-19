@@ -16,7 +16,7 @@
 [![GitHub Stars](https://img.shields.io/github/stars/ChenShuo2004/sig-dream?style=for-the-badge&color=bc7650)](https://github.com/ChenShuo2004/sig-dream/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-f3dfc7?style=for-the-badge&labelColor=f3dfc7&color=bc7650)](LICENSE)
 
-[快速开始](#-30-秒快速开始) · [核心功能](#-核心工作区) · [支持模型](#-支持的模型与渠道) · [Docker 部署](#方式二docker-一行启动) · [常见问题](#-常见问题)
+[快速开始](#-30-秒快速开始) · [核心功能](#-核心工作区) · [企业版（不开源）](#-企业版不开源) · [支持模型](#-支持的模型与渠道) · [Docker 部署](#方式二docker-一行启动) · [常见问题](#-常见问题)
 
 </div>
 
@@ -61,6 +61,32 @@
 ### 内置 1700+ 开源提示词库
 
 <img src="docs/screenshots/prompt-library.png" alt="提示词库" width="100%">
+
+---
+
+## 🏢 企业版（不开源）
+
+> [!IMPORTANT]
+> **企业版为闭源商业版本，源码不开源。** 本仓库公开的为面向个人与轻量单机场景的社区开源版（MIT License）；下方展示的团队局域网素材库、三端桌面端、多角色权限与音频翻唱工作台属于企业版能力，源码不对外开放。
+
+**从剧本到成片，全在一张画布。**<br/>
+无限画布 × 局域网素材库 × 三端桌面直拖 · `FROM SCRIPT TO FINAL CUT. ALL ON ONE CANVAS.`
+
+<img src="docs/screenshots/enterprise-promo.gif" alt="sig-dream 企业版宣传片预览：从剧本到成片，全在一张画布" width="1000">
+
+### 社区开源版 vs. 企业版（不开源）
+
+| 能力维度 | 社区开源版（本仓库 · MIT） | 企业版（闭源 · 不开源） |
+| --- | --- | --- |
+| 源码与授权 | MIT 开源，单机 30 秒启动 | 闭源商业授权，源码不开源 |
+| 无限画布与工作室 | 无限画布、生图/改图/视频、1700+ 提示词库、剧本/复刻/替换工作室 | 包含社区版全部能力 + 团队画布共享与全流程分组生产编排 |
+| 局域网素材库与文件机 | 浏览器本地 IndexedDB 存储 | PostgreSQL 元数据 + 局域网文件机（NAS 直传、自动缩略图与 H.264 预览，原片不出内网） |
+| 三端桌面客户端 | 浏览器访问 | Windows / macOS / Linux 原生桌面端，团队素材直接拖进剪辑软件 |
+| 团队权限与审计 | 无需登录（单人使用） | 双素材库域隔离、4 种角色 / 30 项精细权限点、全量操作审计日志 |
+| 声音克隆与改词翻唱 | — | 集成局域网 GPU 推理（Seed-VC 零样本换音色 + SVS 改词翻唱与 A/B 对比） |
+| 部署与支持 | 社区 Issue 交流 | 企业内网私有化部署、多机节点接入与专属技术支持 |
+
+如需企业版完整高清演示、内网私有化部署或商业授权咨询，请联系作者 [@ChenshuoAI](https://x.com/ChenshuoAI)。
 
 ---
 

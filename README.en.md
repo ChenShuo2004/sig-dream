@@ -16,7 +16,7 @@ No PostgreSQL, no login server — add your API key and start creating in 30 sec
 [![GitHub Stars](https://img.shields.io/github/stars/ChenShuo2004/sig-dream?style=for-the-badge&color=bc7650)](https://github.com/ChenShuo2004/sig-dream/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-f3dfc7?style=for-the-badge&labelColor=f3dfc7&color=bc7650)](LICENSE)
 
-[Quick Start](#-30-second-quick-start) · [Workspaces](#-workspaces) · [Providers](#-supported-models--providers) · [Docker](#option-2-docker-one-liner) · [FAQ](#-faq)
+[Quick Start](#-30-second-quick-start) · [Workspaces](#-workspaces) · [Enterprise (Closed-Source)](#-enterprise-edition-closed-source) · [Providers](#-supported-models--providers) · [Docker](#option-2-docker-one-liner) · [FAQ](#-faq)
 
 </div>
 
@@ -59,6 +59,32 @@ No PostgreSQL, no login server — add your API key and start creating in 30 sec
 ### Built-in 1,700+ Prompt Library
 
 <img src="docs/screenshots/prompt-library.png" alt="Prompt Library" width="100%">
+
+---
+
+## 🏢 Enterprise Edition (Closed-Source)
+
+> [!IMPORTANT]
+> **The Enterprise Edition is closed-source and not open-sourced.** This repository contains the MIT-licensed, zero-database Community Edition for local single-user creation. The LAN asset hub, cross-platform desktop client, RBAC permissions, and voice/cover studio shown below belong to the commercial Enterprise Edition.
+
+**From Script to Final Cut. All on One Canvas.**<br/>
+Infinite Canvas × LAN Asset Library × Cross-Platform Desktop Drag-to-Edit
+
+<img src="docs/screenshots/enterprise-promo.gif" alt="sig-dream Enterprise promo preview: From Script to Final Cut. All on One Canvas." width="1000">
+
+### Community Edition vs. Enterprise Edition
+
+| Feature | Community Edition (This Repo · MIT) | Enterprise Edition (Closed-Source) |
+| --- | --- | --- |
+| License | MIT open source, 30-second local launch | Commercial closed-source license (source not public) |
+| Canvas & Studios | Infinite canvas, image/video gen, 1,700+ prompts, Script/Replication/Replacement studios | Everything in Community + shared team canvases & full-pipeline production orchestration |
+| LAN Asset Hub & NAS | Browser IndexedDB local storage | PostgreSQL metadata + LAN file machine (NAS direct transfer, auto thumbnails & H.264 previews; originals stay on LAN) |
+| Desktop Client | Browser only | Native Windows / macOS / Linux desktop client with direct drag-to-NLE editing |
+| Permissions & Audit | No login required (single user) | Dual isolated libraries, 4 roles / 30 granular permissions, full operation audit logs |
+| Voice & Cover Studio | — | Local GPU inference (Seed-VC zero-shot timbre conversion + SVS lyric-rewrite cover & A/B compare) |
+| Deployment & Support | GitHub Issues community | Private on-premise LAN deployment, multi-node setup & dedicated commercial support |
+
+For full-HD demos, private LAN deployment, or commercial licensing, reach out to [@ChenshuoAI](https://x.com/ChenshuoAI) on X.
 
 ---
 
