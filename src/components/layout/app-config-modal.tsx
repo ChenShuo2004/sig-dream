@@ -10,7 +10,7 @@ import { ConfigLocalProxy } from "@/components/layout/config-local-proxy";
 import { ConfigPromptSources } from "@/components/layout/config-prompt-sources";
 import { ConfigLocalStorage } from "@/components/layout/config-local-storage";
 import type { AppLocale } from "@/i18n";
-import { saveCanvasChannels } from "@/services/api/canvas-channels";
+import { platformRole, saveCanvasChannels } from "@/services/api/canvas-channels";
 import { exportAppConfig, importAppConfig } from "@/services/config-file";
 import { syncAppDataToWebdav, type AppSyncDomainKey, type AppSyncProgressEvent } from "@/services/app-sync";
 import { testWebdavConnection, WEBDAV_MANIFEST_FILE_NAME } from "@/services/webdav-sync";
@@ -41,14 +41,7 @@ const modelGroups: ModelGroup[] = [
 const webdavDomainKeys: AppSyncDomainKey[] = ["canvas", "assets", "image-workbench", "video-workbench"];
 
 function readPlatformRole(): string {
-    try {
-        const raw = window.localStorage.getItem("lcp_auth_session");
-        if (!raw) return "";
-        const parsed = JSON.parse(raw) as { role?: unknown };
-        return typeof parsed.role === "string" ? parsed.role : "";
-    } catch {
-        return "";
-    }
+    return platformRole();
 }
 function createWebdavDomainProgress(): Record<AppSyncDomainKey, WebdavDomainProgress> {
     return webdavDomainKeys.reduce(

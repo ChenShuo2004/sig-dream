@@ -325,21 +325,13 @@ export const useConfigStore = create<ConfigStore>()(
                 })),
             isAiConfigReady: (config, model) => isAiConfigReady(config, model),
             apiConfigNotice: "",
-            openConfigDialog: () => {
-                let role = "";
-                try {
-                    const raw = window.localStorage.getItem("lcp_auth_session");
-                    const parsed = raw ? (JSON.parse(raw) as { role?: unknown }) : null;
-                    role = typeof parsed?.role === "string" ? parsed.role : "";
-                } catch {
-                    role = "";
-                }
-                if (role === "super_admin") {
-                    const host = window.top && window.top !== window ? window.top : window;
-                    host.location.assign("/settings/api");
-                    return;
-                }
-                set({ apiConfigNotice: i18n.t("config.sharedApiMissing") });
+            openConfigDialog: (shouldPromptContinue = false, tab = "channels") => {
+                set({
+                    isConfigOpen: true,
+                    shouldPromptContinue: Boolean(shouldPromptContinue),
+                    configTab: tab,
+                    apiConfigNotice: "",
+                });
             },
             setConfigDialogOpen: (isConfigOpen) => set({ isConfigOpen }),
             clearPromptContinue: () => set({ shouldPromptContinue: false }),

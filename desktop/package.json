@@ -1,0 +1,27 @@
+{
+  "name": "sig-dream-desktop",
+  "version": "0.3.0",
+  "description": "sig-dream · Zero-database, local-first AI infinite canvas & creative studio desktop app",
+  "private": true,
+  "type": "module",
+  "main": "electron/main.mjs",
+  "author": {
+    "name": "ChenShuo2004",
+    "email": "220584709+ChenShuo2004@users.noreply.github.com"
+  },
+  "homepage": "https://github.com/ChenShuo2004/sig-dream",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChenShuo2004/sig-dream.git"
+  },
+  "scripts": {
+    "start": "electron .",
+    "dist:mac": "electron-builder --mac --x64 --arm64 --config electron-builder.yml --publish never",
+    "dist:win": "electron-builder --win --x64 --config electron-builder.yml --publish never",
+    "dist:linux": "electron-builder --linux --x64 --config electron-builder.yml --publish never"
+  },
+  "devDependencies": {
+    "electron": "^35.1.5",
+    "electron-builder": "^25.1.8"
+  }
+}

@@ -1,17 +1,20 @@
 <div align="center">
 
+<img src="desktop/assets/icon.png" alt="sig-dream logo" width="84" height="84" />
+
 # sig-dream · sig 캔버스
 
-**데이터베이스 없이 30초 만에 실행하는 로컬 우선 오픈소스 AI 무한 캔버스 & 영상 스튜디오**
+**데이터베이스 없이 바로 실행하는 로컬 우선 오픈소스 AI 무한 캔버스 & 영상 스튜디오**
 
-AI 이미지 생성, 다중 참조 편집, 영상 생성, 1,700+ 프롬프트 라이브러리, Canvas Agent를 하나의 무한 캔버스에 통합하고 **대본 / 복제 / 교체** 스튜디오를 내장했습니다.  
-PostgreSQL이나 로그인 없이 API 키만 입력하면 바로 시작할 수 있습니다.
+AI 이미지 생성, 다중 참조 편집, 영상 생성, 1,700+ 프롬프트 라이브러리, Canvas Agent를 하나의 무한 캔버스에 통합하고 **대본 / 복제 / 교체** 3대 스튜디오를 내장했습니다.  
+PostgreSQL이나 로그인 없이 데스크톱 앱 또는 포터블 패키지를 실행하고 API 키만 입력하면 30초 만에 시작할 수 있습니다.
 
 [![中文](https://img.shields.io/badge/%E4%B8%AD%E6%96%87-8d4d2e?style=for-the-badge)](README.md)
 [![English](https://img.shields.io/badge/English-1f6feb?style=for-the-badge&logo=readme&logoColor=white)](README.en.md)
 [![日本語](https://img.shields.io/badge/%E6%97%A5%E6%9C%AC%E8%AA%9E-f3dfc7?style=for-the-badge&labelColor=f3dfc7&color=bc7650)](README.ja.md)
 [![한국어](https://img.shields.io/badge/%ED%95%9C%EA%B5%AD%EC%96%B4-f3dfc7?style=for-the-badge&labelColor=f3dfc7&color=bc7650)](README.ko.md)
 
+[![Latest Release](https://img.shields.io/github/v/release/ChenShuo2004/sig-dream?style=for-the-badge&color=8d4d2e&label=Release)](https://github.com/ChenShuo2004/sig-dream/releases/latest)
 [![GitHub Stars](https://img.shields.io/github/stars/ChenShuo2004/sig-dream?style=for-the-badge&color=bc7650)](https://github.com/ChenShuo2004/sig-dream/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-f3dfc7?style=for-the-badge&labelColor=f3dfc7&color=bc7650)](LICENSE)
 
@@ -21,32 +24,49 @@ PostgreSQL이나 로그인 없이 API 키만 입력하면 바로 시작할 수 �
 
 <img src="docs/screenshots/canvas-board.png" alt="sig 캔버스" width="100%">
 
-## 주요 기능
+## 다운로드 & 빠른 시작
 
-- **무한 캔버스 (`/canvas`)**: 이미지·영상·텍스트 노드 연결, 그룹 참조, 마스크 편집, Canvas Agent 협업.
-- **3대 스튜디오 (`/studio/*`)**: 대본 스튜디오(캐릭터/배경/스토리보드 생성), 복제 스튜디오, 교체 스튜디오.
-- **1,700+ 프롬프트 & 로컬 자산 (`/prompts`, `/assets`)**: 모든 데이터와 API 키는 브라우저 IndexedDB / LocalStorage에 저장되며 내보내기/가져오기를 지원합니다.
-- **내장 로컬 CORS 프록시 ([`server/proxy.mjs`](server/proxy.mjs))**: OpenAI / Gemini / DeepSeek / Volcengine / RunningHub 등을 별도 백엔드 없이 바로 호출할 수 있습니다.
+### 1. 데스크톱 앱 다운로드 (추천 · Node.js 불필요)
 
-## 30초 빠른 시작
+[**GitHub Releases 최신 버전**](https://github.com/ChenShuo2004/sig-dream/releases/latest) 에서 운영체제에 맞는 설치 파일을 받아 바로 실행하세요:
 
-### Node.js (Node 20+)
+- **macOS**: `sig-dream-*-mac-arm64.dmg` (Apple Silicon) / `sig-dream-*-mac-x64.dmg` (Intel)
+- **Windows**: `sig-dream-*-win-x64-setup.exe` / `sig-dream-*-win-x64.zip`
+- **Linux**: `sig-dream-*-linux-x64.AppImage` / `.deb`
+
+> [!TIP]
+> 커뮤니티 설치 파일은 코드 서명이 되어 있지 않습니다. 첫 실행 시 경고가 표시되면 macOS에서는 `xattr -cr /Applications/sig-dream.app`, Windows에서는「추가 정보」→「실행」을 선택하세요.
+
+### 2. 웹 포터블 패키지 (`npm install` 불필요 · Node.js 20+)
+
+Releases에서 `sig-dream-*-web-portable.zip`을 받아 압축을 풀고 실행 스크립트(`启动-macOS.command` / `启动-Windows.bat` / `./start.sh`)를 실행하세요.
+
+### 3. Docker Compose / 소스 실행
 
 ```bash
 git clone https://github.com/ChenShuo2004/sig-dream.git
 cd sig-dream
-npm install --legacy-peer-deps
+
+# Docker Compose
+docker compose up -d
+
+# 또는 Node.js 20+ 개발 실행
+npm install
 npm run dev
 ```
 
-[http://localhost:3000](http://localhost:3000) 을 열고 우측 상단 설정에서 모델 채널(Base URL + API Key)을 입력하세요.
+[http://localhost:3000](http://localhost:3000) 을 열고 우측 상단 **⚙️ 설정**에서 모델 채널(Base URL + API Key)을 입력하세요.
 
-### Docker
+## 주요 기능
 
-```bash
-docker build -t sig-dream .
-docker run -d --name sig-dream -p 3000:3000 sig-dream
-```
+- **무한 캔버스 (`/canvas`)**: 이미지·영상·텍스트 노드 연결, 그룹 참조, 마스크 편집, Canvas Agent 협업.
+- **3대 스튜디오 (`/studio/*`)**: 대본 스튜디오(캐릭터/배경/스토리보드 생성), 복제 스튜디오, 교체 스튜디오.
+- **1,700+ 프롬프트 & 로컬 자산 (`/prompts`, `/assets`)**: 모든 데이터와 API 키는 로컬 IndexedDB / LocalStorage에 저장되며 JSON 내보내기/가져오기 및 WebDAV 동기화를 지원합니다.
+- **내장 로컬 CORS 프록시 ([`server/proxy.mjs`](server/proxy.mjs))**: OpenAI 호환 / Gemini / DeepSeek / Volcengine (Seedance 2.0) / RunningHub 등을 별도 백엔드 없이 바로 호출할 수 있습니다.
+
+## 엔터프라이즈 에디션 (비공개 상용)
+
+이 저장소는 개인 및 로컬 워크플로우용 MIT 오픈소스 커뮤니티 에디션입니다. 팀용 LAN NAS 자산 허브, 역할 기반 권한 및 감사 로그, 음성 클로닝/커버 스튜디오는 비공개 상용 엔터프라이즈 에디션에 포함됩니다. 자세한 내용은 [README.en.md](README.en.md) 또는 [@ChenshuoAI](https://x.com/ChenshuoAI) 를 참고하세요.
 
 ## 라이선스
 

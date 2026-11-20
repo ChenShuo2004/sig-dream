@@ -1,0 +1,73 @@
+appId: com.chenshuo.sigdream
+productName: sig-dream
+copyright: Copyright © 2026 ChenShuo2004 and sig-dream contributors
+
+directories:
+  output: release
+  buildResources: assets
+
+files:
+  - electron/**/*
+  - package.json
+  - "!**/*.map"
+
+extraResources:
+  - from: ../dist
+    to: app-runtime/dist
+  - from: ../server
+    to: app-runtime/server
+
+asar: true
+
+win:
+  icon: assets/icon.png
+  signAndEditExecutable: false
+  target:
+    - target: nsis
+      arch:
+        - x64
+    - target: zip
+      arch:
+        - x64
+  artifactName: sig-dream-${version}-win-${arch}.${ext}
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  shortcutName: ${productName}
+  artifactName: sig-dream-${version}-win-${arch}-setup.${ext}
+
+mac:
+  icon: assets/icon.png
+  category: public.app-category.graphics-design
+  hardenedRuntime: false
+  gatekeeperAssess: false
+  target:
+    - target: dmg
+      arch:
+        - arm64
+        - x64
+    - target: zip
+      arch:
+        - arm64
+        - x64
+  artifactName: sig-dream-${version}-mac-${arch}.${ext}
+
+dmg:
+  title: ${productName} ${version}
+
+linux:
+  icon: assets/icon.png
+  category: Graphics
+  synopsis: Open-source local-first AI infinite canvas & creative studio
+  maintainer: ChenShuo2004 <220584709+ChenShuo2004@users.noreply.github.com>
+  target:
+    - target: AppImage
+      arch:
+        - x64
+    - target: deb
+      arch:
+        - x64
+  artifactName: sig-dream-${version}-linux-${arch}.${ext}

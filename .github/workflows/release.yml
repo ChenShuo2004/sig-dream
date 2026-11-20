@@ -1,0 +1,179 @@
+name: Release
+
+# 推送 v* 标签（版本号需与 package.json / VERSION / desktop/package.json 一致）时自动构建：
+# 1. 开箱即用 Web 便携包（免 npm install，解压双击即用）
+# 2. macOS (arm64/x64) / Windows (x64) / Linux (x64) 社区版原生桌面安装包
+# 并自动发布到 GitHub Releases（设为 Latest）。
+# 手动触发（workflow_dispatch）时只构建产物并上传到本次运行的 Artifacts。
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify-and-portable:
+    name: Web Portable & Checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Verify version consistency
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: bash
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          root_pkg="$(node -p "require('./package.json').version")"
+          desktop_pkg="$(node -p "require('./desktop/package.json').version")"
+          version_file="$(tr -d '[:space:]' < VERSION)"
+          if [ "$tag" != "$root_pkg" ] || [ "$tag" != "$desktop_pkg" ] || [ "v$tag" != "$version_file" ]; then
+            echo "::error::Version mismatch: tag=v$tag, package.json=$root_pkg, desktop/package.json=$desktop_pkg, VERSION=$version_file"
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build web app & portable package
+        run: npm run build:portable
+
+      - name: Upload portable artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: sig-dream-web-portable
+          path: |
+            release/sig-dream-*-web-portable.zip
+            release/sig-dream-*-web-portable.tar.gz
+          if-no-files-found: error
+          retention-days: 14
+
+  desktop:
+    name: Desktop (${{ matrix.name }})
+    needs: verify-and-portable
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: macOS
+            os: macos-latest
+            script: dist:mac
+          - name: Windows
+            os: windows-latest
+            script: dist:win
+          - name: Linux
+            os: ubuntu-latest
+            script: dist:linux
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install root dependencies & build web bundle
+        run: |
+          npm ci
+          npm run build
+
+      - name: Install desktop dependencies
+        working-directory: desktop
+        run: npm ci
+        env:
+          npm_config_electron_mirror: ""
+
+      - name: Package desktop installer (${{ matrix.name }})
+        working-directory: desktop
+        run: npm run ${{ matrix.script }}
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+          npm_config_electron_mirror: ""
+
+      - name: Upload desktop artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: sig-dream-desktop-${{ matrix.name }}
+          path: |
+            desktop/release/*.exe
+            desktop/release/*.dmg
+            desktop/release/*.zip
+            desktop/release/*.AppImage
+            desktop/release/*.deb
+          if-no-files-found: error
+          retention-days: 14
+
+  publish:
+    name: Publish GitHub Release
+    needs:
+      - verify-and-portable
+      - desktop
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+          merge-multiple: true
+
+      - name: Generate release notes
+        shell: bash
+        run: |
+          cat <<'EOF' > release-notes.md
+          ## sig-dream ${{ github.ref_name }} · 开箱即用社区开源版
+
+          > 零数据库、本地优先的 AI 无限画布与视频创作工作室（内置 **无限画布 / 剧本工作室 / 复刻工作室 / 替换工作室 / 1700+ 提示词库**）。
+          > 本版本已完全替代旧架构 `v0.2.0`，无需 PostgreSQL、Redis 或登录服务，所有画布工程与 API Key 均保存在本地。
+
+          ### 📦 下载选择指南
+
+          | 平台 / 使用方式 | 推荐下载文件 | 说明 |
+          | --- | --- | --- |
+          | **macOS（Apple Silicon M1–M4）** | `sig-dream-*-mac-arm64.dmg` | 独立桌面版，无需安装 Node.js，打开即用 |
+          | **macOS（Intel 芯片）** | `sig-dream-*-mac-x64.dmg` | 独立桌面版，无需安装 Node.js，打开即用 |
+          | **Windows（x64）** | `sig-dream-*-win-x64-setup.exe` 或 `sig-dream-*-win-x64.zip` | 安装版或免安装便携版，无需 Node.js |
+          | **Linux（x64）** | `sig-dream-*-linux-x64.AppImage` 或 `.deb` | 独立桌面版 |
+          | **Web 开箱即用便携包（跨平台）** | `sig-dream-*-web-portable.zip` / `.tar.gz` | 免 `npm install`，仅需 Node.js 20+，解压双击脚本自动起服务并打开浏览器 |
+
+          ### ⚠️ 首次打开提示（未签名安装包）
+
+          开源社区版安装包目前未购买付费代码签名证书，首次打开时系统可能弹出安全提示：
+          - **macOS**：若提示「已损坏」或「无法验证开发者」，请右键点击应用选「打开」，或在终端执行：`xattr -cr /Applications/sig-dream.app`
+          - **Windows**：若 SmartScreen 提示保护电脑，点击「更多信息」→「仍要运行」即可。
+
+          ### 🚀 三步上手
+
+          1. 启动应用（桌面端直接打开；Web 便携包双击对应系统启动脚本）。
+          2. 点击右上角 **⚙️ 模型渠道与设置**，填入任意 OpenAI 兼容 / Gemini / DeepSeek / 火山引擎 Seedance / RunningHub 渠道与 API Key。
+          3. 从首页直接进入 **无限画布** 或 **剧本 / 复刻 / 替换工作室** 开始创作。
+          EOF
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ls -lh release-assets
+          if gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" release-assets/* --clobber --repo "$GITHUB_REPOSITORY"
+            gh release edit "$GITHUB_REF_NAME" --latest --notes-file release-notes.md --title "sig-dream $GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY"
+          else
+            gh release create "$GITHUB_REF_NAME" release-assets/* \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "sig-dream $GITHUB_REF_NAME" \
+              --notes-file release-notes.md \
+              --latest
+          fi

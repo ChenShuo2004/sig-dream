@@ -9,6 +9,8 @@
         "typecheck": "tsc --noEmit",
         "test": "bun test",
         "start": "node server/index.mjs",
+        "start:open": "node server/index.mjs --open",
+        "build:portable": "npm run build && node scripts/build-portable.mjs",
         "preview": "vite preview --host 0.0.0.0 --port 3000",
         "format": "prettier --write .",
         "format:check": "prettier --check ."

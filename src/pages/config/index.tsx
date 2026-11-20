@@ -5,17 +5,7 @@ import { useTranslation } from "react-i18next";
 import { AppConfigPanel } from "@/components/layout/app-config-modal";
 import { ApiCallLogPanel } from "@/pages/config/api-call-log-panel";
 import { SongAssistantLlmPanel } from "@/pages/config/song-assistant-llm-panel";
-
-function platformRole(): string {
-    try {
-        const raw = window.localStorage.getItem("lcp_auth_session");
-        if (!raw) return "";
-        const parsed = JSON.parse(raw) as { role?: unknown };
-        return typeof parsed.role === "string" ? parsed.role : "";
-    } catch {
-        return "";
-    }
-}
+import { platformRole } from "@/services/api/canvas-channels";
 
 export default function ConfigPage() {
     const { t } = useTranslation();
