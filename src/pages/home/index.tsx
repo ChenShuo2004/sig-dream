@@ -92,7 +92,7 @@ export default function IndexPage() {
                 <section className="relative flex flex-col items-center text-center">
                     <div className="inline-flex items-center gap-2 rounded-full border border-stone-200/90 bg-white/80 px-3.5 py-1 text-xs font-medium text-stone-700 shadow-xs backdrop-blur dark:border-stone-800 dark:bg-stone-900/80 dark:text-stone-300">
                         <span
-                            className="size-3.5 shrink-0 bg-[#bc7650]"
+                            className="size-3.5 shrink-0 bg-stone-950 dark:bg-white"
                             style={{
                                 mask: `url(${import.meta.env.BASE_URL}logo.svg) center / contain no-repeat`,
                                 WebkitMask: `url(${import.meta.env.BASE_URL}logo.svg) center / contain no-repeat`,

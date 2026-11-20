@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v0.3.1 - 2026-11-20
+
++ [优化] 全面更新品牌图标与桌面客户端图标、网页 Favicon 为黑白相间高对比极简风格。
++ [修复] 修复跨平台 CI（Linux / Windows / macOS）与 Docker 构建时原生依赖解析问题，确保三端桌面安装包与 Web 便携包正常自动构建发布。
+
 ## v0.3.0 - 2026-11-19
 
 + [新增] 全面重构为零数据库、本地优先架构：无需 PostgreSQL、Redis 或登录服务，数据与 API Key 全部保存在浏览器本地 IndexedDB / LocalStorage，支持 JSON 导入导出与 WebDAV 同步。
