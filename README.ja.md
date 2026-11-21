@@ -57,6 +57,22 @@ npm run dev
 
 起動後、[http://localhost:3000](http://localhost:3000) を開き、右上の **⚙️ 設定** からモデルチャネル（Base URL と API Key）を登録してご利用ください。
 
+## 機能デモ動画
+
+以下のデモはオープンソース版の実画面からレンダリングされています（クリックすると `1080p` MP4 を開きます）：
+
+| 01 · 初期設定＆マルチプロバイダー | 02 · 無限キャンバス編成 |
+| --- | --- |
+| [![01](docs/demos/01-overview-and-config.gif)](docs/demos/01-overview-and-config.mp4) | [![02](docs/demos/02-infinite-canvas.gif)](docs/demos/02-infinite-canvas.mp4) |
+
+| 03 · 脚本スタジオ | 04 · リメイク＆差し替えスタジオ |
+| --- | --- |
+| [![03](docs/demos/03-script-studio.gif)](docs/demos/03-script-studio.mp4) | [![04](docs/demos/04-replication-and-replacement.gif)](docs/demos/04-replication-and-replacement.mp4) |
+
+| 05 · 1,700+ プロンプト集＆ローカルアセット | ノード参照編集 |
+| --- | --- |
+| [![05](docs/demos/05-prompts-and-assets.gif)](docs/demos/05-prompts-and-assets.mp4) | ![](docs/screenshots/canvas-edit.png) |
+
 ## 主な機能
 
 - **無限キャンバス（`/canvas`）**：画像・動画・テキストノードの接続、グループ参照、マスク編集、Canvas Agent 連携。

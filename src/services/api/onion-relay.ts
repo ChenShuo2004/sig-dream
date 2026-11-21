@@ -88,7 +88,7 @@ export async function fetchOnionModels(apiKey = ""): Promise<OnionModelProfile[]
     })) as { data?: unknown };
     const rows = Array.isArray(payload.data) ? payload.data : [];
     return rows
-        .map((item) => {
+        .map((item): OnionModelProfile | null => {
             if (!item || typeof item !== "object") return null;
             const row = item as Record<string, unknown>;
             const id = typeof row.id === "string" && row.id.trim() ? row.id.trim() : typeof row.model === "string" ? row.model.trim() : "";
@@ -108,7 +108,7 @@ export async function fetchOnionModels(apiKey = ""): Promise<OnionModelProfile[]
                 maxAudios: optionalCount(row.max_audios),
             };
         })
-        .filter((item): item is OnionModelProfile => Boolean(item));
+        .filter((item): item is OnionModelProfile => item !== null);
 }
 
 export async function fetchOnionModelNames(apiKey = "") {

@@ -1,6 +1,6 @@
 {
   "name": "sig-dream-desktop",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "sig-dream · Zero-database, local-first AI infinite canvas & creative studio desktop app",
   "private": true,
   "type": "module",
@@ -15,8 +15,11 @@
     "url": "https://github.com/ChenShuo2004/sig-dream.git"
   },
   "scripts": {
-    "start": "electron .",
+    "start": "node -e \"delete process.env.ELECTRON_RUN_AS_NODE; import('node:child_process').then(async ({ spawn }) => { const { default: electronPath } = await import('electron'); spawn(electronPath, ['.'], { stdio: 'inherit', env: process.env }).on('exit', (c) => process.exit(c ?? 0)); })\"",
+    "pack:dir": "electron-builder --dir --config electron-builder.yml --publish never",
     "dist:mac": "electron-builder --mac --x64 --arm64 --config electron-builder.yml --publish never",
+    "dist:mac:arm64": "electron-builder --mac --arm64 --config electron-builder.yml --publish never",
+    "dist:mac:x64": "electron-builder --mac --x64 --config electron-builder.yml --publish never",
     "dist:win": "electron-builder --win --x64 --config electron-builder.yml --publish never",
     "dist:linux": "electron-builder --linux --x64 --config electron-builder.yml --publish never"
   },

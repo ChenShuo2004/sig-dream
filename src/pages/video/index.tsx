@@ -1180,6 +1180,7 @@ function normalizeLogConfig(log: Partial<GenerationLog>): GenerationLogConfig {
         videoWatermark: log.config?.videoWatermark || "false",
         videoMode: log.config?.videoMode === "reference" ? "reference" : "frames",
         runningHubInstanceType: log.config?.runningHubInstanceType || "default",
+        h3DeOilStrength: log.config?.h3DeOilStrength || "",
     };
 }
 

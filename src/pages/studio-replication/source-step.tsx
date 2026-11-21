@@ -45,7 +45,7 @@ export function SourceStep({ document, runner }: { document: ReplicationStudioDo
                     <span className="text-sm font-medium">上传要复刻的原片</span>
                     <span className="text-xs">支持 mp4 / mov / mkv / webm，最大 500MB；超过 180 秒只处理前 180 秒</span>
                 </button>
-                <p className="max-w-xl text-center text-xs leading-5 text-stone-400">原片上传到文件机后自动转码、提取音轨并按切镜截取每个镜头的首帧，结果保存在本机浏览器中。</p>
+                <p className="max-w-xl text-center text-xs leading-5 text-stone-400">导入原片后自动转码、提取音轨并按切镜截取每个镜头的首帧，结果保存在本机浏览器中。</p>
             </div>
         );
     }
@@ -89,7 +89,7 @@ export function SourceStep({ document, runner }: { document: ReplicationStudioDo
                     </div>
                 </div>
             ) : source.status !== "failed" ? (
-                <Empty className="mt-16" description="文件机处理完成后在这里显示镜头" />
+                <Empty className="mt-16" description="原片处理完成后在这里显示镜头" />
             ) : null}
         </div>
     );

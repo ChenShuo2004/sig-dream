@@ -1,14 +1,68 @@
-import { existsSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { app, BrowserWindow, dialog, Menu, shell } from "electron";
+import { app, BrowserWindow, clipboard, dialog, Menu, screen, shell } from "electron";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PREFERRED_PORT = Number(process.env.SIG_DREAM_PORT || 28430);
+const REPO_URL = "https://github.com/ChenShuo2004/sig-dream";
+const RELEASES_URL = `${REPO_URL}/releases/latest`;
 
 let mainWindow = null;
 let localServer = null;
 let appUrl = "";
+let shuttingDown = false;
+
+function windowStatePath() {
+    return join(app.getPath("userData"), "window-state.json");
+}
+
+function loadWindowState() {
+    const defaults = { width: 1440, height: 900, isMaximized: false };
+    try {
+        const file = windowStatePath();
+        if (!existsSync(file)) return defaults;
+        const parsed = JSON.parse(readFileSync(file, "utf8"));
+        const width = Number.isFinite(parsed.width) && parsed.width >= 1024 ? parsed.width : defaults.width;
+        const height = Number.isFinite(parsed.height) && parsed.height >= 680 ? parsed.height : defaults.height;
+        const state = { width, height, isMaximized: Boolean(parsed.isMaximized) };
+        if (Number.isFinite(parsed.x) && Number.isFinite(parsed.y)) {
+            const visible = screen.getAllDisplays().some((display) => {
+                const area = display.workArea;
+                return (
+                    parsed.x >= area.x - width + 120 &&
+                    parsed.x <= area.x + area.width - 120 &&
+                    parsed.y >= area.y - 40 &&
+                    parsed.y <= area.y + area.height - 80
+                );
+            });
+            if (visible) {
+                state.x = parsed.x;
+                state.y = parsed.y;
+            }
+        }
+        return state;
+    } catch {
+        return defaults;
+    }
+}
+
+function saveWindowState(win) {
+    if (!win || win.isDestroyed()) return;
+    try {
+        const isMaximized = win.isMaximized();
+        const bounds = isMaximized ? win.getNormalBounds() : win.getBounds();
+        const dir = dirname(windowStatePath());
+        mkdirSync(dir, { recursive: true });
+        writeFileSync(
+            windowStatePath(),
+            JSON.stringify({ ...bounds, isMaximized }, null, 2),
+            "utf8",
+        );
+    } catch {
+        // Ignore non-critical window state write errors.
+    }
+}
 
 function resolveRuntimePaths() {
     if (app.isPackaged) {
@@ -35,15 +89,28 @@ function isLocalOrigin(targetUrl) {
     }
 }
 
+function isZhLocale() {
+    try {
+        return (app.getLocale() || "").toLowerCase().startsWith("zh");
+    } catch {
+        return true;
+    }
+}
+
 function buildMenu() {
     const isMac = process.platform === "darwin";
+    const zh = isZhLocale();
     const template = [
         ...(isMac
             ? [
                   {
                       label: app.name,
                       submenu: [
-                          { role: "about" },
+                          { role: "about", label: zh ? `关于 ${app.name}` : `About ${app.name}` },
+                          {
+                              label: zh ? "检查最新版本…" : "Check for Updates…",
+                              click: () => void shell.openExternal(RELEASES_URL),
+                          },
                           { type: "separator" },
                           { role: "services" },
                           { type: "separator" },
@@ -51,26 +118,37 @@ function buildMenu() {
                           { role: "hideOthers" },
                           { role: "unhide" },
                           { type: "separator" },
-                          { role: "quit" },
+                          { role: "quit", label: zh ? `退出 ${app.name}` : `Quit ${app.name}` },
                       ],
                   },
               ]
             : []),
         {
-            label: "File",
+            label: zh ? "文件" : "File",
             submenu: [
                 {
-                    label: "Open in System Browser",
+                    label: zh ? "在系统浏览器中打开" : "Open in System Browser",
+                    accelerator: "CmdOrCtrl+Shift+O",
                     click: () => {
                         if (appUrl) void shell.openExternal(appUrl);
                     },
                 },
+                {
+                    label: zh ? "复制本地服务地址" : "Copy Local Server URL",
+                    click: () => {
+                        if (appUrl) clipboard.writeText(appUrl);
+                    },
+                },
+                {
+                    label: zh ? "打开本地数据目录" : "Open App Data Folder",
+                    click: () => void shell.openPath(app.getPath("userData")),
+                },
                 { type: "separator" },
-                isMac ? { role: "close" } : { role: "quit" },
+                isMac ? { role: "close", label: zh ? "关闭窗口" : "Close Window" } : { role: "quit", label: zh ? "退出" : "Quit" },
             ],
         },
         {
-            label: "Edit",
+            label: zh ? "编辑" : "Edit",
             submenu: [
                 { role: "undo" },
                 { role: "redo" },
@@ -84,7 +162,7 @@ function buildMenu() {
             ],
         },
         {
-            label: "View",
+            label: zh ? "视图" : "View",
             submenu: [
                 { role: "reload" },
                 { role: "forceReload" },
@@ -98,21 +176,25 @@ function buildMenu() {
             ],
         },
         {
-            label: "Window",
+            label: zh ? "窗口" : "Window",
             submenu: isMac
                 ? [{ role: "minimize" }, { role: "zoom" }, { type: "separator" }, { role: "front" }]
                 : [{ role: "minimize" }, { role: "close" }],
         },
         {
-            label: "Help",
+            label: zh ? "帮助" : "Help",
             submenu: [
                 {
-                    label: "sig-dream on GitHub",
-                    click: () => void shell.openExternal("https://github.com/ChenShuo2004/sig-dream"),
+                    label: zh ? "GitHub 开源仓库" : "sig-dream on GitHub",
+                    click: () => void shell.openExternal(REPO_URL),
                 },
                 {
-                    label: "Releases",
-                    click: () => void shell.openExternal("https://github.com/ChenShuo2004/sig-dream/releases"),
+                    label: zh ? "下载最新版本 (Releases)" : "Latest Releases",
+                    click: () => void shell.openExternal(RELEASES_URL),
+                },
+                {
+                    label: zh ? "反馈问题 (Issues)" : "Report an Issue",
+                    click: () => void shell.openExternal(`${REPO_URL}/issues`),
                 },
             ],
         },
@@ -122,11 +204,23 @@ function buildMenu() {
 
 function createWindow() {
     const iconPath = resolve(__dirname, "../assets/icon.png");
+    const saved = loadWindowState();
+
+    if (process.platform === "darwin" && existsSync(iconPath) && app.dock) {
+        try {
+            app.dock.setIcon(iconPath);
+        } catch {
+            // Ignore dock icon errors in headless/CI environments.
+        }
+    }
+
     mainWindow = new BrowserWindow({
-        width: 1440,
-        height: 900,
+        width: saved.width,
+        height: saved.height,
+        ...(Number.isFinite(saved.x) && Number.isFinite(saved.y) ? { x: saved.x, y: saved.y } : {}),
         minWidth: 1024,
         minHeight: 680,
+        show: false,
         title: "sig-dream · sig画布",
         backgroundColor: "#0c0a09",
         icon: existsSync(iconPath) ? iconPath : undefined,
@@ -136,6 +230,19 @@ function createWindow() {
             sandbox: true,
         },
     });
+
+    if (saved.isMaximized) {
+        mainWindow.maximize();
+    }
+
+    let shown = false;
+    const revealWindow = () => {
+        if (shown || !mainWindow || mainWindow.isDestroyed()) return;
+        shown = true;
+        mainWindow.show();
+    };
+    mainWindow.once("ready-to-show", revealWindow);
+    setTimeout(revealWindow, 2500);
 
     mainWindow.webContents.setWindowOpenHandler(({ url }) => {
         if (isLocalOrigin(url)) {
@@ -154,11 +261,27 @@ function createWindow() {
         }
     });
 
+    mainWindow.on("close", () => {
+        saveWindowState(mainWindow);
+    });
+
     mainWindow.on("closed", () => {
         mainWindow = null;
     });
 
     void mainWindow.loadURL(appUrl);
+}
+
+async function shutdownServer() {
+    if (shuttingDown || !localServer) return;
+    shuttingDown = true;
+    const srv = localServer;
+    localServer = null;
+    try {
+        await srv.close();
+    } catch {
+        // Ignore shutdown errors.
+    }
 }
 
 const gotSingleInstanceLock = app.requestSingleInstanceLock();
@@ -196,6 +319,20 @@ if (!gotSingleInstanceLock) {
             buildMenu();
             createWindow();
 
+            if (localServer.port !== PREFERRED_PORT && mainWindow) {
+                const zh = isZhLocale();
+                void dialog.showMessageBox(mainWindow, {
+                    type: "warning",
+                    title: zh ? "端口被占用提示" : "Port Fallback Notice",
+                    message: zh
+                        ? `默认固定端口 ${PREFERRED_PORT} 已被占用，本次临时切换至 ${localServer.port}。`
+                        : `Default port ${PREFERRED_PORT} is in use; switched to ${localServer.port} for this session.`,
+                    detail: zh
+                        ? `由于浏览器本地存储（IndexedDB / LocalStorage）按端口隔离，临时端口下不会显示原 ${PREFERRED_PORT} 端口保存的画布和 API Key。释放 ${PREFERRED_PORT} 端口后重启即可恢复原有数据。`
+                        : `Browser storage is isolated by port. Close the process using port ${PREFERRED_PORT} and restart sig-dream to access your saved canvases and API keys.`,
+                });
+            }
+
             app.on("activate", () => {
                 if (BrowserWindow.getAllWindows().length === 0) {
                     createWindow();
@@ -214,9 +351,12 @@ if (!gotSingleInstanceLock) {
     });
 
     app.on("before-quit", () => {
-        if (localServer) {
-            void localServer.close();
-            localServer = null;
-        }
+        void shutdownServer();
     });
+
+    for (const sig of ["SIGINT", "SIGTERM"]) {
+        process.on(sig, () => {
+            void shutdownServer().finally(() => app.quit());
+        });
+    }
 }

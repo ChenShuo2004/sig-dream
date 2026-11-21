@@ -8,6 +8,7 @@ directories:
 
 files:
   - electron/**/*
+  - assets/**/*
   - package.json
   - "!**/*.map"
 

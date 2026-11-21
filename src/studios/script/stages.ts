@@ -37,7 +37,7 @@ export function visualStyleText(settings: ScriptSettings) {
     const label = (settings.visualStyle || "").trim();
     if (!label) return "";
     // Expand short custom labels (e.g. SHUO「真人写实 · 电影感 · 冷色调」) to full preset text when possible.
-    const presets = SCRIPT_PRESETS.stylePresets as Array<{ label: string; prompt?: string; assetPrompt?: string }>;
+    const presets = SCRIPT_PRESETS.stylePresets as ReadonlyArray<{ label: string; prompt?: string; assetPrompt?: string }>;
     const matched = presets.find((preset) => preset.label === label) || presets.find((preset) => label.includes(preset.label) || preset.label.includes(label.split(/[·•|｜]/u)[0]?.trim() || label));
     return (matched?.prompt || matched?.assetPrompt || label).trim();
 }
@@ -326,7 +326,7 @@ function parseOutlineBatch(value: unknown, batch: OutlineSkeletonEpisode[]) {
             title: readText(episode.title) || skeleton.title,
             coreBeat: skeleton.coreBeat,
             endingEvent: skeleton.endingEvent,
-            activeCharacters: skeleton.activeCharacters.length ? skeleton.activeCharacters : readTextList(episode.activeCharacters),
+            activeCharacters: skeleton.activeCharacters?.length ? skeleton.activeCharacters : readTextList(episode.activeCharacters),
             synopsis,
             hook: readText(episode.hook),
             continuityFacts: readTextList(episode.continuityFacts),

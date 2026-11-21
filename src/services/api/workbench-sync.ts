@@ -104,7 +104,7 @@ export async function syncWorkbenchLogs(kind: WorkbenchKind, store: LocalForage)
         if (response.ok) {
             const payload = (await response.json()) as { records?: Array<{ id?: string; document?: StoredLog }> };
             remote = (payload.records || [])
-                .map((item) => (item.document && typeof item.document === "object" ? stamp({ ...item.document, id: item.document.id || item.id }) : null))
+                .map((item): StoredLog | null => (item.document && typeof item.document === "object" ? stamp({ ...item.document, id: item.document.id || item.id }) : null))
                 .filter((item): item is StoredLog => Boolean(item?.id));
         }
     } catch {

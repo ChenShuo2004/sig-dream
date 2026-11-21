@@ -1,0 +1,62 @@
+[
+  {
+    "id": "01-overview-and-config",
+    "mp4": "docs/demos/01-overview-and-config.mp4",
+    "gif": "docs/demos/01-overview-and-config.gif",
+    "poster": "docs/demos/01-overview-and-config-poster.png",
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "24/1",
+    "durationSec": 17.29,
+    "sizeKB": 1653
+  },
+  {
+    "id": "02-infinite-canvas",
+    "mp4": "docs/demos/02-infinite-canvas.mp4",
+    "gif": "docs/demos/02-infinite-canvas.gif",
+    "poster": "docs/demos/02-infinite-canvas-poster.png",
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "24/1",
+    "durationSec": 14.33,
+    "sizeKB": 629
+  },
+  {
+    "id": "03-script-studio",
+    "mp4": "docs/demos/03-script-studio.mp4",
+    "gif": "docs/demos/03-script-studio.gif",
+    "poster": "docs/demos/03-script-studio-poster.png",
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "24/1",
+    "durationSec": 18.88,
+    "sizeKB": 1081
+  },
+  {
+    "id": "04-replication-and-replacement",
+    "mp4": "docs/demos/04-replication-and-replacement.mp4",
+    "gif": "docs/demos/04-replication-and-replacement.gif",
+    "poster": "docs/demos/04-replication-and-replacement-poster.png",
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "24/1",
+    "durationSec": 13.54,
+    "sizeKB": 368
+  },
+  {
+    "id": "05-prompts-and-assets",
+    "mp4": "docs/demos/05-prompts-and-assets.mp4",
+    "gif": "docs/demos/05-prompts-and-assets.gif",
+    "poster": "docs/demos/05-prompts-and-assets-poster.png",
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "24/1",
+    "durationSec": 13.75,
+    "sizeKB": 1923
+  }
+]

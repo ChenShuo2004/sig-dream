@@ -6,8 +6,8 @@
 
 **An open-source, zero-database, ready-to-run local-first AI infinite canvas & creative video studio**
 
-Chain AI image generation, multi-reference editing, video generation, 1,700+ open-source prompts, and Canvas Agent on one infinite canvas — with built-in **Script**, **Replication**, and **Replacement** studios.  
-No PostgreSQL, no login server — download the desktop app or portable bundle, add your API key, and start creating in 30 seconds.
+Chain **AI image generation, multi-reference editing, video generation, 1,700+ open-source prompts, and Canvas Agent** on one infinite canvas — with built-in **Script**, **Replication**, and **Replacement** studios.  
+No PostgreSQL, no login server — download the native desktop app or portable bundle, add your API key, and start creating in 30 seconds.
 
 [![中文](https://img.shields.io/badge/%E4%B8%AD%E6%96%87-27272a?style=for-the-badge)](README.md)
 [![English](https://img.shields.io/badge/English-111111?style=for-the-badge&logo=readme&logoColor=white)](README.en.md)
@@ -19,7 +19,7 @@ No PostgreSQL, no login server — download the desktop app or portable bundle, 
 [![License: MIT](https://img.shields.io/badge/License-MIT-111111?style=for-the-badge&labelColor=f4f4f5&color=18181b)](LICENSE)
 [![Follow @ChenshuoAI](https://img.shields.io/badge/Follow-%40ChenshuoAI-111111?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ChenshuoAI)
 
-[Download & Quick Start](#download--quick-start) · [Workspaces](#workspaces) · [Preview](#preview) · [Providers](#supported-models--providers) · [Enterprise (Closed-Source)](#enterprise-edition-closed-source) · [FAQ](#faq)
+[Download & Quick Start](#download--quick-start) · [Demo Videos](#feature-demos) · [Workspaces](#workspaces) · [Providers](#supported-models--providers) · [Development & Packaging](#development-testing--packaging) · [Enterprise (Closed-Source)](#enterprise-edition-closed-source) · [FAQ](#faq)
 
 </div>
 
@@ -30,8 +30,8 @@ No PostgreSQL, no login server — download the desktop app or portable bundle, 
 ## Why sig-dream?
 
 - **True out-of-the-box setup**: No PostgreSQL, Redis, or account server. Ships as **native macOS / Windows / Linux desktop installers**, a **zero-install Web Portable bundle**, and a **one-command Docker Compose setup**.
-- **End-to-end creative studio**: Goes beyond a node canvas with built-in **Script, Replication, and Replacement studios**, **1,700+ curated prompts**, and **Canvas Agent**.
-- **Local-first & private**: Projects, studio documents, local assets, and API keys stay in local IndexedDB / LocalStorage with JSON export/import and optional WebDAV sync. A zero-dependency local CORS proxy ([`server/proxy.mjs`](server/proxy.mjs)) handles providers that block direct browser calls.
+- **End-to-end creative studio**: Goes beyond a node canvas with built-in **Script, Replication, and Replacement studios**, **1,700+ curated prompts** (with multi-CDN fallback caching), and **Canvas Agent**.
+- **Local-first & private**: Projects, studio documents, local assets, and API keys stay in local IndexedDB / LocalStorage with JSON / `.zip` export/import and optional WebDAV sync. A zero-dependency local CORS proxy ([`server/proxy.mjs`](server/proxy.mjs)) handles providers that block direct browser calls.
 
 ---
 
@@ -39,13 +39,13 @@ No PostgreSQL, no login server — download the desktop app or portable bundle, 
 
 ### Option 1: Native Desktop App (Recommended · No Node.js Required)
 
-Download the installer for your OS from [**GitHub Releases (Latest)**](https://github.com/ChenShuo2004/sig-dream/releases/latest):
+Download the installer for your OS from [**GitHub Releases (Latest)**](https://github.com/ChenShuo2004/sig-dream/releases/latest) (`SHA256SUMS.txt` included):
 
 | Platform | Download | Notes |
 | --- | --- | --- |
-| **macOS (Apple Silicon M1–M4)** | `sig-dream-*-mac-arm64.dmg` | Drag to Applications and launch — built-in local server & CORS proxy |
+| **macOS (Apple Silicon M1–M4)** | `sig-dream-*-mac-arm64.dmg` | Drag to Applications and launch — built-in local server, CORS proxy & window-state persistence |
 | **macOS (Intel)** | `sig-dream-*-mac-x64.dmg` | Same as above |
-| **Windows (x64)** | `sig-dream-*-win-x64-setup.exe` / `.zip` | Installer or portable zip archive |
+| **Windows (x64)** | `sig-dream-*-win-x64-setup.exe` / `.zip` | NSIS installer or portable zip archive |
 | **Linux (x64)** | `sig-dream-*-linux-x64.AppImage` / `.deb` | Standalone desktop package |
 
 > [!TIP]
@@ -71,7 +71,7 @@ docker compose up -d
 
 Then open [http://localhost:3000](http://localhost:3000).
 
-### Option 4: Run from Source (Node.js 20+)
+### Option 4: Run from Source (Node.js 22+ Recommended / 20+ Compatible)
 
 ```bash
 git clone https://github.com/ChenShuo2004/sig-dream.git
@@ -80,12 +80,23 @@ npm install
 npm run dev
 ```
 
-For production builds:
+---
 
-```bash
-npm run build
-npm run start:open
-```
+## Feature Demos
+
+All 5 walkthroughs below are rendered directly from the live open-source UI (inline looping previews; click any preview to open the full `1080p` MP4):
+
+| 01 · Zero-DB Setup & Multi-Provider Config | 02 · Infinite Canvas Orchestration |
+| --- | --- |
+| [![01 Overview & Config](docs/demos/01-overview-and-config.gif)](docs/demos/01-overview-and-config.mp4)<br/><sub>Configure providers, built-in CORS proxy, and WebDAV sync locally · [1080p MP4](docs/demos/01-overview-and-config.mp4)</sub> | [![02 Infinite Canvas](docs/demos/02-infinite-canvas.gif)](docs/demos/02-infinite-canvas.mp4)<br/><sub>Connect text/image/video nodes, groups, reference editing & Canvas Agent · [1080p MP4](docs/demos/02-infinite-canvas.mp4)</sub> |
+
+| 03 · Script Studio | 04 · Replication & Replacement Studios |
+| --- | --- |
+| [![03 Script Studio](docs/demos/03-script-studio.gif)](docs/demos/03-script-studio.mp4)<br/><sub>Import scripts, lock visual style presets, and split episodes & storyboards · [1080p MP4](docs/demos/03-script-studio.mp4)</sub> | [![04 Replication & Replacement](docs/demos/04-replication-and-replacement.gif)](docs/demos/04-replication-and-replacement.mp4)<br/><sub>Shot-by-shot video breakdown & subject/voice replacement pipelines · [1080p MP4](docs/demos/04-replication-and-replacement.mp4)</sub> |
+
+| 05 · 1,700+ Prompt Library & Local Assets | Node Reference Editing |
+| --- | --- |
+| [![05 Prompts & Assets](docs/demos/05-prompts-and-assets.gif)](docs/demos/05-prompts-and-assets.mp4)<br/><sub>Search 1,740+ prompts, save to local assets, and reuse across workbenches · [1080p MP4](docs/demos/05-prompts-and-assets.mp4)</sub> | ![](docs/screenshots/canvas-edit.png)<br/><sub>Select any canvas image node to iterate with multi-reference prompts</sub> |
 
 ---
 
@@ -93,29 +104,13 @@ npm run start:open
 
 | Workspace | Route | What it does |
 | --- | --- | --- |
-| **Infinite Canvas** | `/canvas` | Connect image, video, and text nodes; group references, mask editing, and Canvas Agent orchestration. |
+| **Infinite Canvas** | `/canvas` | Connect image, video, audio, and text nodes; group references, mask editing, and Canvas Agent orchestration. |
 | **Script Studio** | `/studio/script` | Turn scripts into consistent character, scene, prop sheets, and episode storyboards. |
 | **Replication Studio** | `/studio/replication` | Break down reference videos into shot-by-shot prompts and regenerate individual segments. |
-| **Replacement Studio** | `/studio/replacement` | Swap subjects or objects in images and videos across supported providers. |
-| **Image & Video** | `/image` · `/video` | Dedicated generation views with first/last-frame & multi-reference modes and automatic task resumption. |
+| **Replacement Studio** | `/studio/replacement` | Swap subjects/voices or clone voice timbre across supported providers. |
+| **Image & Video** | `/image` · `/video` | Dedicated generation workbenches with first/last-frame & multi-reference modes and automatic task resumption. |
 | **Prompt Library** | `/prompts` | Browse and filter 1,700+ open-source prompts; copy or save directly to local assets. |
 | **Local Assets** | `/assets` | Organize reusable images, videos, and text snippets locally in your browser. |
-
----
-
-## Preview
-
-### Select Any Image Node to Edit
-
-<img src="docs/screenshots/canvas-edit.png" alt="Select any image node to edit" width="100%">
-
-### Script Studio
-
-<img src="docs/screenshots/studio-script.png" alt="Script Studio" width="100%">
-
-### Built-in 1,700+ Prompt Library
-
-<img src="docs/screenshots/prompt-library.png" alt="Prompt Library" width="100%">
 
 ---
 
@@ -126,6 +121,35 @@ Click the top-right **⚙️ Settings** icon (or **Configure Providers** on the 
 - **Standard APIs**: OpenAI-compatible endpoints, Google Gemini, DeepSeek, OpenRouter, etc.
 - **Video & Workflow Providers**: Volcengine Ark (Seedance 2.0), RunningHub (ComfyUI workflows & video editing), MiniMax H3, and compatible relays.
 - **Built-in CORS Proxy**: Dev mode, production server, Web Portable, and Desktop builds all bundle [`server/proxy.mjs`](server/proxy.mjs) with zero external dependencies.
+
+---
+
+## Development, Testing & Packaging
+
+```bash
+# Typecheck & unit tests
+npm run typecheck
+npm test
+
+# End-to-end UI smoke suite (no API key required)
+npm run test:smoke
+
+# Production build & local server
+npm run build
+npm run start:open
+
+# Build cross-platform Web Portable archive
+npm run build:portable
+
+# Run or package Electron desktop app (run `cd desktop && npm install` once first)
+npm run desktop:dev
+npm run desktop:mac
+npm run desktop:win
+npm run desktop:linux
+
+# Sync version across package.json, desktop/package.json, and VERSION
+npm run version:sync -- 0.3.2
+```
 
 ---
 
@@ -165,9 +189,9 @@ Everything is stored locally in IndexedDB / LocalStorage. Nothing is sent to any
 </details>
 
 <details>
-<summary><b>Does the desktop app keep my data after restarting?</b></summary>
+<summary><b>Does the desktop app keep my data and window size after restarting?</b></summary>
 
-Yes. The desktop app binds a stable loopback origin (`http://127.0.0.1:28430`) so IndexedDB projects, assets, and API keys persist cleanly across restarts.
+Yes. The desktop app binds a stable loopback origin (`http://127.0.0.1:28430`) and persists window bounds automatically. If port `28430` is occupied by another process, the desktop app warns you explicitly so your original local storage remains intact once the port is freed.
 
 </details>
 

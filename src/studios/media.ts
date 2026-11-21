@@ -24,7 +24,7 @@ function kindFromKey(key: string): "image" | "video" | "audio" | null {
 function asBlob(value: unknown): Blob | null {
     if (value instanceof Blob) return value;
     if (value instanceof ArrayBuffer) return new Blob([value]);
-    if (ArrayBuffer.isView(value)) return new Blob([value.buffer]);
+    if (ArrayBuffer.isView(value)) return new Blob([new Uint8Array(value.buffer, value.byteOffset, value.byteLength).slice()]);
     return null;
 }
 

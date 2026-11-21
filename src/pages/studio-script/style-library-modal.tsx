@@ -15,7 +15,7 @@ export type ScriptStylePreset = {
     thumbnail: string;
 };
 
-const STYLE_PRESETS = SCRIPT_PRESETS.stylePresets as ScriptStylePreset[];
+const STYLE_PRESETS = SCRIPT_PRESETS.stylePresets as unknown as readonly ScriptStylePreset[];
 
 const CATEGORIES: Array<{ key: "all" | "live" | "2d" | "3d"; label: string }> = [
     { key: "all", label: "全部" },
@@ -76,7 +76,7 @@ export function StyleLibraryModal({
                 </div>
             }
             styles={{
-                content: { background: "#121214", padding: 0 },
+                container: { background: "#121214", padding: 0 },
                 header: { background: "#121214", margin: 0, padding: "16px 20px 8px", borderBottom: "none" },
                 body: { padding: "0 20px 20px" },
             }}

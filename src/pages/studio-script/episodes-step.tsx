@@ -486,14 +486,16 @@ function EpisodeEditor({
     const clipFrameCount = clipGroups.reduce((total, group) => total + group.assets.length + group.frames.length, 0);
 
     const appendClipFrame = (frame: StudioClipFrame) => {
-        if (!clip) return;
+        if (!episode || !clip) return;
+        const episodeId = episode.id;
+        const clipId = clip.id;
         runner.update((current) => ({
             ...current,
             episodes: current.episodes.map((item) => {
-                if (item.id !== episode.id) return item;
+                if (item.id !== episodeId) return item;
                 return {
                     ...item,
-                    clips: item.clips.map((entry) => (entry.id === clip.id ? { ...entry, frames: [...(entry.frames || []), frame] } : entry)),
+                    clips: item.clips.map((entry) => (entry.id === clipId ? { ...entry, frames: [...(entry.frames || []), frame] } : entry)),
                 };
             }),
         }));
@@ -501,10 +503,12 @@ function EpisodeEditor({
     };
 
     const removeClipFrame = (targetClipId: string, frameId: string) => {
+        if (!episode) return;
+        const episodeId = episode.id;
         runner.update((current) => ({
             ...current,
             episodes: current.episodes.map((item) => {
-                if (item.id !== episode.id) return item;
+                if (item.id !== episodeId) return item;
                 return {
                     ...item,
                     clips: item.clips.map((entry) => (entry.id === targetClipId ? { ...entry, frames: (entry.frames || []).filter((frame) => frame.id !== frameId) } : entry)),

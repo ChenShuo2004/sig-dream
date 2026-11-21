@@ -45,7 +45,7 @@ function ReferenceAddButton({ nodeId, onStartSelection, onPickAsset, onPickLocal
             placement="top"
             arrow={false}
             onOpenChange={setOpen}
-            styles={{ body: { background: theme.toolbar.panel, border: `1px solid ${theme.toolbar.border}`, padding: 6, borderRadius: 12 } }}
+            styles={{ container: { background: theme.toolbar.panel, border: `1px solid ${theme.toolbar.border}`, padding: 6, borderRadius: 12 } }}
             content={
                 <div className="flex min-w-36 flex-col" onMouseDown={(event) => event.stopPropagation()} onPointerDown={(event) => event.stopPropagation()}>
                     {items.map((item) => {

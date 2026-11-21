@@ -117,7 +117,7 @@ function getOrStartRefresh(source: PromptSource) {
 
 async function getSourcePrompts(source: PromptSource): Promise<Prompt[]> {
     const cached = await readSourceCache(source.id);
-    if (cached) {
+    if (cached && cached.items.length > 0) {
         const stale = cached.signature !== sourceSignature(source) || Date.now() - cached.fetchedAt >= cacheTtlMs;
         if (stale) void getOrStartRefresh(source).catch(() => undefined);
         return withSourceMeta(source, cached.items);

@@ -57,6 +57,22 @@ npm run dev
 
 [http://localhost:3000](http://localhost:3000) 을 열고 우측 상단 **⚙️ 설정**에서 모델 채널(Base URL + API Key)을 입력하세요.
 
+## 기능 데모 영상
+
+아래 데모는 오픈소스 커뮤니티 에디션 실제 화면에서 렌더링되었습니다 (클릭하면 `1080p` MP4 원본을 볼 수 있습니다):
+
+| 01 · 무설치 시작 & 멀티 채널 설정 | 02 · 무한 캔버스 노드 오케스트레이션 |
+| --- | --- |
+| [![01](docs/demos/01-overview-and-config.gif)](docs/demos/01-overview-and-config.mp4) | [![02](docs/demos/02-infinite-canvas.gif)](docs/demos/02-infinite-canvas.mp4) |
+
+| 03 · 대본 스튜디오 | 04 · 복제 & 교체 스튜디오 |
+| --- | --- |
+| [![03](docs/demos/03-script-studio.gif)](docs/demos/03-script-studio.mp4) | [![04](docs/demos/04-replication-and-replacement.gif)](docs/demos/04-replication-and-replacement.mp4) |
+
+| 05 · 1,700+ 프롬프트 & 로컬 자산 | 노드 참조 편집 |
+| --- | --- |
+| [![05](docs/demos/05-prompts-and-assets.gif)](docs/demos/05-prompts-and-assets.mp4) | ![](docs/screenshots/canvas-edit.png) |
+
 ## 주요 기능
 
 - **무한 캔버스 (`/canvas`)**: 이미지·영상·텍스트 노드 연결, 그룹 참조, 마스크 편집, Canvas Agent 협업.

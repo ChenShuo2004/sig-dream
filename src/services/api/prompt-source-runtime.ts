@@ -22,10 +22,35 @@ export type RawPrompt = {
 
 type RunOptions = { signal?: AbortSignal };
 
+function buildCandidateUrls(rawUrl: string): string[] {
+    const trimmed = rawUrl.trim();
+    const candidates = [trimmed];
+    const ghRawMatch = trimmed.match(/^https:\/\/raw\.githubusercontent\.com\/([^/]+)\/([^/]+)\/([^/]+)\/(.+)$/i);
+    if (ghRawMatch) {
+        const [, owner, repo, branch, filePath] = ghRawMatch;
+        candidates.push(`https://cdn.jsdelivr.net/gh/${owner}/${repo}@${branch}/${filePath}`);
+        candidates.push(`https://fastly.jsdelivr.net/gh/${owner}/${repo}@${branch}/${filePath}`);
+    }
+    return candidates;
+}
+
 async function fetchSource(source: PromptSource, options?: RunOptions) {
-    const response = await fetch(source.url, { cache: "no-store", signal: options?.signal });
-    if (!response.ok) throw new Error(i18n.t("config.promptSources.runtime.requestFailed", { status: response.status }));
-    return response.json();
+    const urls = buildCandidateUrls(source.url);
+    let lastError: unknown;
+    for (const url of urls) {
+        try {
+            const response = await fetch(url, { cache: "no-store", signal: options?.signal });
+            if (!response.ok) {
+                lastError = new Error(i18n.t("config.promptSources.runtime.requestFailed", { status: response.status }));
+                continue;
+            }
+            return await response.json();
+        } catch (error) {
+            if (error instanceof DOMException && error.name === "AbortError") throw error;
+            lastError = error;
+        }
+    }
+    throw lastError instanceof Error ? lastError : new Error(String(lastError || "Failed to fetch"));
 }
 
 export async function runPromptSource(source: PromptSource, options?: RunOptions): Promise<RawPrompt[]> {

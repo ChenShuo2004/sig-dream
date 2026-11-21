@@ -126,7 +126,7 @@ export type CanvasNodeMetadata = {
     videoTaskId?: string;
     /** True while a saved video task is being queried after the page is opened again. Not the same as still generating. */
     videoTaskChecking?: boolean;
-    videoTaskProvider?: "openai" | "gemini" | "ai007" | "onion" | "geeknow" | "runninghub" | "apimart" | "metaso" | "volcengine";
+    videoTaskProvider?: "openai" | "gemini" | "ai007" | "onion" | "geeknow" | "runninghub" | "apimart" | "metaso" | "volcengine" | "crun";
     groupId?: string;
     interactive?: boolean; // Plugin node interaction/move state; see CanvasNodeDefinition.interactionToggle.
 };
