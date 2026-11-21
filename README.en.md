@@ -19,13 +19,27 @@ No PostgreSQL, no login server — download the native desktop app or portable b
 [![License: MIT](https://img.shields.io/badge/License-MIT-111111?style=for-the-badge&labelColor=f4f4f5&color=18181b)](LICENSE)
 [![Follow @ChenshuoAI](https://img.shields.io/badge/Follow-%40ChenshuoAI-111111?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ChenshuoAI)
 
-[Download & Quick Start](#download--quick-start) · [Demo Videos](#feature-demos) · [Workspaces](#workspaces) · [Providers](#supported-models--providers) · [Development & Packaging](#development-testing--packaging) · [Enterprise (Closed-Source)](#enterprise-edition-closed-source) · [FAQ](#faq)
+[Download & Quick Start](#download--quick-start) · [Promo & Demos](#promo-film--feature-demos) · [Workspaces](#workspaces) · [Agent Setup](#agent-integration) · [Providers](#supported-models--providers) · [Development & Packaging](#development-testing--packaging) · [Enterprise (Closed-Source)](#enterprise-edition-closed-source) · [FAQ](#faq)
 
 </div>
 
 <br/>
 
-<img src="docs/screenshots/canvas-board.png" alt="sig Canvas infinite workflow" width="100%">
+<div align="center">
+  <a href="docs/demos/00-open-source-launch.mp4">
+    <img src="docs/screenshots/open-source-promo.gif" alt="sig-dream 28s open-source launch promo: from character design to final storyboard on one canvas" width="100%" />
+  </a>
+  <p>
+    <sub>
+      🎬 <b>28s Open-Source Launch Film</b> (character sheets, multi-reference remixing & connected storyboards) ·
+      <a href="docs/demos/00-open-source-launch.mp4"><b>Watch / Download 1080p MP4 with Sound</b></a>
+    </sub>
+  </p>
+</div>
+
+| Character Consistency & Connected Keyframes | Full-Episode Grouped Storyboard Canvas |
+| --- | --- |
+| ![](docs/screenshots/open-source-promo-poster.png)<br/><sub>Lock multi-character turnaround sheets and branch consistent camera/lighting shots</sub> | ![](docs/screenshots/canvas-board.png)<br/><sub>Organize scripts, characters, scenes, props, and final cuts on one infinite canvas</sub> |
 
 ## Why sig-dream?
 
@@ -34,6 +48,10 @@ No PostgreSQL, no login server — download the native desktop app or portable b
 - **Local-first & private**: Projects, studio documents, local assets, and API keys stay in local IndexedDB / LocalStorage with JSON / `.zip` export/import and optional WebDAV sync. A zero-dependency local CORS proxy ([`server/proxy.mjs`](server/proxy.mjs)) handles providers that block direct browser calls.
 
 ---
+
+## Agent Integration
+
+Open **Agent → Connect** inside the app to copy ready-to-use MCP commands/configs for **Codex, Claude, Cursor, Grok Build, OpenCode, Antigravity, Muse Code, or Pi** (plus a generic local stdio MCP entry for other clients). See the full [Agent Connection Guide](docs/agent-connections.md) for setup details and verification.
 
 ## Download & Quick Start
 
@@ -66,10 +84,11 @@ Download `sig-dream-*-web-portable.zip` (~2.7 MB) from [**Releases**](https://gi
 ```bash
 git clone https://github.com/ChenShuo2004/sig-dream.git
 cd sig-dream
+npm run access:init
 docker compose up -d
 ```
 
-Then open [http://localhost:3000](http://localhost:3000).
+Then open [http://localhost:3000](http://localhost:3000) and sign in with the password generated in `.env`. The service binds to loopback by default. Public deployment requires a TLS reverse proxy and `SIG_DREAM_SECURE_COOKIE=1`; never commit `.env`.
 
 ### Option 4: Run from Source (Node.js 22+ Recommended / 20+ Compatible)
 
@@ -82,9 +101,10 @@ npm run dev
 
 ---
 
-## Feature Demos
+## Promo Film & Feature Demos
 
-All 5 walkthroughs below are rendered directly from the live open-source UI (inline looping previews; click any preview to open the full `1080p` MP4):
+- **Launch Film (28s · 1080p with Sound)**: [`docs/demos/00-open-source-launch.mp4`](docs/demos/00-open-source-launch.mp4)
+- **Modular Walkthroughs (5 clips · 1080p)**: All clips below are rendered directly from the live open-source UI (inline looping previews; click any preview to open the full `1080p` MP4):
 
 | 01 · Zero-DB Setup & Multi-Provider Config | 02 · Infinite Canvas Orchestration |
 | --- | --- |
@@ -96,7 +116,7 @@ All 5 walkthroughs below are rendered directly from the live open-source UI (inl
 
 | 05 · 1,700+ Prompt Library & Local Assets | Node Reference Editing |
 | --- | --- |
-| [![05 Prompts & Assets](docs/demos/05-prompts-and-assets.gif)](docs/demos/05-prompts-and-assets.mp4)<br/><sub>Search 1,740+ prompts, save to local assets, and reuse across workbenches · [1080p MP4](docs/demos/05-prompts-and-assets.mp4)</sub> | ![](docs/screenshots/canvas-edit.png)<br/><sub>Select any canvas image node to iterate with multi-reference prompts</sub> |
+| [![05 Prompts & Assets](docs/demos/05-prompts-and-assets.gif)](docs/demos/05-prompts-and-assets.mp4)<br/><sub>Search 1,740+ prompts, save to local assets, and reuse across workbenches · [1080p MP4](docs/demos/05-prompts-and-assets.mp4)</sub> | ![](docs/screenshots/canvas-edit-light.jpg)<br/><sub>Select any character or image node on canvas to iterate with multi-reference prompts</sub> |
 
 ---
 

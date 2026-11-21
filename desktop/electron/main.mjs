@@ -4,6 +4,14 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { app, BrowserWindow, clipboard, dialog, Menu, screen, shell } from "electron";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+// Honor an explicit profile directory before acquiring the instance lock or opening storage.
+const profileDirectory = app.commandLine.getSwitchValue("user-data-dir");
+if (profileDirectory) {
+    const absoluteProfileDirectory = resolve(profileDirectory);
+    mkdirSync(absoluteProfileDirectory, { recursive: true });
+    app.setPath("userData", absoluteProfileDirectory);
+}
+
 const PREFERRED_PORT = Number(process.env.SIG_DREAM_PORT || 28430);
 const REPO_URL = "https://github.com/ChenShuo2004/sig-dream";
 const RELEASES_URL = `${REPO_URL}/releases/latest`;

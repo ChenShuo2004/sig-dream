@@ -5,9 +5,12 @@ services:
       dockerfile: Dockerfile
     container_name: sig-dream
     ports:
-      - "${PORT:-3000}:3000"
+      - "${BIND_ADDRESS:-127.0.0.1}:${PORT:-3000}:3000"
     environment:
       - NODE_ENV=production
       - PORT=3000
       - HOST=0.0.0.0
+      - SIG_DREAM_ACCESS_USER=${SIG_DREAM_ACCESS_USER:-sig-dream}
+      - SIG_DREAM_ACCESS_PASSWORD=${SIG_DREAM_ACCESS_PASSWORD:?Set a random password of at least 20 characters in .env}
+      - SIG_DREAM_SECURE_COOKIE=${SIG_DREAM_SECURE_COOKIE:-0}
     restart: unless-stopped

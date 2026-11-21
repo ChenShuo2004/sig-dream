@@ -1,0 +1,6 @@
+extends: ./electron-builder.yml
+mac:
+  hardenedRuntime: true
+  notarize: true
+win:
+  signAndEditExecutable: true

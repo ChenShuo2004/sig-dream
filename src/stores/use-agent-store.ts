@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import i18n from "@/i18n";
+import { AGENT_CLIENTS } from "@/lib/agent/agent-clients";
 
 import type { CanvasAgentOp, CanvasAgentSnapshot } from "@/lib/canvas/canvas-agent-ops";
 import type { CanvasResourceReference } from "@/lib/canvas/canvas-resource-references";
@@ -53,6 +54,7 @@ type AgentStore = {
     token: string;
     connected: boolean;
     enabled: boolean;
+    selectedClientId: string;
     silentConnect: boolean;
     fragmentBootstrap: boolean;
     prompt: string;
@@ -95,6 +97,9 @@ type AgentStore = {
 
 export const CANVAS_AGENT_PANEL_MOTION_MS = 500;
 
+const savedClientId = typeof window === "undefined" ? "codex" : localStorage.getItem("canvas-agent-client");
+const initialClientId = AGENT_CLIENTS.some((client) => client.id === savedClientId) ? savedClientId! : "codex";
+
 export const useAgentStore = create<AgentStore>((set, get) => ({
     width: typeof window === "undefined" ? 440 : Number(localStorage.getItem("canvas-agent-panel-width")) || 440,
     panelOpen: false,
@@ -105,6 +110,7 @@ export const useAgentStore = create<AgentStore>((set, get) => ({
     token: typeof window === "undefined" ? "" : localStorage.getItem("canvas-agent-token") || "",
     connected: false,
     enabled: false,
+    selectedClientId: initialClientId,
     silentConnect: false,
     fragmentBootstrap: false,
     prompt: "",

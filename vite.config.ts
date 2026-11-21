@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import { defineConfig, type Plugin } from "vite";
 
+import { agentRuntimeInfo } from "./server/agent-runtime.mjs";
 import { createProxyMiddleware } from "./server/proxy.mjs";
 import { parseChangelog } from "./src/lib/release";
 
@@ -26,6 +27,10 @@ function localPluginsManifest(): Plugin {
     return {
         name: "local-plugins-manifest",
         configureServer(server) {
+            server.middlewares.use("/runtime-info", (req, res) => {
+                res.setHeader("Content-Type", "application/json");
+                res.end(JSON.stringify(agentRuntimeInfo(rootDir, ["127.0.0.1", "::1", "::ffff:127.0.0.1"].includes(req.socket.remoteAddress || ""))));
+            });
             server.middlewares.use("/plugins/index.json", (_req, res) => {
                 res.setHeader("Content-Type", "application/json");
                 res.end(JSON.stringify(listLocalPlugins()));

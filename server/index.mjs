@@ -4,6 +4,8 @@ import { createServer } from "node:http";
 import { dirname, extname, join, normalize, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
+import { agentRuntimeInfo } from "./agent-runtime.mjs";
+import { createAccessControl } from "./access.mjs";
 import { createProxyMiddleware } from "./proxy.mjs";
 
 const MIME_TYPES = {
@@ -81,12 +83,16 @@ function listenWithFallback(server, host, preferredPort, maxOffset) {
 export async function startServer(options = {}) {
     const rootDir = resolve(dirname(fileURLToPath(import.meta.url)), "..");
     const distDir = resolve(options.distDir || join(rootDir, "dist"));
-    const host = options.host || process.env.HOST || "0.0.0.0";
+    const host = options.host || process.env.HOST || "127.0.0.1";
     const preferredPort = Number(options.port ?? process.env.PORT ?? 3000);
     const maxPortFallback = options.maxPortFallback ?? 20;
+    const authorize = createAccessControl({ host, ...options.access });
     const proxyMiddleware = createProxyMiddleware();
 
     const server = createServer(async (req, res) => {
+        if (!authorize(req, res)) return;
+        res.setHeader("X-Content-Type-Options", "nosniff");
+        res.setHeader("Referrer-Policy", "same-origin");
         const urlObj = new URL(req.url || "/", `http://${req.headers.host || "localhost"}`);
         if (urlObj.pathname === "/healthz") {
             res.statusCode = 200;
@@ -95,6 +101,12 @@ export async function startServer(options = {}) {
             return;
         }
 
+        if (urlObj.pathname === "/runtime-info") {
+            res.setHeader("Cache-Control", "no-store");
+            res.setHeader("Content-Type", "application/json");
+            const local = ["127.0.0.1", "::1", "::ffff:127.0.0.1"].includes(req.socket.remoteAddress);
+            res.end(JSON.stringify(agentRuntimeInfo(rootDir, local))); return;
+        }
         const handled = await proxyMiddleware(req, res);
         if (handled || res.writableEnded) return;
 
@@ -121,6 +133,8 @@ export async function startServer(options = {}) {
         res.end("dist/index.html not found. Run `npm run build` first.");
     });
 
+    server.requestTimeout = 30000;
+    server.headersTimeout = 15000;
     const port = await listenWithFallback(server, host, preferredPort, maxPortFallback);
     const displayHost = host === "0.0.0.0" ? "localhost" : host;
     const url = `http://${displayHost}:${port}`;

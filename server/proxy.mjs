@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { safeFetch, readLimited } from "./safe-fetch.mjs";
 
 const RELAY_UPSTREAMS = {
     volcano: {
@@ -65,24 +66,25 @@ const RELAY_UPSTREAMS = {
 // Ephemeral in-memory media cache for proxy-fetched generated media (auto-evicted).
 const mediaCache = new Map();
 const MAX_CACHE_ITEMS = 64;
+const MAX_CACHE_BYTES = 256 * 1024 * 1024;
 
 function putCache(buffer, contentType) {
     const id = `${randomUUID()}.${contentType.includes("mp4") ? "mp4" : contentType.includes("webp") ? "webp" : contentType.includes("jpeg") ? "jpg" : "png"}`;
-    if (mediaCache.size >= MAX_CACHE_ITEMS) {
+    while (mediaCache.size >= MAX_CACHE_ITEMS || [...mediaCache.values()].reduce((size, item) => size + item.buffer.length, 0) + buffer.length > MAX_CACHE_BYTES) {
         const oldest = mediaCache.keys().next().value;
         if (oldest) mediaCache.delete(oldest);
+        else break;
     }
     mediaCache.set(id, { buffer, contentType });
     return id;
 }
 
 async function readBody(req) {
-    const chunks = [];
-    for await (const chunk of req) chunks.push(chunk);
-    return Buffer.concat(chunks);
+    return readLimited(req, 64 * 1024 * 1024);
 }
 
 function sendJson(res, status, payload) {
+    if (status === 413) res.setHeader("Connection", "close");
     res.statusCode = status;
     res.setHeader("Content-Type", "application/json; charset=utf-8");
     res.end(JSON.stringify(payload));
@@ -91,9 +93,11 @@ function sendJson(res, status, payload) {
 
 /**
  * Lightweight local CORS proxy middleware for Vite dev server and production Node server.
- * Zero database, zero auth: forwards the user's own API key from X-Relay-Api-Key / Authorization.
+ * Access-controlled by the host server; forwards the user's own API key from X-Relay-Api-Key / Authorization.
  */
 export function createProxyMiddleware() {
+    const requests = new Map();
+    let inFlight = 0;
     return async function proxyMiddleware(req, res, next) {
         const rawUrl = req.url || "/";
         if (!rawUrl.startsWith("/api-proxy/canvas-api/")) {
@@ -101,9 +105,21 @@ export function createProxyMiddleware() {
             return false;
         }
 
+        if (req.headers["sec-fetch-site"] === "cross-site") return sendJson(res, 403, { detail: "Cross-site proxy request blocked" });
+        const origin = req.headers.origin;
+        if (origin && origin !== `http://${req.headers.host}` && origin !== `https://${req.headers.host}`) return sendJson(res, 403, { detail: "Cross-origin proxy requests are blocked" });
+        const now = Date.now();
+        for (const [key, value] of requests) if (value.until < now) requests.delete(key);
+        const key = req.socket.remoteAddress || "unknown";
+        const bucket = requests.get(key) || { count: 0, until: now + 60000 };
+        if (bucket.count >= 120 || (requests.size >= 4096 && !requests.has(key))) return sendJson(res, 429, { detail: "Proxy rate limit exceeded" });
+        bucket.count++;
+        requests.set(key, bucket);
         const urlObj = new URL(rawUrl, "http://127.0.0.1");
         const relPath = urlObj.pathname.slice("/api-proxy/canvas-api".length);
 
+        if (inFlight >= 4) return sendJson(res, 429, { detail: "Proxy is busy, retry shortly" });
+        inFlight++;
         try {
             // Serve ephemeral cached media (used by generated-media / media-fetch helpers)
             if (req.method === "GET" && relPath.startsWith("/generated-media/")) {
@@ -112,7 +128,7 @@ export function createProxyMiddleware() {
                 if (!entry) return sendJson(res, 404, { detail: "Cached media not found" });
                 res.statusCode = 200;
                 res.setHeader("Content-Type", entry.contentType);
-                res.setHeader("Cache-Control", "public, max-age=3600");
+                res.setHeader("Cache-Control", "private, max-age=3600");
                 res.end(entry.buffer);
                 return true;
             }
@@ -124,13 +140,14 @@ export function createProxyMiddleware() {
                 if (!/^https?:\/\//i.test(targetUrl)) {
                     return sendJson(res, 400, { detail: "Invalid media URL" });
                 }
-                const upstream = await fetch(targetUrl);
+                const upstream = await safeFetch(targetUrl);
                 if (!upstream.ok) {
                     return sendJson(res, upstream.status, { detail: `Upstream media fetch failed (${upstream.status})` });
                 }
-                const arrayBuf = await upstream.arrayBuffer();
+                const arrayBuf = upstream.buffer;
                 const contentType = upstream.headers.get("content-type") || "application/octet-stream";
-                const name = putCache(Buffer.from(arrayBuf), contentType);
+                if (!/^(image\/(png|jpe?g|webp|gif|avif)|video\/|audio\/)/i.test(contentType)) return sendJson(res, 415, { detail: "Unsupported media content type" });
+                const name = putCache(arrayBuf, contentType);
                 return sendJson(res, 200, { path: `/canvas-api/generated-media/${name}`, contentType });
             }
 
@@ -144,7 +161,9 @@ export function createProxyMiddleware() {
             }
 
             const relayKey = String(req.headers["x-relay-api-key"] || "").trim();
-            const relayBase = String(req.headers["x-relay-base-url"] || "").trim().replace(/\/+$/, "");
+            const relayBase = String(req.headers["x-relay-base-url"] || "")
+                .trim()
+                .replace(/\/+$/, "");
             const upstreamBase = /^https?:\/\//i.test(relayBase) ? relayBase : config.base;
             const rewritten = config.rewrite(subPath);
             const target = `${upstreamBase}${rewritten}${urlObj.search}`;
@@ -157,14 +176,14 @@ export function createProxyMiddleware() {
 
             if (relayKey) {
                 forwardHeaders.set("authorization", relayKey.startsWith("Bearer ") ? relayKey : `Bearer ${relayKey}`);
-            } else if (req.headers["authorization"]) {
+            } else if (String(req.headers["authorization"] || "").startsWith("Bearer ")) {
                 forwardHeaders.set("authorization", String(req.headers["authorization"]));
             }
 
             const hasBody = !["GET", "HEAD"].includes((req.method || "GET").toUpperCase());
             const bodyBuf = hasBody ? await readBody(req) : undefined;
 
-            const upstream = await fetch(target, {
+            const upstream = await safeFetch(target, {
                 method: req.method || "GET",
                 headers: forwardHeaders,
                 body: bodyBuf && bodyBuf.length > 0 ? bodyBuf : undefined,
@@ -173,13 +192,15 @@ export function createProxyMiddleware() {
             res.statusCode = upstream.status;
             const respType = upstream.headers.get("content-type");
             if (respType) res.setHeader("Content-Type", respType);
-            const respBuf = Buffer.from(await upstream.arrayBuffer());
+            const respBuf = upstream.buffer;
             res.end(respBuf);
             return true;
         } catch (err) {
             const msg = err instanceof Error ? err.message : String(err);
-            sendJson(res, 502, { detail: `Local proxy error: ${msg}` });
+            sendJson(res, err?.status || (err instanceof SyntaxError ? 400 : 502), { detail: `Local proxy error: ${msg}` });
             return true;
+        } finally {
+            inFlight--;
         }
     };
 }

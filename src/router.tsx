@@ -2,17 +2,8 @@ import { createHashRouter, isRouteErrorResponse, Outlet, useRouteError } from "r
 
 import { AnalyticsTracker } from "@/components/layout/analytics-tracker";
 import UserLayout from "@/layouts/user-layout";
-import AssetsPage from "@/pages/assets";
-import CanvasPage from "@/pages/canvas";
-import CanvasProjectPage from "@/pages/canvas/project";
-import ConfigPage from "@/pages/config";
 import HomePage from "@/pages/home";
-import ImagePage from "@/pages/image";
 import NotFound from "@/pages/not-found";
-import PromptsPage from "@/pages/prompts";
-import StudioListPage from "@/pages/studio";
-import StudioProjectPage from "@/pages/studio/project";
-import VideoPage from "@/pages/video";
 
 function RouteErrorPage() {
     const error = useRouteError();
@@ -55,15 +46,15 @@ export const router = createHashRouter([
         errorElement: <RouteErrorPage />,
         children: [
             { path: "/", element: <HomePage /> },
-            { path: "/image", element: <ImagePage /> },
-            { path: "/video", element: <VideoPage /> },
-            { path: "/assets", element: <AssetsPage /> },
-            { path: "/prompts", element: <PromptsPage /> },
-            { path: "/canvas", element: <CanvasPage /> },
-            { path: "/canvas/:id", element: <CanvasProjectPage /> },
-            { path: "/studio/:kind", element: <StudioListPage /> },
-            { path: "/studio/:kind/:id", element: <StudioProjectPage /> },
-            { path: "/config", element: <ConfigPage /> },
+            { path: "/image", lazy: () => import("@/pages/image").then((module) => ({ Component: module.default })) },
+            { path: "/video", lazy: () => import("@/pages/video").then((module) => ({ Component: module.default })) },
+            { path: "/assets", lazy: () => import("@/pages/assets").then((module) => ({ Component: module.default })) },
+            { path: "/prompts", lazy: () => import("@/pages/prompts").then((module) => ({ Component: module.default })) },
+            { path: "/canvas", lazy: () => import("@/pages/canvas").then((module) => ({ Component: module.default })) },
+            { path: "/canvas/:id", lazy: () => import("@/pages/canvas/project").then((module) => ({ Component: module.default })) },
+            { path: "/studio/:kind", lazy: () => import("@/pages/studio").then((module) => ({ Component: module.default })) },
+            { path: "/studio/:kind/:id", lazy: () => import("@/pages/studio/project").then((module) => ({ Component: module.default })) },
+            { path: "/config", lazy: () => import("@/pages/config").then((module) => ({ Component: module.default })) },
         ],
     },
     { path: "*", element: <NotFound /> },

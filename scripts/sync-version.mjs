@@ -24,6 +24,21 @@ desktopPkg.version = targetVersion;
 writeFileSync(rootPkgPath, `${JSON.stringify(rootPkg, null, 4)}\n`, "utf8");
 writeFileSync(desktopPkgPath, `${JSON.stringify(desktopPkg, null, 2)}\n`, "utf8");
 writeFileSync(versionFilePath, `v${targetVersion}\n`, "utf8");
+const agentPackagePath = join(rootDir, "packages/canvas-agent/package.json");
+const agentPackage = JSON.parse(readFileSync(agentPackagePath, "utf8"));
+agentPackage.version = targetVersion;
+writeFileSync(agentPackagePath, `${JSON.stringify(agentPackage, null, 2)}\n`);
+const clientsPath = join(rootDir, "src/lib/agent/agent-clients.ts");
+writeFileSync(clientsPath, readFileSync(clientsPath, "utf8").replace(/releases\/download\/v[\d.]+\/sig-dream-canvas-agent-[\d.]+\.tgz/, `releases/download/v${targetVersion}/sig-dream-canvas-agent-${targetVersion}.tgz`));
+
+// Keep npm ci reproducible after the next release bump.
+for (const lockPath of [join(rootDir, "package-lock.json"), join(rootDir, "desktop/package-lock.json")]) {
+    const lock = JSON.parse(readFileSync(lockPath, "utf8"));
+    lock.version = targetVersion;
+    if (lock.packages?.[""]) lock.packages[""].version = targetVersion;
+    if (lock.packages?.["packages/canvas-agent"]) lock.packages["packages/canvas-agent"].version = targetVersion;
+    writeFileSync(lockPath, `${JSON.stringify(lock, null, 2)}\n`, "utf8");
+}
 
 console.log(`Synced version to v${targetVersion}:`);
 console.log(`- package.json -> ${targetVersion}`);

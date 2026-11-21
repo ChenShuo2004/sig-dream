@@ -50,16 +50,27 @@ jobs:
       - name: Install dependencies
         shell: bash
         run: |
-          rm -f package-lock.json
-          npm install --no-audit --no-fund
+          npm ci --no-audit --no-fund
 
       - name: Run typecheck & unit tests
         run: |
+          npm run verify:release
           npm run typecheck
           npm test
+          npm audit --audit-level=moderate
 
       - name: Build web app & portable package
         run: npm run build:portable
+
+      - name: Install test browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Verify Agent setup and real MCP bridge
+        run: |
+          npm run test:agent:ui
+          npm run test:agent:bridge
+          npm run test:portable
+          npm run test:public
 
       - name: Upload built dist bundle for desktop jobs
         uses: actions/upload-artifact@v4
@@ -76,6 +87,7 @@ jobs:
           path: |
             release/sig-dream-*-web-portable.zip
             release/sig-dream-*-web-portable.tar.gz
+            release/sig-dream-canvas-agent-*.tgz
           if-no-files-found: error
           retention-days: 14
 
@@ -87,15 +99,26 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - name: macOS
-            os: macos-latest
-            script: dist:mac
+          - name: macOS-arm64
+            os: macos-15
+            script: dist:mac:arm64
+            args: --mac --arm64
+            executable: desktop/release/mac-arm64/sig-dream.app/Contents/MacOS/sig-dream
+          - name: macOS-x64
+            os: macos-15-intel
+            script: dist:mac:x64
+            args: --mac --x64
+            executable: desktop/release/mac/sig-dream.app/Contents/MacOS/sig-dream
           - name: Windows
             os: windows-latest
             script: dist:win
+            args: --win --x64
+            executable: desktop/release/win-unpacked/sig-dream.exe
           - name: Linux
             os: ubuntu-latest
             script: dist:linux
+            args: --linux --x64
+            executable: desktop/release/linux-unpacked/sig-dream
     steps:
       - uses: actions/checkout@v4
 
@@ -109,21 +132,50 @@ jobs:
           name: sig-dream-web-dist
           path: dist
 
+      - name: Install root test dependencies and build maintained Agent
+        run: |
+          npm ci --no-audit --no-fund
+          npm run build:agent
+
       - name: Install desktop dependencies
         working-directory: desktop
         shell: bash
         run: |
-          rm -f package-lock.json
-          npm install --no-audit --no-fund
+          npm ci --no-audit --no-fund
         env:
           npm_config_electron_mirror: ""
 
-      - name: Package desktop installer (${{ matrix.name }})
+      - name: Audit desktop dependencies
         working-directory: desktop
-        run: npm run ${{ matrix.script }}
+        run: npm audit --audit-level=moderate
+
+      - name: Package desktop installer (${{ matrix.name }})
+        run: node desktop/scripts/package-release.mjs ${{ matrix.args }}
         env:
-          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+          SIG_DREAM_REQUIRE_SIGNING: ${{ vars.SIG_DREAM_REQUIRE_SIGNING || '0' }}
+          CSC_LINK: ${{ secrets.CSC_LINK }}
+          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           npm_config_electron_mirror: ""
+
+      - name: Launch packaged desktop app (Linux)
+        if: runner.os == 'Linux'
+        run: xvfb-run -a npm run test:desktop -- "${{ matrix.executable }}"
+        env:
+          SIG_DREAM_TEST_NO_SANDBOX: "1"
+
+      - name: Launch packaged desktop app (macOS / Windows)
+        if: runner.os != 'Linux'
+        run: npm run test:desktop -- "${{ matrix.executable }}"
+
+      - name: Upload desktop validation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-validation-${{ matrix.name }}
+          path: release/agent-connections/
+          if-no-files-found: error
 
       - name: Upload desktop artifacts
         uses: actions/upload-artifact@v4
@@ -138,11 +190,32 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
+  docker:
+    name: Docker runtime and access control
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and validate container
+        shell: bash
+        run: |
+          docker build -t sig-dream-check .
+          password="$(openssl rand -hex 24)"
+          echo "::add-mask::$password"
+          docker run -d --name sig-dream-check -p 127.0.0.1:3000:3000 -e SIG_DREAM_ACCESS_PASSWORD="$password" sig-dream-check
+          for attempt in {1..60}; do
+            if curl -fsS http://127.0.0.1:3000/healthz; then break; fi
+            sleep 2
+          done
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:3000/)" = "401"
+          test "$(curl -s -u "sig-dream:$password" -o /dev/null -w '%{http_code}' http://127.0.0.1:3000/)" = "200"
+          docker stop sig-dream-check
+
   publish:
     name: Publish GitHub Release
     needs:
       - verify-and-portable
       - desktop
+      - docker
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
@@ -218,12 +291,11 @@ jobs:
         run: |
           ls -lh release-assets
           if gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
-            gh release upload "$GITHUB_REF_NAME" release-assets/* --clobber --repo "$GITHUB_REPOSITORY"
-            gh release edit "$GITHUB_REF_NAME" --latest --notes-file release-notes.md --title "sig-dream $GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY"
-          else
-            gh release create "$GITHUB_REF_NAME" release-assets/* \
-              --repo "$GITHUB_REPOSITORY" \
-              --title "sig-dream $GITHUB_REF_NAME" \
-              --notes-file release-notes.md \
-              --latest
+            echo "::error::Release already exists; choose a new version instead of overwriting artifacts."
+            exit 1
           fi
+          gh release create "$GITHUB_REF_NAME" release-assets/* \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "sig-dream $GITHUB_REF_NAME" \
+            --notes-file release-notes.md \
+            --draft

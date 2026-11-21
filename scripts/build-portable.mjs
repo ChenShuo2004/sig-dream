@@ -20,10 +20,15 @@ if (!existsSync(join(distDir, "index.html"))) {
 rmSync(stageDir, { recursive: true, force: true });
 mkdirSync(stageDir, { recursive: true });
 
+cpSync(join(rootDir, "release/canvas-agent.tgz"), join(stageDir, "canvas-agent.tgz"));
 cpSync(distDir, join(stageDir, "dist"), { recursive: true });
 cpSync(serverDir, join(stageDir, "server"), { recursive: true });
+cpSync(join(rootDir, "src/styles/LICENSE.shadcn.md"), join(stageDir, "LICENSE.shadcn.md"));
 cpSync(join(rootDir, "LICENSE"), join(stageDir, "LICENSE"));
 cpSync(join(rootDir, "LICENSE.upstream-infinite-canvas"), join(stageDir, "LICENSE.upstream-infinite-canvas"));
+mkdirSync(join(stageDir, "docs"));
+cpSync(join(rootDir, "docs/agent-connections.md"), join(stageDir, "docs/agent-connections.md"));
+cpSync(join(rootDir, "docs/launch-readiness.md"), join(stageDir, "docs/launch-readiness.md"));
 
 writeFileSync(
     join(stageDir, "package.json"),

@@ -4,3 +4,10 @@ dist
 docs
 *.log
 .DS_Store
+
+promo-film
+release
+desktop/node_modules
+desktop/release
+.env
+.env.*

@@ -22,7 +22,18 @@ PostgreSQL やログイン設定なしで、デスクトップ版またはポー
 
 <br/>
 
-<img src="docs/screenshots/canvas-board.png" alt="sig キャンバス" width="100%">
+<div align="center">
+  <a href="docs/demos/00-open-source-launch.mp4">
+    <img src="docs/screenshots/open-source-promo.gif" alt="sig-dream 28秒プロモーション映像プレビュー" width="100%" />
+  </a>
+  <p>
+    <sub>🎬 <a href="docs/demos/00-open-source-launch.mp4"><b>28秒 1080p 音声付きプロモーション動画（MP4）を再生</b></a></sub>
+  </p>
+</div>
+
+| キャラクター一貫性＆連結コンテ | 100+ ノードのエピソード編成 |
+| --- | --- |
+| ![](docs/screenshots/open-source-promo-poster.png) | ![](docs/screenshots/canvas-board.png) |
 
 ## ダウンロード & クイックスタート
 
@@ -71,7 +82,7 @@ npm run dev
 
 | 05 · 1,700+ プロンプト集＆ローカルアセット | ノード参照編集 |
 | --- | --- |
-| [![05](docs/demos/05-prompts-and-assets.gif)](docs/demos/05-prompts-and-assets.mp4) | ![](docs/screenshots/canvas-edit.png) |
+| [![05](docs/demos/05-prompts-and-assets.gif)](docs/demos/05-prompts-and-assets.mp4) | ![](docs/screenshots/canvas-edit-light.jpg) |
 
 ## 主な機能
 

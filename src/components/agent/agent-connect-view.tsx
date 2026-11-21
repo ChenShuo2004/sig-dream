@@ -1,8 +1,9 @@
-import { Fragment } from "react";
 import { App, Button, Input, Tooltip } from "antd";
 import copyToClipboard from "copy-to-clipboard";
 import { Copy, KeyRound, Link2, PlugZap } from "lucide-react";
 import { useTranslation } from "react-i18next";
+
+import { AgentClientSetup } from "./agent-client-setup";
 
 import { canvasThemes } from "@/lib/canvas-theme";
 
@@ -34,7 +35,6 @@ export function AgentConnectView({
 }) {
     const { t } = useTranslation();
     const { message } = App.useApp();
-    const steps = [{ title: t("agent.connect.pluginTitle"), text: t("agent.connect.pluginText") }, { title: t("agent.connect.directTitle"), text: t("agent.connect.directText"), command: "npx -y @basketikun/canvas-agent@latest" }];
     const statusText = connectError ? t("agent.status.failed") : connected ? activity : enabled ? t("agent.status.connecting") : t("agent.status.disconnected");
     const statusColor = connectError ? "#dc2626" : connected ? "#16a34a" : enabled ? "#d97706" : theme.node.muted;
     const copyCommand = (command: string) => {
@@ -74,30 +74,7 @@ export function AgentConnectView({
                         {t("agent.connect.description")}
                     </div>
                 </div>
-                <div className="space-y-2">
-                    {steps.map((step, index) => {
-                        const command = "command" in step ? step.command : "";
-                        return (
-                            <Fragment key={step.title}>
-                                <div className="rounded-lg px-3 py-2.5">
-                                    <div className="text-sm font-medium leading-5">{step.title}</div>
-                                    <div className="mt-1 text-xs leading-5" style={{ color: theme.node.muted }}>
-                                        {step.text}
-                                    </div>
-                                    {command ? (
-                                        <div className="mt-2 flex items-center gap-2 rounded-md border bg-transparent px-2 py-1.5" style={{ borderColor: theme.node.stroke, color: theme.node.text }}>
-                                            <code className="min-w-0 flex-1 overflow-x-auto whitespace-nowrap text-[11px] leading-5">{command}</code>
-                                            <Tooltip title={t("agent.connect.copyCommand")}>
-                                                <Button size="small" type="text" className="!h-6 !w-6 !min-w-6" icon={<Copy className="size-3.5" />} onClick={() => copyCommand(command)} />
-                                            </Tooltip>
-                                        </div>
-                                    ) : null}
-                                </div>
-                                {index === 0 ? codexPluginReminder : null}
-                            </Fragment>
-                        );
-                    })}
-                </div>
+                <AgentClientSetup url={url} theme={theme} codexPluginReminder={codexPluginReminder} />
                 <div className="rounded-lg border p-3" style={{ borderColor: theme.node.stroke }}>
                     <div className="flex flex-wrap items-start justify-between gap-3">
                         <div className="min-w-0 flex-1">

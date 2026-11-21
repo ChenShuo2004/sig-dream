@@ -22,7 +22,18 @@ PostgreSQL이나 로그인 없이 데스크톱 앱 또는 포터블 패키지를
 
 <br/>
 
-<img src="docs/screenshots/canvas-board.png" alt="sig 캔버스" width="100%">
+<div align="center">
+  <a href="docs/demos/00-open-source-launch.mp4">
+    <img src="docs/screenshots/open-source-promo.gif" alt="sig-dream 28초 오픈소스 프로모션 미리보기" width="100%" />
+  </a>
+  <p>
+    <sub>🎬 <a href="docs/demos/00-open-source-launch.mp4"><b>28초 1080p 사운드 포함 프로모션 영상(MP4) 보기</b></a></sub>
+  </p>
+</div>
+
+| 캐릭터 일관성 & 스토리보드 연결 | 에피소드 전체 그룹 캔버스 |
+| --- | --- |
+| ![](docs/screenshots/open-source-promo-poster.png) | ![](docs/screenshots/canvas-board.png) |
 
 ## 다운로드 & 빠른 시작
 
@@ -71,7 +82,7 @@ npm run dev
 
 | 05 · 1,700+ 프롬프트 & 로컬 자산 | 노드 참조 편집 |
 | --- | --- |
-| [![05](docs/demos/05-prompts-and-assets.gif)](docs/demos/05-prompts-and-assets.mp4) | ![](docs/screenshots/canvas-edit.png) |
+| [![05](docs/demos/05-prompts-and-assets.gif)](docs/demos/05-prompts-and-assets.mp4) | ![](docs/screenshots/canvas-edit-light.jpg) |
 
 ## 주요 기능
 

@@ -13,6 +13,12 @@ files:
   - "!**/*.map"
 
 extraResources:
+  - from: ../src/styles/LICENSE.shadcn.md
+    to: licenses/LICENSE.shadcn.md
+  - from: ../LICENSE.upstream-infinite-canvas
+    to: licenses/LICENSE.upstream-infinite-canvas
+  - from: ../release/canvas-agent.tgz
+    to: app-runtime/canvas-agent.tgz
   - from: ../dist
     to: app-runtime/dist
   - from: ../server
@@ -46,14 +52,8 @@ mac:
   hardenedRuntime: false
   gatekeeperAssess: false
   target:
-    - target: dmg
-      arch:
-        - arm64
-        - x64
-    - target: zip
-      arch:
-        - arm64
-        - x64
+    - dmg
+    - zip
   artifactName: sig-dream-${version}-mac-${arch}.${ext}
 
 dmg:

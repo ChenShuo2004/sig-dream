@@ -19,13 +19,27 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-111111?style=for-the-badge&labelColor=f4f4f5&color=18181b)](LICENSE)
 [![关注作者 X](https://img.shields.io/badge/%E5%85%B3%E6%B3%A8%E4%BD%9C%E8%80%85-%40ChenshuoAI-111111?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ChenshuoAI)
 
-[快速安装](#开箱即用下载与快速启动) · [功能演示视频](#功能演示视频) · [核心工作区](#核心工作区) · [支持模型](#支持的模型与渠道) · [本地开发与打包](#本地开发测试与打包) · [企业版（闭源）](#企业版不开源) · [常见问题](#常见问题)
+[快速安装](#开箱即用下载与快速启动) · [宣传片与演示](#宣传片与功能演示) · [核心工作区](#核心工作区) · [Agent 接入](#agent-接入) · [支持模型](#支持的模型与渠道) · [本地开发与打包](#本地开发测试与打包) · [企业版（闭源）](#企业版不开源) · [常见问题](#常见问题)
 
 </div>
 
 <br/>
 
-<img src="docs/screenshots/canvas-board.png" alt="sig画布：按剧本、角色、场景、道具、关键帧与成片分组的无限画布工作流" width="100%">
+<div align="center">
+  <a href="docs/demos/00-open-source-launch.mp4">
+    <img src="docs/screenshots/open-source-promo.gif" alt="sig-dream 开源版 28 秒宣传片预览：从角色设定到成片，全在一张画布" width="100%" />
+  </a>
+  <p>
+    <sub>
+      🎬 <b>28 秒开源版实机宣传片</b>（从角色三视图设定、多图参考改图到全剧分镜连线） ·
+      <a href="docs/demos/00-open-source-launch.mp4"><b>点击播放 / 下载 1080p 有声高清版 MP4</b></a>
+    </sub>
+  </p>
+</div>
+
+| 角色一致性与多图连线分镜 | 百节点剧集全流程分组编排 |
+| --- | --- |
+| ![](docs/screenshots/open-source-promo-poster.png)<br/><sub>锁定多主角三视图设定，沿连线自动延展不同光影、机位与场景关键帧</sub> | ![](docs/screenshots/canvas-board.png)<br/><sub>在一张无限画布上按剧本、角色、场景、道具与成片清晰打组管理</sub> |
 
 ## 核心亮点
 
@@ -34,6 +48,10 @@
 - **100% 本地优先与隐私可控**：所有画布工程、工作室文档、本地资产与 API Key 均保存在本机 IndexedDB / LocalStorage，支持一键导出/导入 JSON 与 `.zip` 项目包，可选配置 WebDAV 跨设备同步；内置零依赖本地 CORS 代理 [`server/proxy.mjs`](server/proxy.mjs)，不经过任何第三方账号服务器。
 
 ---
+
+## Agent 接入
+
+在 Agent → 连接 中选择 Codex、Claude、Cursor、Grok Build、OpenCode、Antigravity、Muse Code 或 Pi，复制对应的 MCP 命令或配置。其他支持本地 MCP stdio 的客户端可使用通用入口。版本差异、操作步骤与验证方法见 [Agent 接入指南](docs/agent-connections.md)。
 
 ## 开箱即用下载与快速启动
 
@@ -68,10 +86,11 @@
 ```bash
 git clone https://github.com/ChenShuo2004/sig-dream.git
 cd sig-dream
+npm run access:init
 docker compose up -d
 ```
 
-启动后访问 [http://localhost:3000](http://localhost:3000)（容器内置 `/healthz` 健康检查）。
+启动后访问 [http://localhost:3000](http://localhost:3000)（容器内置 `/healthz` 健康检查），使用 `.env` 中生成的密码登录。默认只绑定本机。公网部署前必须配置 TLS 反向代理并设置 `SIG_DREAM_SECURE_COOKIE=1`；勿提交 `.env`。
 
 ### 方式四：源码运行（Node.js 22+ 推荐 / 20+ 兼容）
 
@@ -86,9 +105,10 @@ npm run dev
 
 ---
 
-## 功能演示视频
+## 宣传片与功能演示
 
-以下 5 支模块短片均基于社区开源版真实运行界面自动实测渲染（页面内直接循环播放动图，点击任意画面或链接可查看 `1080p` 高清 MP4）：
+- **主宣传片（28 秒 · 1080p 有声）**：[`docs/demos/00-open-source-launch.mp4`](docs/demos/00-open-source-launch.mp4)
+- **分模块实机演示（5 支 · 1080p）**：以下模块短片均基于社区开源版真实运行界面自动实测渲染（页面内直接循环播放动图，点击任意画面或链接可查看 `1080p` 高清 MP4）：
 
 | 01 · 零数据库启动与多渠道接入 | 02 · 无限画布多模态节点编排 |
 | --- | --- |
@@ -98,9 +118,9 @@ npm run dev
 | --- | --- |
 | [![03 剧本工作室](docs/demos/03-script-studio.gif)](docs/demos/03-script-studio.mp4)<br/><sub>支持上传剧本/改写/AI 创作，内置多分类风格库锁定全片角色与分镜画风 · [1080p MP4](docs/demos/03-script-studio.mp4)</sub> | [![04 复刻与替换工作室](docs/demos/04-replication-and-replacement.gif)](docs/demos/04-replication-and-replacement.mp4)<br/><sub>四步拆解对标原片逐段复刻，或一键替换视频人物主体与克隆音色 · [1080p MP4](docs/demos/04-replication-and-replacement.mp4)</sub> |
 
-| 05 · 1700+ 开源提示词库与本地资产闭环 | 界面细节：选中图片直接参考改图 |
+| 05 · 1700+ 开源提示词库与本地资产闭环 | 界面细节：选中角色三视图直接参考改图 |
 | --- | --- |
-| [![05 1700+ 提示词库与本地资产](docs/demos/05-prompts-and-assets.gif)](docs/demos/05-prompts-and-assets.mp4)<br/><sub>聚合 1740+ 条高质量提示词，秒级筛选收藏至本地资产库并跨工作台复用 · [1080p MP4](docs/demos/05-prompts-and-assets.mp4)</sub> | ![](docs/screenshots/canvas-edit.png)<br/><sub>选中画布任意图片节点直接输入改图指令，新生成结果自动连线对比迭代</sub> |
+| [![05 1700+ 提示词库与本地资产](docs/demos/05-prompts-and-assets.gif)](docs/demos/05-prompts-and-assets.mp4)<br/><sub>聚合 1740+ 条高质量提示词，秒级筛选收藏至本地资产库并跨工作台复用 · [1080p MP4](docs/demos/05-prompts-and-assets.mp4)</sub> | ![](docs/screenshots/canvas-edit-light.jpg)<br/><sub>选中画布任意角色或图片节点直接输入改图指令，新生成结果自动连线对比迭代</sub> |
 
 ---
 
@@ -191,10 +211,12 @@ npm run version:sync -- 0.3.2
 sig-dream/
 ├── src/                      # React 19 + TypeScript + Vite 7 前端（首页、无限画布、三大工作室、提示词库、资产库）
 ├── public/                   # 静态资源与品牌图标
+├── packages/canvas-agent/    # 本地 MCP / Canvas Agent 桥接与协同运行时
 ├── server/
 │   ├── proxy.mjs             # 零依赖本地 CORS 转发代理
 │   └── index.mjs             # 生产静态托管 + 端口自动顺延 + /healthz 健康检查
 ├── desktop/                  # macOS / Windows / Linux 社区版 Electron 桌面客户端（带窗口记忆与菜单栏增强）
+├── promo-film/               # HyperFrames 开源宣传片可编辑工程与自动采图/配乐脚本
 ├── scripts/
 │   ├── build-portable.mjs    # 打包免 npm install 的 Web 便携包
 │   ├── sync-version.mjs      # 一键同步全仓版本号
@@ -202,8 +224,9 @@ sig-dream/
 │   └── render-demos.mjs      # Playwright + FFmpeg 模块化功能演示视频渲染脚本
 ├── tests/                    # Node 原生单元测试（node:test）
 ├── docs/
-│   ├── screenshots/          # 界面截图与宣传动图
-│   └── demos/                # 模块化 1080p 功能演示视频与封面帧
+│   ├── agent-connections.md  # 多客户端 MCP / Agent 接入指南
+│   ├── screenshots/          # 首屏宣传动图、角色分镜海报与界面实拍
+│   └── demos/                # 1080p 开源宣传片与分模块功能演示视频
 ├── .github/workflows/
 │   └── release.yml           # 自动检查、构建 Web 便携包 + 三端桌面安装包 + SHA256SUMS 并发布 Release
 ├── Dockerfile                # 多阶段生产容器镜像
@@ -253,5 +276,7 @@ sig-dream/
 <div align="center">
 
 [![Star History Chart](https://api.star-history.com/svg?repos=ChenShuo2004/sig-dream&type=Date)](https://star-history.com/#ChenShuo2004/sig-dream&Date)
+
+</div>
 
 </div>

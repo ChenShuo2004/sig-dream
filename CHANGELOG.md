@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## v0.3.3 - 2026-11-21
+
++ [新增] Codex、Claude、Cursor、Grok Build、OpenCode、Antigravity、Muse Code、Pi 与通用 MCP 配置；保留 OpenCode 新旧版本差异和客户端测试入口。
++ [安全] Electron 45.4.1 / electron-builder 26.18.0；维护版 Canvas Agent 升级 Zod 4.6.7，增加输入边界与鉴权 Streamable HTTP MCP，随发布包分发。
++ [安全] 非本机监听强制访问密码；代理加入 DNS 固定、防私网/重定向 SSRF、跨站限制、请求/响应体和并发速率边界。
++ [修复] Token 首次连接提示、外部客户端自动触发 Codex、锁文件与版本同步、桌面隔离数据目录。
++ [验证] 加入真实双 MCP 客户端、HTTP MCP、安全测试、独立便携包和四平台桌面启动门禁；CI 构建 Docker 并验证鉴权，生成待审阅的草稿发布。
+
+
 ## v0.3.2 - 2026-11-21
 
 + [新增] 新增 5 支模块化 1080p 功能演示视频与循环动图预览（覆盖零配置启动、无限画布、剧本工作室、复刻与替换工作室、1700+ 提示词库与本地资产），同步更新中/英/日/韩四语 README。

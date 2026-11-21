@@ -125,7 +125,7 @@ export async function fetchAgentJson<T>(endpoint: string, token: string, path: s
 
 export async function discoverAgentConfig(endpoint: string) {
     try {
-        const res = await fetch(`${endpoint}/config`);
+        const res = await fetch(`${endpoint}/config`, { signal: AbortSignal.timeout(5000) });
         if (!res.ok) return null;
         const data = (await res.json()) as AgentConfigResponse;
         return data.ok ? data : null;
