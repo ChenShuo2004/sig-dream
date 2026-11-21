@@ -1,6 +1,9 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { Readable } from "node:stream";
+import { mkdtemp, mkdir, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { EventEmitter } from "node:events";
 import { startServer } from "../server/index.mjs";
 import { isPublicAddress, resolvePublicTarget, safeFetch, readLimited } from "../server/safe-fetch.mjs";
@@ -63,7 +66,9 @@ test("streaming body limits work without Content-Length", async () => {
 test("public listener fails closed; login creates a cookie usable with provider Authorization", async () => {
     await assert.rejects(startServer({ host: "0.0.0.0", port: 0 }), /password/i);
     const password = "test-only-random-password-123456789";
-    const server = await startServer({ host: "0.0.0.0", port: 0, access: { username: "qa", password } });
+    const distDir = await mkdtemp(join(tmpdir(), "sig-access-test-"));
+    await writeFile(join(distDir, "index.html"), "test page");
+    const server = await startServer({ host: "0.0.0.0", port: 0, distDir, access: { username: "qa", password } });
     try {
         assert.equal((await fetch(server.url)).status, 401);
         assert.equal((await fetch(`${server.url}/healthz`)).status, 200);
@@ -75,6 +80,7 @@ test("public listener fails closed; login creates a cookie usable with provider 
         assert.equal((await fetch(server.url, { headers: { cookie: cookie + "forged" } })).status, 401);
     } finally {
         await server.close();
+        await rm(distDir, { recursive: true, force: true });
     }
 });
 
