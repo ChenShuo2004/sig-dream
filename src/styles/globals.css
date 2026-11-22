@@ -142,6 +142,9 @@
 
 @layer utilities {
     .ai-title-aurora {
+        display: inline-block;
+        padding-block: 0.16em;
+        line-height: 1.18;
         background: linear-gradient(90deg, #111827 0%, #111827 36%, #6b7280 54%, #111827 72%, #111827 100%);
         background-size: 220% 100%;
         -webkit-background-clip: text;

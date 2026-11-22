@@ -229,7 +229,7 @@ function createWindow() {
         minWidth: 1024,
         minHeight: 680,
         show: false,
-        title: "sig-dream · sig画布",
+        title: "sig-dream",
         backgroundColor: "#0c0a09",
         icon: existsSync(iconPath) ? iconPath : undefined,
         webPreferences: {

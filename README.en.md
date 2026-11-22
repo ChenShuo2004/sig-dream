@@ -2,7 +2,7 @@
 
 <img src="desktop/assets/icon.png" alt="sig-dream logo" width="84" height="84" />
 
-# sig-dream · sig Canvas
+# sig-dream
 
 **An open-source, zero-database, ready-to-run local-first AI infinite canvas & creative video studio**
 

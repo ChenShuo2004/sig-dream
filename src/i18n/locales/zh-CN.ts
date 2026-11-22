@@ -1,6 +1,6 @@
 export default {
     meta: {
-        title: "sig-dream · sig画布",
+        title: "sig-dream",
         description: "开源、零数据库、本地优先的 AI 无限画布与视频创作工作室",
     },
     theme: { toggle: "切换主题" },

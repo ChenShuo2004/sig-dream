@@ -1,6 +1,6 @@
 export default {
     meta: {
-        title: "sig-dream · sig Canvas",
+        title: "sig-dream",
         description: "Open-source, zero-database, local-first AI infinite canvas & creative video studio",
     },
     theme: { toggle: "Toggle theme" },

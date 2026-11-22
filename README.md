@@ -2,7 +2,7 @@
 
 <img src="desktop/assets/icon.png" alt="sig-dream logo" width="84" height="84" />
 
-# sig-dream · sig画布
+# sig-dream
 
 **开源、零数据库、开箱即用的本地优先 AI 无限画布与视频创作工作室**
 
@@ -270,7 +270,7 @@ sig-dream/
 
 ## 致谢与许可证
 
-- sig画布基于 [basketikun/infinite-canvas](https://github.com/basketikun/infinite-canvas)（MIT License）二次开发，在其无限画布、生图、视频与 Agent 能力之上，扩展了剧本 / 复刻 / 替换三大工作室、多渠道视频模型适配与开箱即用桌面/便携打包方案。原项目许可证保留于 [LICENSE.upstream-infinite-canvas](LICENSE.upstream-infinite-canvas)。
+- sig-dream 基于 [basketikun/infinite-canvas](https://github.com/basketikun/infinite-canvas)（MIT License）二次开发，在其无限画布、生图、视频与 Agent 能力之上，扩展了剧本 / 复刻 / 替换三大工作室、多渠道视频模型适配与开箱即用桌面/便携打包方案。原项目许可证保留于 [LICENSE.upstream-infinite-canvas](LICENSE.upstream-infinite-canvas)。
 - 本项目采用 [MIT License](LICENSE) 开源，欢迎 Star、Fork、Issue 与 PR。
 
 <div align="center">

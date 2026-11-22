@@ -103,7 +103,7 @@ export default function IndexPage() {
                         <span>{t("home.badge")}</span>
                     </div>
 
-                    <h1 className="ai-title-aurora mt-5 max-w-4xl text-balance text-4xl font-semibold tracking-tight sm:text-6xl">
+                    <h1 className="ai-title-aurora mt-4 max-w-4xl py-1.5 text-balance text-4xl leading-[1.2] font-semibold tracking-tight sm:text-6xl">
                         {t("meta.title")}
                     </h1>
 

@@ -2,7 +2,7 @@
 
 <img src="desktop/assets/icon.png" alt="sig-dream logo" width="84" height="84" />
 
-# sig-dream · sig キャンバス
+# sig-dream
 
 **データベース不要・ローカル完結・すぐ使えるオープンソース AI 無限キャンバス＆動画制作スタジオ**
 

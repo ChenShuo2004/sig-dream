@@ -2,7 +2,7 @@
 
 <img src="desktop/assets/icon.png" alt="sig-dream logo" width="84" height="84" />
 
-# sig-dream · sig 캔버스
+# sig-dream
 
 **데이터베이스 없이 바로 실행하는 로컬 우선 오픈소스 AI 무한 캔버스 & 영상 스튜디오**
 
