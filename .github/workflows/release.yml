@@ -184,6 +184,7 @@ jobs:
         run: npm run test:desktop -- "${{ matrix.executable }}"
 
       - name: Upload desktop validation evidence
+        if: runner.os != 'Linux'
         uses: actions/upload-artifact@v4
         with:
           name: desktop-validation-${{ matrix.name }}
@@ -275,7 +276,7 @@ jobs:
           | **macOS（Apple Silicon M1–M4）** | `sig-dream-*-mac-arm64.dmg` | 独立桌面版，无需安装 Node.js，拖入应用程序即用 |
           | **macOS（Intel 芯片）** | `sig-dream-*-mac-x64.dmg` | 独立桌面版，无需安装 Node.js，打开即用 |
           | **Windows（x64）** | `sig-dream-*-win-x64-setup.exe` 或 `sig-dream-*-win-x64.zip` | 安装版或免安装便携版，无需 Node.js |
-          | **Linux（x64）** | `sig-dream-*-linux-x64.AppImage` 或 `.deb` | 独立桌面版 |
+          | **Linux（x64）** | `sig-dream-*-linux-x86_64.AppImage` 或 `sig-dream-*-linux-amd64.deb` | 独立桌面版 |
           | **Web 开箱即用便携包（跨平台）** | `sig-dream-*-web-portable.zip` / `.tar.gz` | 免 `npm install`，仅需 Node.js 20+，解压双击脚本自动启动并打开浏览器 |
           | **完整性校验** | `SHA256SUMS.txt` | 各安装包 SHA-256 校验值 |
 
