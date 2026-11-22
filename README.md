@@ -17,22 +17,23 @@
 [![Latest Release](https://img.shields.io/github/v/release/ChenShuo2004/sig-dream?style=for-the-badge&color=111111&labelColor=e4e4e7&label=Release)](https://github.com/ChenShuo2004/sig-dream/releases/latest)
 [![GitHub Stars](https://img.shields.io/github/stars/ChenShuo2004/sig-dream?style=for-the-badge&color=18181b&labelColor=f4f4f5)](https://github.com/ChenShuo2004/sig-dream/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-111111?style=for-the-badge&labelColor=f4f4f5&color=18181b)](LICENSE)
+[![AIGC 定制平台 · 有温度AI](https://img.shields.io/badge/AIGC_%E5%AE%9A%E5%88%B6%E5%B9%B3%E5%8F%B0-%E6%9C%89%E6%B8%A9%E5%BA%A6AI-C86D44?style=for-the-badge)](https://page.shiguang.love)
 [![关注作者 X](https://img.shields.io/badge/%E5%85%B3%E6%B3%A8%E4%BD%9C%E8%80%85-%40ChenshuoAI-111111?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ChenshuoAI)
 
-[快速安装](#开箱即用下载与快速启动) · [宣传片与演示](#宣传片与功能演示) · [核心工作区](#核心工作区) · [Agent 接入](#agent-接入) · [支持模型](#支持的模型与渠道) · [本地开发与打包](#本地开发测试与打包) · [企业版（闭源）](#企业版不开源) · [常见问题](#常见问题)
+[快速安装](#开箱即用下载与快速启动) · [宣传片与演示](#宣传片与功能演示) · [核心工作区](#核心工作区) · [Agent 接入](#agent-接入) · [支持模型](#支持的模型与渠道) · [AIGC 定制平台](#youwendu-aigc) · [企业版（闭源）](#企业版不开源) · [常见问题](#常见问题)
 
 </div>
 
 <br/>
 
+https://github.com/user-attachments/assets/e585afe8-f2e6-4acf-bfe7-e8bc970f73fe
+
 <div align="center">
-  <a href="docs/demos/00-open-source-launch.mp4">
-    <img src="docs/screenshots/open-source-promo.gif" alt="sig-dream 开源版 28 秒宣传片预览：从角色设定到成片，全在一张画布" width="100%" />
-  </a>
   <p>
     <sub>
-      🎬 <b>28 秒开源版实机宣传片</b>（从角色三视图设定、多图参考改图到全剧分镜连线） ·
-      <a href="docs/demos/00-open-source-launch.mp4"><b>点击播放 / 下载 1080p 有声高清版 MP4</b></a>
+      🎬 <b>功能总演示 · 28 秒开源版实机宣传片</b>（从角色三视图设定、多图参考改图到全剧分镜连线） ·
+      <a href="https://github.com/ChenShuo2004/sig-dream/raw/main/docs/demos/00-open-source-launch.mp4"><b>下载 1080p 有声高清 MP4</b></a> ·
+      <a href="docs/demos/00-open-source-launch.mp4"><b>仓库文件</b></a>
     </sub>
   </p>
 </div>
@@ -46,6 +47,9 @@
 - **真正开箱即用，零数据库运维**：不依赖 PostgreSQL、Redis 或账号后端。提供 **macOS / Windows / Linux 原生桌面安装包**、**免 `npm install` Web 便携包** 与 **Docker 一键启动**，打开填入 API Key 即可出图出片。
 - **从灵感到成片的一体化工作台**：不止是自由节点画布，还内置 **剧本工作室、复刻工作室、替换工作室** 与 **1700+ 开源提示词中心**（内置 GitHub + jsDelivr 多源自动容灾缓存），覆盖角色设定、分镜拆解、多图改图到视频生成。
 - **100% 本地优先与隐私可控**：所有画布工程、工作室文档、本地资产与 API Key 均保存在本机 IndexedDB / LocalStorage，支持一键导出/导入 JSON 与 `.zip` 项目包，可选配置 WebDAV 跨设备同步；内置零依赖本地 CORS 代理 [`server/proxy.mjs`](server/proxy.mjs)，不经过任何第三方账号服务器。
+
+> [!NOTE]
+> **不想自己配环境调参数，需要直接拿商业成片或专属定制？** 欢迎访问官方 AIGC 定制平台 **[有温度AI · page.shiguang.love](https://page.shiguang.love)** —— 提供 **企业品牌宣传片、年会定制大片、亲人陪伴视频与儿童 AI 绘本** 1 对 1 定制（AI 生成 × 剪辑师逐帧精修，先看预览样片满意再交付，支持对公结算与增值税专票）。
 
 ---
 
@@ -107,7 +111,19 @@ npm run dev
 
 ## 宣传片与功能演示
 
-- **主宣传片（28 秒 · 1080p 有声）**：[`docs/demos/00-open-source-launch.mp4`](docs/demos/00-open-source-launch.mp4)
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/home-overview-dark.jpg" />
+    <source media="(prefers-color-scheme: light)" srcset="docs/screenshots/home-overview-light.jpg" />
+    <img src="docs/screenshots/home-overview-light.jpg" alt="sig-dream 首页总览：把剧本、画布与成片放在同一张桌面" width="100%" />
+  </picture>
+  <p>
+    <sub>
+      <b>sig-dream 首页总览</b>：一键直达无限画布、剧本 / 复刻 / 替换三大创作工作室、1700+ 开源提示词中心与本地资产库（支持浅色 / 深色双主题）
+    </sub>
+  </p>
+</div>
+
 - **分模块实机演示（5 支 · 1080p）**：以下模块短片均基于社区开源版真实运行界面自动实测渲染（页面内直接循环播放动图，点击任意画面或链接可查看 `1080p` 高清 MP4）：
 
 | 01 · 零数据库启动与多渠道接入 | 02 · 无限画布多模态节点编排 |
@@ -176,6 +192,37 @@ npm run version:sync -- 0.3.2
 ```
 
 推送与版本号一致的 `v*` Git 标签（如 `git tag v0.3.2 && git push origin main --tags`）即可触发 [`.github/workflows/release.yml`](.github/workflows/release.yml)，自动完成类型检查、单测、Web 便携包与三端桌面安装包构建、SHA-256 校验生成并发布至 GitHub Releases。
+
+---
+
+<a id="youwendu-aigc"></a>
+
+## 官方 AIGC 定制平台 · 有温度AI
+
+**不想自己搭工作流、配 API 或逐帧修片？把商业成片与专属影像交给专业定制团队。**  
+**[有温度AI（page.shiguang.love）](https://page.shiguang.love)** 是团队自营的 AIGC 定制影像与绘本平台 —— 坚持 **「AI 生成 × 剪辑师人工逐帧精修，先看预览样片、满意再交付」**：
+
+<div align="center">
+  <a href="https://page.shiguang.love">
+    <img src="docs/screenshots/youwendu-aigc-custom.jpg" alt="有温度AI · AIGC 定制影像与绘本平台（page.shiguang.love）" width="100%" />
+  </a>
+  <p>
+    <sub>
+      ✨ <b>用 AI 与人的双手，定格不可复制的一刻</b> ·
+      <a href="https://page.shiguang.love"><b>访问定制平台浏览有声样片与透明报价（page.shiguang.love）→</b></a>
+    </sub>
+  </p>
+</div>
+
+| 定制品类 | 适用场景与交付标准 | 参考价格 |
+| --- | --- | --- |
+| **宣传片制作** | 企业形象片、产品与新品发布、品牌故事短片、文旅与招商推介；全案策划 + 4K 精修成片，支持对公结算与增值税专票 | 面议 · [查看样片](https://page.shiguang.love/services/promo/) |
+| **年会定制视频** | 一支让全场安静、再沸腾的企业开场大片 / 年度高光定制片；支持对公结算与增值税专票 | `¥2,999` 起 · [查看详情](https://page.shiguang.love/services/annual/) |
+| **亲人陪伴视频** | 仅需 **1 张正面照片 + 几句想说的话** 即可定制，自然神态与口型逐帧精修，3–5 个工作日交付 | `¥199` 起 · [有声样片](https://page.shiguang.love/services/family/) |
+| **AI 绘本定制** | 让你的孩子成为故事主角，14 幅全彩跨页原创绘本，支持印制精装实体书寄送到家 | `¥99` 起 · [翻阅内页](https://page.shiguang.love/services/picturebook/) |
+
+- **四大交付保障**：`人工逐帧精修` · `先看预览样片（套餐内含免费修改）` · `4K 高清交付 & 支持对公专票` · `交付后 30 天内彻底销毁客户隐私素材`
+- **立即咨询定制**：打开 **[https://page.shiguang.love](https://page.shiguang.love)**（English: **[page.shiguang.love/en](https://page.shiguang.love/en/)**）在线看样片，或添加客服微信 `AIkingyuan` 免费获取 1 对 1 方案建议。
 
 ---
 
@@ -276,7 +323,5 @@ sig-dream/
 <div align="center">
 
 [![Star History Chart](https://api.star-history.com/svg?repos=ChenShuo2004/sig-dream&type=Date)](https://star-history.com/#ChenShuo2004/sig-dream&Date)
-
-</div>
 
 </div>

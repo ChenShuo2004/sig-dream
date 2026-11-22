@@ -17,22 +17,23 @@ No PostgreSQL, no login server — download the native desktop app or portable b
 [![Latest Release](https://img.shields.io/github/v/release/ChenShuo2004/sig-dream?style=for-the-badge&color=111111&labelColor=e4e4e7&label=Release)](https://github.com/ChenShuo2004/sig-dream/releases/latest)
 [![GitHub Stars](https://img.shields.io/github/stars/ChenShuo2004/sig-dream?style=for-the-badge&color=18181b&labelColor=f4f4f5)](https://github.com/ChenShuo2004/sig-dream/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-111111?style=for-the-badge&labelColor=f4f4f5&color=18181b)](LICENSE)
+[![Bespoke AIGC · Youwendu AI](https://img.shields.io/badge/Bespoke_AIGC-Youwendu_AI-C86D44?style=for-the-badge)](https://page.shiguang.love/en/)
 [![Follow @ChenshuoAI](https://img.shields.io/badge/Follow-%40ChenshuoAI-111111?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ChenshuoAI)
 
-[Download & Quick Start](#download--quick-start) · [Promo & Demos](#promo-film--feature-demos) · [Workspaces](#workspaces) · [Agent Setup](#agent-integration) · [Providers](#supported-models--providers) · [Development & Packaging](#development-testing--packaging) · [Enterprise (Closed-Source)](#enterprise-edition-closed-source) · [FAQ](#faq)
+[Download & Quick Start](#download--quick-start) · [Promo & Demos](#promo-film--feature-demos) · [Workspaces](#workspaces) · [Agent Setup](#agent-integration) · [Providers](#supported-models--providers) · [Bespoke AIGC Studio](#youwendu-aigc) · [Enterprise (Closed-Source)](#enterprise-edition-closed-source) · [FAQ](#faq)
 
 </div>
 
 <br/>
 
+https://github.com/user-attachments/assets/e585afe8-f2e6-4acf-bfe7-e8bc970f73fe
+
 <div align="center">
-  <a href="docs/demos/00-open-source-launch.mp4">
-    <img src="docs/screenshots/open-source-promo.gif" alt="sig-dream 28s open-source launch promo: from character design to final storyboard on one canvas" width="100%" />
-  </a>
   <p>
     <sub>
-      🎬 <b>28s Open-Source Launch Film</b> (character sheets, multi-reference remixing & connected storyboards) ·
-      <a href="docs/demos/00-open-source-launch.mp4"><b>Watch / Download 1080p MP4 with Sound</b></a>
+      🎬 <b>Feature Overview Demo · 28s Open-Source Launch Film</b> (character sheets, multi-reference remixing & connected storyboards) ·
+      <a href="https://github.com/ChenShuo2004/sig-dream/raw/main/docs/demos/00-open-source-launch.mp4"><b>Download 1080p MP4 with Sound</b></a> ·
+      <a href="docs/demos/00-open-source-launch.mp4"><b>Repo File</b></a>
     </sub>
   </p>
 </div>
@@ -46,6 +47,9 @@ No PostgreSQL, no login server — download the native desktop app or portable b
 - **True out-of-the-box setup**: No PostgreSQL, Redis, or account server. Ships as **native macOS / Windows / Linux desktop installers**, a **zero-install Web Portable bundle**, and a **one-command Docker Compose setup**.
 - **End-to-end creative studio**: Goes beyond a node canvas with built-in **Script, Replication, and Replacement studios**, **1,700+ curated prompts** (with multi-CDN fallback caching), and **Canvas Agent**.
 - **Local-first & private**: Projects, studio documents, local assets, and API keys stay in local IndexedDB / LocalStorage with JSON / `.zip` export/import and optional WebDAV sync. A zero-dependency local CORS proxy ([`server/proxy.mjs`](server/proxy.mjs)) handles providers that block direct browser calls.
+
+> [!NOTE]
+> **Need turnkey commercial or personal AI video production instead of DIY workflows?** Visit our official bespoke AIGC studio **[Youwendu AI · page.shiguang.love](https://page.shiguang.love/en/)** — AI generation refined frame-by-frame by human editors for **brand promos, corporate gala films, family companion videos, and custom AI picture books** (preview draft before final delivery).
 
 ---
 
@@ -103,7 +107,19 @@ npm run dev
 
 ## Promo Film & Feature Demos
 
-- **Launch Film (28s · 1080p with Sound)**: [`docs/demos/00-open-source-launch.mp4`](docs/demos/00-open-source-launch.mp4)
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/home-overview-dark.jpg" />
+    <source media="(prefers-color-scheme: light)" srcset="docs/screenshots/home-overview-light.jpg" />
+    <img src="docs/screenshots/home-overview-light.jpg" alt="sig-dream Home Overview: One local canvas from raw script to final cut" width="100%" />
+  </picture>
+  <p>
+    <sub>
+      <b>sig-dream Home Overview</b>: Jump straight into Infinite Canvas, Script / Replication / Replacement Studios, 1,700+ Prompt Library, and Local Assets (adaptive Light & Dark themes)
+    </sub>
+  </p>
+</div>
+
 - **Modular Walkthroughs (5 clips · 1080p)**: All clips below are rendered directly from the live open-source UI (inline looping previews; click any preview to open the full `1080p` MP4):
 
 | 01 · Zero-DB Setup & Multi-Provider Config | 02 · Infinite Canvas Orchestration |
@@ -170,6 +186,37 @@ npm run desktop:linux
 # Sync version across package.json, desktop/package.json, and VERSION
 npm run version:sync -- 0.3.2
 ```
+
+---
+
+<a id="youwendu-aigc"></a>
+
+## Official Bespoke AIGC Studio · Youwendu AI
+
+**Want broadcast-ready AI films or personalised picture books without configuring models or editing timelines yourself?**  
+**[Youwendu AI (page.shiguang.love)](https://page.shiguang.love/en/)** is our dedicated bespoke AIGC production platform — combining **AI generation with frame-by-frame human editorial finishing, draft preview before final delivery, and transparent pricing**:
+
+<div align="center">
+  <a href="https://page.shiguang.love/en/">
+    <img src="docs/screenshots/youwendu-aigc-custom.jpg" alt="Youwendu AI · Bespoke AIGC Films & Picture Books (page.shiguang.love)" width="100%" />
+  </a>
+  <p>
+    <sub>
+      ✨ <b>AI and human hands, capturing unrepeatable moments</b> ·
+      <a href="https://page.shiguang.love/en/"><b>Watch full samples & explore packages at page.shiguang.love →</b></a>
+    </sub>
+  </p>
+</div>
+
+| Bespoke Service | What You Get | Pricing |
+| --- | --- | --- |
+| **Promotional Films** | Corporate brand films, product launches, brand stories & tourism/investment promos · 4K mastered · VAT invoice supported | Custom Quote · [Samples](https://page.shiguang.love/en/) |
+| **Corporate Gala Films** | Show-stopping annual gala openers & milestone highlight reels · Corporate invoicing available | From `¥2,999` · [Details](https://page.shiguang.love/en/) |
+| **Family Companion Films** | Crafted from just **1 portrait photo + your message**, with natural expression & lip-sync finishing in 3–5 working days | From `¥199` · [Watch Sample](https://page.shiguang.love/en/) |
+| **Personalised AI Picture Books** | Your child as the hero across 14 full-color illustrated spreads, with optional hardcover print delivery | From `¥99` · [Preview Pages](https://page.shiguang.love/en/) |
+
+- **Service Guarantees**: `Frame-by-frame human finishing` · `Preview draft first (free revisions included)` · `4K delivery & corporate VAT invoices` · `All client source materials permanently purged within 30 days`
+- **Start a Custom Project**: Visit **[https://page.shiguang.love/en/](https://page.shiguang.love/en/)** (中文站：**[page.shiguang.love](https://page.shiguang.love)**) or connect on WeChat (`AIkingyuan`) for a free 1-on-1 consultation.
 
 ---
 
