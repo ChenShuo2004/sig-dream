@@ -176,8 +176,8 @@ jobs:
         if: runner.os == 'Linux'
         shell: bash
         run: |
-          test -n "$(find desktop/release -maxdepth 1 -type f -name 'sig-dream-*-linux-x64.AppImage' -print -quit)"
-          test -n "$(find desktop/release -maxdepth 1 -type f -name 'sig-dream-*-linux-x64.deb' -print -quit)"
+          test -n "$(find desktop/release -maxdepth 1 -type f -name 'sig-dream-*-linux-x86_64.AppImage' -print -quit)"
+          test -n "$(find desktop/release -maxdepth 1 -type f -name 'sig-dream-*-linux-amd64.deb' -print -quit)"
 
       - name: Launch packaged desktop app (macOS / Windows)
         if: runner.os != 'Linux'
