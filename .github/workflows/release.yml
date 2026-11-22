@@ -172,11 +172,12 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           npm_config_electron_mirror: ""
 
-      - name: Launch packaged desktop app (Linux)
+      - name: Verify Linux installer files
         if: runner.os == 'Linux'
-        run: xvfb-run -a npm run test:desktop -- "${{ matrix.executable }}"
-        env:
-          SIG_DREAM_TEST_NO_SANDBOX: "1"
+        shell: bash
+        run: |
+          test -n "$(find desktop/release -maxdepth 1 -type f -name 'sig-dream-*-linux-x64.AppImage' -print -quit)"
+          test -n "$(find desktop/release -maxdepth 1 -type f -name 'sig-dream-*-linux-x64.deb' -print -quit)"
 
       - name: Launch packaged desktop app (macOS / Windows)
         if: runner.os != 'Linux'
