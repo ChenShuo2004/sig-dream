@@ -104,21 +104,33 @@ jobs:
             script: dist:mac:arm64
             args: --mac --arm64
             executable: desktop/release/mac-arm64/sig-dream.app/Contents/MacOS/sig-dream
+            artifacts: |
+              desktop/release/*.dmg
+              desktop/release/*.zip
           - name: macOS-x64
             os: macos-15-intel
             script: dist:mac:x64
             args: --mac --x64
             executable: desktop/release/mac/sig-dream.app/Contents/MacOS/sig-dream
+            artifacts: |
+              desktop/release/*.dmg
+              desktop/release/*.zip
           - name: Windows
             os: windows-latest
             script: dist:win
             args: --win --x64
             executable: desktop/release/win-unpacked/sig-dream.exe
+            artifacts: |
+              desktop/release/*.exe
+              desktop/release/*.zip
           - name: Linux
             os: ubuntu-latest
             script: dist:linux
             args: --linux --x64
             executable: desktop/release/linux-unpacked/sig-dream
+            artifacts: |
+              desktop/release/*.AppImage
+              desktop/release/*.deb
     steps:
       - uses: actions/checkout@v4
 
@@ -181,12 +193,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: sig-dream-desktop-${{ matrix.name }}
-          path: |
-            desktop/release/*.exe
-            desktop/release/*.dmg
-            desktop/release/*.zip
-            desktop/release/*.AppImage
-            desktop/release/*.deb
+          path: ${{ matrix.artifacts }}
           if-no-files-found: error
           retention-days: 14
 

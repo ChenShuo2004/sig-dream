@@ -10,7 +10,9 @@ if (signed && (mac || windows) && !process.env.CSC_LINK && !process.env.CSC_NAME
 if (signed && mac && !(process.env.APPLE_API_KEY && process.env.APPLE_API_KEY_ID && process.env.APPLE_API_ISSUER) && !(process.env.APPLE_ID && process.env.APPLE_APP_SPECIFIC_PASSWORD && process.env.APPLE_TEAM_ID)) throw new Error("Signed macOS release requires Apple notarization credentials.");
 const env = { ...process.env, CSC_IDENTITY_AUTO_DISCOVERY: signed ? "true" : "false" };
 for (const key of ["CSC_LINK", "CSC_NAME", "CSC_KEY_PASSWORD", "APPLE_ID", "APPLE_APP_SPECIFIC_PASSWORD", "APPLE_TEAM_ID", "APPLE_API_KEY", "APPLE_API_KEY_ID", "APPLE_API_ISSUER"]) if (!env[key]?.trim()) delete env[key];
-execFileSync(process.execPath, [require.resolve("electron-builder/out/cli/cli.js"), ...args, "--dir", "--config", signed ? "electron-builder.signed.yml" : "electron-builder.yml", "--publish", "never"], {
-    cwd: fileURLToPath(new URL("..", import.meta.url)),
-    env, stdio: "inherit",
-});
+const builderCli = require.resolve("electron-builder/out/cli/cli.js");
+const cwd = fileURLToPath(new URL("..", import.meta.url));
+const config = signed ? "electron-builder.signed.yml" : "electron-builder.yml";
+// Build distributable installers first, then make a retained unpacked app for launch QA.
+execFileSync(process.execPath, [builderCli, ...args, "--config", config, "--publish", "never"], { cwd, env, stdio: "inherit" });
+execFileSync(process.execPath, [builderCli, ...args, "--dir", "--config", config, "--publish", "never"], { cwd, env, stdio: "inherit" });
