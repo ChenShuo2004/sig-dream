@@ -23,21 +23,24 @@ PostgreSQL이나 로그인 없이 데스크톱 앱 또는 포터블 패키지를
 
 <br/>
 
-https://github.com/user-attachments/assets/e585afe8-f2e6-4acf-bfe7-e8bc970f73fe
-
 <div align="center">
+  <a href="docs/demos/00-open-source-launch.mp4">
+    <img src="docs/screenshots/open-source-promo.gif" alt="sig-dream 33초 1080p 프로모션 영상" width="100%" />
+  </a>
   <p>
     <sub>
-      🎬 <b>전체 기능 데모 · 28초 1080p 사운드 포함 프로모션 영상</b> ·
+      🎬 <b>전체 기능 데모 · 33초 1080p 사운드 포함 프로모션 영상</b> ·
       <a href="https://github.com/ChenShuo2004/sig-dream/raw/main/docs/demos/00-open-source-launch.mp4"><b>MP4 직접 다운로드</b></a> ·
       <a href="docs/demos/00-open-source-launch.mp4"><b>저장소 파일</b></a>
     </sub>
   </p>
 </div>
 
-| 캐릭터 일관성 & 스토리보드 연결 | 에피소드 전체 그룹 캔버스 |
-| --- | --- |
-| ![](docs/screenshots/open-source-promo-poster.png) | ![](docs/screenshots/canvas-board.png) |
+### 3대 스튜디오 실전 결과 미리보기 (클릭 시 1080p 음성 MP4 재생)
+
+| 🎬 대본 스튜디오 | ⚡ 복제 스튜디오 | 🎭 교체 스튜디오 |
+| --- | --- | --- |
+| [![대본 스튜디오](docs/demos/03-script-studio.gif)](docs/demos/03-script-studio.mp4)<br/><sub>대본 → 2K 설정 시트 → 16컷 영상 생성 · [1080p MP4](docs/demos/03-script-studio.mp4)</sub> | [![복제 스튜디오](docs/demos/04-replication-studio.gif)](docs/demos/04-replication-studio.mp4)<br/><sub>모션 분석 → 새 캐릭터 교체 → 16:9 액션 · [1080p MP4](docs/demos/04-replication-studio.mp4)</sub> | [![교체 스튜디오](docs/demos/06-replacement-studio.gif)](docs/demos/06-replacement-studio.mp4)<br/><sub>원본 영상 ⇄ 인물·음성 동시 교체 비교 · [1080p MP4](docs/demos/06-replacement-studio.mp4)</sub> |
 
 ## 다운로드 & 빠른 시작
 

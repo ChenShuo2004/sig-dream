@@ -23,21 +23,24 @@ PostgreSQL やログイン設定なしで、デスクトップ版またはポー
 
 <br/>
 
-https://github.com/user-attachments/assets/e585afe8-f2e6-4acf-bfe7-e8bc970f73fe
-
 <div align="center">
+  <a href="docs/demos/00-open-source-launch.mp4">
+    <img src="docs/screenshots/open-source-promo.gif" alt="sig-dream 33秒 1080p プロモーション動画" width="100%" />
+  </a>
   <p>
     <sub>
-      🎬 <b>機能総合デモ · 28秒 1080p 音声付きプロモーション動画</b> ·
+      🎬 <b>機能総合デモ · 33秒 1080p 音声付きプロモーション動画</b> ·
       <a href="https://github.com/ChenShuo2004/sig-dream/raw/main/docs/demos/00-open-source-launch.mp4"><b>MP4 をダウンロード</b></a> ·
       <a href="docs/demos/00-open-source-launch.mp4"><b>リポジトリファイル</b></a>
     </sub>
   </p>
 </div>
 
-| キャラクター一貫性＆連結コンテ | 100+ ノードのエピソード編成 |
-| --- | --- |
-| ![](docs/screenshots/open-source-promo-poster.png) | ![](docs/screenshots/canvas-board.png) |
+### 3 つのスタジオ実測デモ（クリックで 1080p 音声付き MP4 を再生）
+
+| 🎬 脚本スタジオ | ⚡ リメイクスタジオ | 🎭 差し替えスタジオ |
+| --- | --- | --- |
+| [![脚本スタジオ](docs/demos/03-script-studio.gif)](docs/demos/03-script-studio.mp4)<br/><sub>脚本 → 2K 設定画 → 16 コンテ＆実写生成 · [1080p MP4](docs/demos/03-script-studio.mp4)</sub> | [![リメイクスタジオ](docs/demos/04-replication-studio.gif)](docs/demos/04-replication-studio.mp4)<br/><sub>動き解析 → 新キャラ差し替え → 16:9 動画 · [1080p MP4](docs/demos/04-replication-studio.mp4)</sub> | [![差し替えスタジオ](docs/demos/06-replacement-studio.gif)](docs/demos/06-replacement-studio.mp4)<br/><sub>元動画 ⇄ 新人物＆吹き替え同時比較 · [1080p MP4](docs/demos/06-replacement-studio.mp4)</sub> |
 
 ## ダウンロード & クイックスタート
 

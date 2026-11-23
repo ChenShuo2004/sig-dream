@@ -26,21 +26,24 @@
 
 <br/>
 
-https://github.com/user-attachments/assets/e585afe8-f2e6-4acf-bfe7-e8bc970f73fe
-
 <div align="center">
+  <a href="docs/demos/00-open-source-launch.mp4">
+    <img src="docs/screenshots/open-source-promo.gif" alt="sig-dream 33 秒纯白极简宣传片" width="100%" />
+  </a>
   <p>
     <sub>
-      🎬 <b>功能总演示 · 28 秒开源版实机宣传片</b>（从角色三视图设定、多图参考改图到全剧分镜连线） ·
+      🎬 <b>33 秒纯白实机宣传片</b>（角色三视图设定 → 无限画布连线 → LibTV Seedance 2.5 动作复刻实拍） ·
       <a href="https://github.com/ChenShuo2004/sig-dream/raw/main/docs/demos/00-open-source-launch.mp4"><b>下载 1080p 有声高清 MP4</b></a> ·
       <a href="docs/demos/00-open-source-launch.mp4"><b>仓库文件</b></a>
     </sub>
   </p>
 </div>
 
-| 角色一致性与多图连线分镜 | 百节点剧集全流程分组编排 |
-| --- | --- |
-| ![](docs/screenshots/open-source-promo-poster.png)<br/><sub>锁定多主角三视图设定，沿连线自动延展不同光影、机位与场景关键帧</sub> | ![](docs/screenshots/canvas-board.png)<br/><sub>在一张无限画布上按剧本、角色、场景、道具与成片清晰打组管理</sub> |
+### 三大工作室实拍效果直览（点击动图看 1080p 有声成片）
+
+| 🎬 剧本工作室 · 剧本直出成片 | ⚡ 复刻工作室 · 动作运镜复刻 | 🎭 替换工作室 · 人物与配音同屏对比 |
+| --- | --- | --- |
+| [![剧本工作室实拍](docs/demos/03-script-studio.gif)](docs/demos/03-script-studio.mp4)<br/><sub>剧本 → 8 张 2K 设定图 → 16 段分镜与 Seedance 2.5 实拍 · [1080p MP4](docs/demos/03-script-studio.mp4)</sub> | [![复刻工作室实拍](docs/demos/04-replication-studio.gif)](docs/demos/04-replication-studio.mp4)<br/><sub>原片动作拆解 → 锁定三视图主角 → 16:9 追逐成片 · [1080p MP4](docs/demos/04-replication-studio.mp4)</sub> | [![替换工作室实拍对比](docs/demos/06-replacement-studio.gif)](docs/demos/06-replacement-studio.mp4)<br/><sub>原片英文视频 ⇄ 替换后「女主二」中文口播同屏对比 · [1080p MP4](docs/demos/06-replacement-studio.mp4)</sub> |
 
 ## 核心亮点
 
@@ -124,19 +127,19 @@ npm run dev
   </p>
 </div>
 
-- **分模块实机演示（5 支 · 1080p）**：以下模块短片均基于社区开源版真实运行界面自动实测渲染（页面内直接循环播放动图，点击任意画面或链接可查看 `1080p` 高清 MP4）：
+- **分模块实机演示（6 支 · 1080p）**：以下模块短片均基于真实工作流与成片实测渲染（页面内直接循环播放动图，点击任意画面或链接可查看 `1080p` 有声高清 MP4）：
 
 | 01 · 零数据库启动与多渠道接入 | 02 · 无限画布多模态节点编排 |
 | --- | --- |
 | [![01 零数据库启动与多渠道接入](docs/demos/01-overview-and-config.gif)](docs/demos/01-overview-and-config.mp4)<br/><sub>无需登录注册，一键配置多模型渠道、本地代理与 WebDAV 同步 · [1080p MP4](docs/demos/01-overview-and-config.mp4)</sub> | [![02 无限画布多模态节点编排](docs/demos/02-infinite-canvas.gif)](docs/demos/02-infinite-canvas.mp4)<br/><sub>自由连线文本/图片/视频节点、分组管理、参考改图与本地 Agent 协同 · [1080p MP4](docs/demos/02-infinite-canvas.mp4)</sub> |
 
-| 03 · 剧本工作室：统一画风与分镜拆解 | 04 · 复刻工作室与替换工作室 |
+| 03 · 剧本工作室：剧本 → 2K 设定图 → 分镜成片 | 04 · 复刻工作室：动作拆解 → 角色替换 → 实拍成片 |
 | --- | --- |
-| [![03 剧本工作室](docs/demos/03-script-studio.gif)](docs/demos/03-script-studio.mp4)<br/><sub>支持上传剧本/改写/AI 创作，内置多分类风格库锁定全片角色与分镜画风 · [1080p MP4](docs/demos/03-script-studio.mp4)</sub> | [![04 复刻与替换工作室](docs/demos/04-replication-and-replacement.gif)](docs/demos/04-replication-and-replacement.mp4)<br/><sub>四步拆解对标原片逐段复刻，或一键替换视频人物主体与克隆音色 · [1080p MP4](docs/demos/04-replication-and-replacement.mp4)</sub> |
+| [![03 剧本工作室](docs/demos/03-script-studio.gif)](docs/demos/03-script-studio.mp4)<br/><sub>导入剧本自动提取角色/场景/道具 2K 设定图，16 段分镜一键生成 Seedance 2.5 实拍成片 · [1080p MP4](docs/demos/03-script-studio.mp4)</sub> | [![04 复刻工作室](docs/demos/04-replication-studio.gif)](docs/demos/04-replication-studio.mp4)<br/><sub>拆解动作参考与运镜节奏，锁定三视图主角生成 16:9 电影级高速追逐复刻成片 · [1080p MP4](docs/demos/04-replication-studio.mp4)</sub> |
 
-| 05 · 1700+ 开源提示词库与本地资产闭环 | 界面细节：选中角色三视图直接参考改图 |
+| 05 · 替换工作室：人物框选替换与声音克隆 | 06 · 1700+ 开源提示词库与本地资产闭环 |
 | --- | --- |
-| [![05 1700+ 提示词库与本地资产](docs/demos/05-prompts-and-assets.gif)](docs/demos/05-prompts-and-assets.mp4)<br/><sub>聚合 1740+ 条高质量提示词，秒级筛选收藏至本地资产库并跨工作台复用 · [1080p MP4](docs/demos/05-prompts-and-assets.mp4)</sub> | ![](docs/screenshots/canvas-edit-light.jpg)<br/><sub>选中画布任意角色或图片节点直接输入改图指令，新生成结果自动连线对比迭代</sub> |
+| [![05 替换工作室](docs/demos/06-replacement-studio.gif)](docs/demos/06-replacement-studio.mp4)<br/><sub>自动识别原片人物，拖拽角色卡像素级替换并保持手部/遮挡/光影一致，支持 IndexTTS 声音克隆 · [1080p MP4](docs/demos/06-replacement-studio.mp4)</sub> | [![06 1700+ 提示词库与本地资产](docs/demos/05-prompts-and-assets.gif)](docs/demos/05-prompts-and-assets.mp4)<br/><sub>聚合 1740+ 条高质量提示词，秒级筛选收藏至本地资产库并跨工作台复用 · [1080p MP4](docs/demos/05-prompts-and-assets.mp4)</sub> |
 
 ---
 

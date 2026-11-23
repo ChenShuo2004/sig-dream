@@ -26,21 +26,24 @@ No PostgreSQL, no login server — download the native desktop app or portable b
 
 <br/>
 
-https://github.com/user-attachments/assets/e585afe8-f2e6-4acf-bfe7-e8bc970f73fe
-
 <div align="center">
+  <a href="docs/demos/00-open-source-launch.mp4">
+    <img src="docs/screenshots/open-source-promo.gif" alt="sig-dream 33s Open-Source Launch Film" width="100%" />
+  </a>
   <p>
     <sub>
-      🎬 <b>Feature Overview Demo · 28s Open-Source Launch Film</b> (character sheets, multi-reference remixing & connected storyboards) ·
+      🎬 <b>33s Open-Source Launch Film</b> (character sheets → infinite canvas → Seedance 2.5 action replication) ·
       <a href="https://github.com/ChenShuo2004/sig-dream/raw/main/docs/demos/00-open-source-launch.mp4"><b>Download 1080p MP4 with Sound</b></a> ·
       <a href="docs/demos/00-open-source-launch.mp4"><b>Repo File</b></a>
     </sub>
   </p>
 </div>
 
-| Character Consistency & Connected Keyframes | Full-Episode Grouped Storyboard Canvas |
-| --- | --- |
-| ![](docs/screenshots/open-source-promo-poster.png)<br/><sub>Lock multi-character turnaround sheets and branch consistent camera/lighting shots</sub> | ![](docs/screenshots/canvas-board.png)<br/><sub>Organize scripts, characters, scenes, props, and final cuts on one infinite canvas</sub> |
+### 3 Built-in Studios · Real Output Previews (Click Any GIF for 1080p MP4 with Audio)
+
+| 🎬 Script Studio · Script to Film | ⚡ Replication Studio · Motion & Character | 🎭 Replacement Studio · Video & Voice Swap |
+| --- | --- | --- |
+| [![Script Studio Demo](docs/demos/03-script-studio.gif)](docs/demos/03-script-studio.mp4)<br/><sub>Script → 2K character/scene sheets → 16-clip Seedance 2.5 film · [1080p MP4](docs/demos/03-script-studio.mp4)</sub> | [![Replication Studio Demo](docs/demos/04-replication-studio.gif)](docs/demos/04-replication-studio.mp4)<br/><sub>Action breakdown → locked hero sheet → 16:9 chase film · [1080p MP4](docs/demos/04-replication-studio.mp4)</sub> | [![Replacement Studio Demo](docs/demos/06-replacement-studio.gif)](docs/demos/06-replacement-studio.mp4)<br/><sub>Original English video ⇄ swapped character + synced Chinese voice · [1080p MP4](docs/demos/06-replacement-studio.mp4)</sub> |
 
 ## Why sig-dream?
 
@@ -120,19 +123,19 @@ npm run dev
   </p>
 </div>
 
-- **Modular Walkthroughs (5 clips · 1080p)**: All clips below are rendered directly from the live open-source UI (inline looping previews; click any preview to open the full `1080p` MP4):
+- **Modular Walkthroughs (6 clips · 1080p)**: All clips below feature real end-to-end workflows and generated outputs (inline looping previews; click any preview to open the full `1080p` MP4 with audio):
 
 | 01 · Zero-DB Setup & Multi-Provider Config | 02 · Infinite Canvas Orchestration |
 | --- | --- |
 | [![01 Overview & Config](docs/demos/01-overview-and-config.gif)](docs/demos/01-overview-and-config.mp4)<br/><sub>Configure providers, built-in CORS proxy, and WebDAV sync locally · [1080p MP4](docs/demos/01-overview-and-config.mp4)</sub> | [![02 Infinite Canvas](docs/demos/02-infinite-canvas.gif)](docs/demos/02-infinite-canvas.mp4)<br/><sub>Connect text/image/video nodes, groups, reference editing & Canvas Agent · [1080p MP4](docs/demos/02-infinite-canvas.mp4)</sub> |
 
-| 03 · Script Studio | 04 · Replication & Replacement Studios |
+| 03 · Script Studio: Script → 2K Sheets → Film | 04 · Replication Studio: Motion Breakdown → Film |
 | --- | --- |
-| [![03 Script Studio](docs/demos/03-script-studio.gif)](docs/demos/03-script-studio.mp4)<br/><sub>Import scripts, lock visual style presets, and split episodes & storyboards · [1080p MP4](docs/demos/03-script-studio.mp4)</sub> | [![04 Replication & Replacement](docs/demos/04-replication-and-replacement.gif)](docs/demos/04-replication-and-replacement.mp4)<br/><sub>Shot-by-shot video breakdown & subject/voice replacement pipelines · [1080p MP4](docs/demos/04-replication-and-replacement.mp4)</sub> |
+| [![03 Script Studio](docs/demos/03-script-studio.gif)](docs/demos/03-script-studio.mp4)<br/><sub>Extract 2K character/scene/prop sheets, build 16-clip storyboards, and render Seedance 2.5 clips · [1080p MP4](docs/demos/03-script-studio.mp4)</sub> | [![04 Replication Studio](docs/demos/04-replication-studio.gif)](docs/demos/04-replication-studio.mp4)<br/><sub>Analyze camera motion, lock a new character sheet, and render 16:9 action-replicated clips · [1080p MP4](docs/demos/04-replication-studio.mp4)</sub> |
 
-| 05 · 1,700+ Prompt Library & Local Assets | Node Reference Editing |
+| 05 · Replacement Studio: Subject Swap & Voice Clone | 06 · 1,700+ Prompt Library & Local Assets |
 | --- | --- |
-| [![05 Prompts & Assets](docs/demos/05-prompts-and-assets.gif)](docs/demos/05-prompts-and-assets.mp4)<br/><sub>Search 1,740+ prompts, save to local assets, and reuse across workbenches · [1080p MP4](docs/demos/05-prompts-and-assets.mp4)</sub> | ![](docs/screenshots/canvas-edit-light.jpg)<br/><sub>Select any character or image node on canvas to iterate with multi-reference prompts</sub> |
+| [![05 Replacement Studio](docs/demos/06-replacement-studio.gif)](docs/demos/06-replacement-studio.mp4)<br/><sub>Auto-detect subjects, drag-to-box pixel-accurate swap with preserved hands/lighting, and IndexTTS voice clone · [1080p MP4](docs/demos/06-replacement-studio.mp4)</sub> | [![06 Prompts & Assets](docs/demos/05-prompts-and-assets.gif)](docs/demos/05-prompts-and-assets.mp4)<br/><sub>Search 1,740+ prompts, save to local assets, and reuse across workbenches · [1080p MP4](docs/demos/05-prompts-and-assets.mp4)</sub> |
 
 ---
 
