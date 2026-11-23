@@ -17,7 +17,6 @@ PostgreSQL やログイン設定なしで、デスクトップ版またはポー
 [![Latest Release](https://img.shields.io/github/v/release/ChenShuo2004/sig-dream?style=for-the-badge&color=111111&labelColor=e4e4e7&label=Release)](https://github.com/ChenShuo2004/sig-dream/releases/latest)
 [![GitHub Stars](https://img.shields.io/github/stars/ChenShuo2004/sig-dream?style=for-the-badge&color=18181b&labelColor=f4f4f5)](https://github.com/ChenShuo2004/sig-dream/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-111111?style=for-the-badge&labelColor=f4f4f5&color=18181b)](LICENSE)
-[![AIGC オーダーメイド制作 · 有温度AI](https://img.shields.io/badge/AIGC_Custom-Youwendu_AI-C86D44?style=for-the-badge)](https://page.shiguang.love/en/)
 
 </div>
 
@@ -108,19 +107,6 @@ npm run dev
 - **3 つのスタジオ（`/studio/*`）**：脚本スタジオ（キャラ・背景・絵コンテ一括生成）、リメイクスタジオ、差し替えスタジオ。
 - **1,700+ プロンプト集 & ローカルアセット（`/prompts`・`/assets`）**：すべてのデータと API キーはローカル IndexedDB / LocalStorage に保存され、JSON エクスポート / インポートや WebDAV 同期に対応。
 - **内蔵ローカル CORS プロキシ（[`server/proxy.mjs`](server/proxy.mjs)）**：OpenAI 互換 / Gemini / DeepSeek / 火山エンジン（Seedance 2.0） / RunningHub などを追加バックエンドなしで利用可能。
-
-## 公式 AIGC オーダーメイド制作スタジオ · 有温度AI
-
-API 設定や編集作業なしでプロ品質の AI 映像・絵本を依頼したい場合は、公式オーダーメイド制作プラットフォーム **[有温度AI（page.shiguang.love）](https://page.shiguang.love/en/)** をご利用ください。**AI 生成 × プロ編集者による1フレーム単位の仕上げ・プレビュー確認後に納品**：
-
-<div align="center">
-  <a href="https://page.shiguang.love/en/">
-    <img src="docs/screenshots/youwendu-aigc-custom.jpg" alt="有温度AI · AIGC オーダーメイド映像＆絵本プラットフォーム" width="100%" />
-  </a>
-</div>
-
-- **対応メニュー**：企業プロモーション映像 / 周年記念・イベントオープニング映像（`¥2,999`〜） / 家族メモリアル・メッセージ動画（写真1枚から制作・`¥199`〜） / オリジナル AI 絵本制作（ハードカバー印刷対応・`¥99`〜）
-- **詳細・サンプル視聴**：**[https://page.shiguang.love](https://page.shiguang.love)**（English: **[page.shiguang.love/en](https://page.shiguang.love/en/)** · WeChat: `AIkingyuan`）
 
 ## エンタープライズ版（クローズドソース）
 

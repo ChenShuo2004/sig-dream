@@ -17,7 +17,6 @@ PostgreSQL이나 로그인 없이 데스크톱 앱 또는 포터블 패키지를
 [![Latest Release](https://img.shields.io/github/v/release/ChenShuo2004/sig-dream?style=for-the-badge&color=111111&labelColor=e4e4e7&label=Release)](https://github.com/ChenShuo2004/sig-dream/releases/latest)
 [![GitHub Stars](https://img.shields.io/github/stars/ChenShuo2004/sig-dream?style=for-the-badge&color=18181b&labelColor=f4f4f5)](https://github.com/ChenShuo2004/sig-dream/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-111111?style=for-the-badge&labelColor=f4f4f5&color=18181b)](LICENSE)
-[![AIGC 맞춤 제작 · Youwendu AI](https://img.shields.io/badge/AIGC_Custom-Youwendu_AI-C86D44?style=for-the-badge)](https://page.shiguang.love/en/)
 
 </div>
 
@@ -108,19 +107,6 @@ npm run dev
 - **3대 스튜디오 (`/studio/*`)**: 대본 스튜디오(캐릭터/배경/스토리보드 생성), 복제 스튜디오, 교체 스튜디오.
 - **1,700+ 프롬프트 & 로컬 자산 (`/prompts`, `/assets`)**: 모든 데이터와 API 키는 로컬 IndexedDB / LocalStorage에 저장되며 JSON 내보내기/가져오기 및 WebDAV 동기화를 지원합니다.
 - **내장 로컬 CORS 프록시 ([`server/proxy.mjs`](server/proxy.mjs))**: OpenAI 호환 / Gemini / DeepSeek / Volcengine (Seedance 2.0) / RunningHub 등을 별도 백엔드 없이 바로 호출할 수 있습니다.
-
-## 공식 AIGC 맞춤 영상 & 그림책 제작 플랫폼 · Youwendu AI
-
-직접 API나 워크플로우를 세팅하지 않고 완성된 상업용 영상이나 개인 맞춤 작품을 원하신다면 공식 AIGC 맞춤 제작 스튜디오 **[Youwendu AI (page.shiguang.love)](https://page.shiguang.love/en/)** 를 이용해 보세요 (**AI 생성 × 전문 편집자 프레임 단위 후보정 · 프리뷰 확인 후 최종 납품**):
-
-<div align="center">
-  <a href="https://page.shiguang.love/en/">
-    <img src="docs/screenshots/youwendu-aigc-custom.jpg" alt="Youwendu AI · AIGC 맞춤 영상 및 그림책 스튜디오" width="100%" />
-  </a>
-</div>
-
-- **맞춤 제작 서비스**: 기업·브랜드 홍보영상 / 연말 행사·갈라 오프닝 영상(`¥2,999`~) / 가족 동반·안부 영상(사진 1장으로 제작 · `¥199`~) / 맞춤형 AI 어린이 그림책(양장본 인쇄 지원 · `¥99`~)
-- **샘플 감상 및 문의**: **[https://page.shiguang.love](https://page.shiguang.love)** (English: **[page.shiguang.love/en](https://page.shiguang.love/en/)** · WeChat: `AIkingyuan`)
 
 ## 엔터프라이즈 에디션 (비공개 상용)
 
