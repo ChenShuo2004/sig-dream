@@ -3,6 +3,7 @@ import { Check, Search, Sparkles } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { cn } from "@/lib/utils";
+import { useThemeStore } from "@/stores/use-theme-store";
 import { DarkButton, inkOnWhiteStyle } from "@/studios/components/studio-dark-ui";
 import { SCRIPT_PRESETS } from "@/studios/prompts/script.generated";
 
@@ -25,8 +26,11 @@ const CATEGORIES: Array<{ key: "all" | "live" | "2d" | "3d"; label: string }> = 
 ];
 
 export function styleThumbnailUrl(thumbnail: string) {
+    if (!thumbnail) return "";
+    if (/^(?:https?:|data:|blob:)/u.test(thumbnail)) return thumbnail;
     const path = thumbnail.replace(/^\//u, "");
-    return `/canvas-app/${path}`;
+    const base = (import.meta.env.BASE_URL || "/").replace(/\/?$/u, "/");
+    return `${base}${path}`;
 }
 
 export function findStylePreset(settings: { visualStyle?: string; stylePrompt?: string } | null | undefined) {
@@ -51,6 +55,7 @@ export function StyleLibraryModal({
 }) {
     const [query, setQuery] = useState("");
     const [category, setCategory] = useState<"all" | "live" | "2d" | "3d">("all");
+    const dark = useThemeStore((state) => state.theme === "dark");
 
     const visible = useMemo(() => {
         const keyword = query.trim().toLowerCase();
@@ -71,18 +76,18 @@ export function StyleLibraryModal({
             destroyOnHidden
             title={
                 <div className="pr-8">
-                    <div className="text-base font-semibold text-neutral-100">风格库</div>
-                    <p className="mt-1 text-xs font-normal text-neutral-500">为后续角色、场景、道具和分镜画面统一视觉方向</p>
+                    <div className="text-base font-semibold text-stone-900 dark:text-neutral-100">风格库</div>
+                    <p className="mt-1 text-xs font-normal text-stone-500 dark:text-neutral-500">为后续角色、场景、道具和分镜画面统一视觉方向</p>
                 </div>
             }
             styles={{
-                container: { background: "#121214", padding: 0 },
-                header: { background: "#121214", margin: 0, padding: "16px 20px 8px", borderBottom: "none" },
+                container: { background: dark ? "#121214" : "#ffffff", padding: 0 },
+                header: { background: dark ? "#121214" : "#ffffff", margin: 0, padding: "16px 20px 8px", borderBottom: "none" },
                 body: { padding: "0 20px 20px" },
             }}
         >
             <div className="mb-3 flex flex-wrap items-center gap-2">
-                <div className="flex items-center gap-1 rounded-full bg-white/[0.06] p-1">
+                <div className="flex items-center gap-1 rounded-full bg-stone-900/[0.06] p-1 dark:bg-white/[0.06]">
                     {CATEGORIES.map((item) => {
                         const active = category === item.key;
                         return (
@@ -91,7 +96,12 @@ export function StyleLibraryModal({
                                 type="button"
                                 onClick={() => setCategory(item.key)}
                                 style={active ? inkOnWhiteStyle : undefined}
-                                className={cn("rounded-full px-3 py-1 text-xs font-medium transition", active ? "bg-white" : "text-neutral-300 hover:bg-white/[0.08]")}
+                                className={cn(
+                                    "rounded-full px-3 py-1 text-xs font-medium transition",
+                                    active
+                                        ? "bg-white shadow-xs"
+                                        : "text-stone-600 hover:bg-stone-900/[0.06] dark:text-neutral-300 dark:hover:bg-white/[0.08]",
+                                )}
                             >
                                 {item.label}
                             </button>
@@ -102,7 +112,7 @@ export function StyleLibraryModal({
                     allowClear
                     size="middle"
                     className="!ml-auto !w-56"
-                    prefix={<Search className="size-3.5 text-neutral-500" />}
+                    prefix={<Search className="size-3.5 text-stone-400 dark:text-neutral-500" />}
                     placeholder="搜索风格"
                     value={query}
                     onChange={(event) => setQuery(event.target.value)}
@@ -123,16 +133,21 @@ export function StyleLibraryModal({
                                         onSelect(preset);
                                         onClose();
                                     }}
-                                    className={cn("group relative overflow-hidden rounded-xl border text-left transition", active ? "border-white/70 ring-1 ring-white/40" : "border-white/[0.08] hover:border-white/30")}
+                                    className={cn(
+                                        "group relative overflow-hidden rounded-xl border text-left transition",
+                                        active
+                                            ? "border-stone-900 ring-1 ring-stone-900/40 dark:border-white/70 dark:ring-white/40"
+                                            : "border-stone-200 hover:border-stone-400 dark:border-white/[0.08] dark:hover:border-white/30",
+                                    )}
                                 >
-                                    <div className="aspect-[4/3] bg-black/50">
+                                    <div className="aspect-[4/3] bg-stone-200/70 dark:bg-black/50">
                                         <img src={styleThumbnailUrl(preset.thumbnail)} alt={preset.label} loading="lazy" className="size-full object-cover transition duration-200 group-hover:scale-[1.03]" />
                                     </div>
                                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/55 to-transparent px-2 pb-2 pt-8">
                                         <div className="truncate text-[11px] font-medium text-white">{preset.label}</div>
                                     </div>
                                     {active ? (
-                                        <span style={inkOnWhiteStyle} className="absolute right-1.5 top-1.5 flex size-5 items-center justify-center rounded-full bg-white">
+                                        <span style={inkOnWhiteStyle} className="absolute right-1.5 top-1.5 flex size-5 items-center justify-center rounded-full bg-white shadow-xs">
                                             <Check className="size-3" />
                                         </span>
                                     ) : null}
@@ -141,15 +156,15 @@ export function StyleLibraryModal({
                         })}
                     </div>
                 ) : (
-                    <div className="flex min-h-[220px] flex-col items-center justify-center gap-2 text-sm text-neutral-500">
+                    <div className="flex min-h-[220px] flex-col items-center justify-center gap-2 text-sm text-stone-500 dark:text-neutral-500">
                         <Sparkles className="size-5" />
                         没有匹配的风格
                     </div>
                 )}
             </div>
 
-            <div className="mt-4 flex items-center justify-between border-t border-white/[0.06] pt-3">
-                <span className="text-[11px] text-neutral-500">共 {visible.length} 个风格</span>
+            <div className="mt-4 flex items-center justify-between border-t border-stone-200/80 pt-3 dark:border-white/[0.06]">
+                <span className="text-[11px] text-stone-500 dark:text-neutral-500">共 {visible.length} 个风格</span>
                 <div className="flex gap-2">
                     <DarkButton
                         size="sm"

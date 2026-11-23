@@ -119,8 +119,8 @@ export function ScriptSettingsPanel({ settings, disabled, onChange }: { settings
                         ]}
                     />
                 </Field>
-                <Field label="目标集数">
-                    <InputNumber disabled={disabled} className="!w-full" min={1} max={80} value={settings.episodeCount} onChange={(value) => onChange({ episodeCount: Number(value) || 1 })} />
+                <Field label="目标集数" hint="支持自定义 1–200 集">
+                    <InputNumber disabled={disabled} className="!w-full" min={1} max={200} precision={0} value={settings.episodeCount} onChange={(value) => onChange({ episodeCount: Math.max(1, Math.min(200, Math.floor(Number(value) || 1))) })} />
                 </Field>
                 <Field label="单片最长秒数">
                     <InputNumber disabled={disabled} className="!w-full" min={4} max={settings.promptMode === "seedance-2.5" ? 30 : 15} value={settings.clipMaxSeconds} onChange={(value) => onChange({ clipMaxSeconds: Number(value) || 15 })} />

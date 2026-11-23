@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { App, Dropdown, Input, Modal, Select, Spin } from "antd";
+import { App, Dropdown, Input, InputNumber, Modal, Select, Spin } from "antd";
 import { Archive, ArchiveRestore, ArrowDownWideNarrow, ArrowRight, ArrowUpNarrowWide, Clapperboard, MoreHorizontal, Plus, Search, Trash2, Upload } from "lucide-react";
 
 import { ModelPicker } from "@/components/model-picker";
@@ -57,6 +57,78 @@ function titleFromSource(text: string, fallback: string) {
     return first.replace(/^《|》$/gu, "").slice(0, 40) || fallback;
 }
 
+const EPISODE_PRESETS = [1, 3, 6, 12, 24, 30, 60] as const;
+const MAX_EPISODE_COUNT = 200;
+
+function clampEpisodeCount(value: number | null | undefined, fallback = 6) {
+    const n = Math.floor(Number(value));
+    if (!Number.isFinite(n) || n < 1) return fallback;
+    return Math.min(MAX_EPISODE_COUNT, n);
+}
+
+function EpisodeCountPicker({ value, onChange }: { value: number; onChange: (count: number) => void }) {
+    const [open, setOpen] = useState(false);
+    const [draft, setDraft] = useState<number | null>(value);
+
+    useEffect(() => {
+        setDraft(value);
+    }, [value]);
+
+    const presetOptions = useMemo(() => {
+        const list: number[] = [...EPISODE_PRESETS];
+        if (!list.includes(value)) list.push(value);
+        list.sort((a, b) => a - b);
+        return list.map((count) => ({ value: count, label: `${count} 集` }));
+    }, [value]);
+
+    const applyCustom = () => {
+        const next = clampEpisodeCount(draft, value);
+        onChange(next);
+        setDraft(next);
+        setOpen(false);
+    };
+
+    return (
+        <Select
+            className="min-w-[116px]"
+            open={open}
+            onOpenChange={setOpen}
+            value={value}
+            onChange={(next) => {
+                onChange(clampEpisodeCount(next, value));
+                setOpen(false);
+            }}
+            options={presetOptions}
+            popupMatchSelectWidth={false}
+            popupRender={(menu) => (
+                <div className="min-w-[196px]">
+                    {menu}
+                    <div
+                        className="mt-1 flex items-center gap-1.5 border-t border-white/[0.08] px-2 pb-1 pt-2"
+                        onMouseDown={(event) => event.stopPropagation()}
+                    >
+                        <InputNumber
+                            size="small"
+                            min={1}
+                            max={MAX_EPISODE_COUNT}
+                            precision={0}
+                            value={draft}
+                            onChange={(next) => setDraft(next)}
+                            onPressEnter={applyCustom}
+                            placeholder="自定义"
+                            suffix="集"
+                            className="!w-24"
+                        />
+                        <DarkButton size="sm" tone="primary" className="!h-6 !px-2.5 !text-[11px]" onClick={applyCustom}>
+                            确定
+                        </DarkButton>
+                    </div>
+                </div>
+            )}
+        />
+    );
+}
+
 export default function ScriptHome() {
     const navigate = useNavigate();
     const { message, modal } = App.useApp();
@@ -75,8 +147,11 @@ export default function ScriptHome() {
     const [defaults, setDefaults] = useState<ScriptSettings>(() => {
         const base = createScriptDocument().settings;
         const saved = loadDefaults();
-        const textModel = saved.textModel || buildGenerationConfig(useConfigStore.getState().config, undefined, "text").model || "";
-        return { ...base, ...saved, textModel, sourceMode: "upload" };
+        const currentConfig = useConfigStore.getState().config;
+        const textModel = saved.textModel || buildGenerationConfig(currentConfig, undefined, "text").model || "";
+        const imageModel = saved.imageModel || buildGenerationConfig(currentConfig, undefined, "image").model || "";
+        const videoModel = saved.videoModel || buildGenerationConfig(currentConfig, undefined, "video").model || "";
+        return { ...base, ...saved, textModel, imageModel, videoModel, sourceMode: "upload" };
     });
     const [query, setQuery] = useState("");
     const [sortBy, setSortBy] = useState<"createdAt" | "updatedAt">("createdAt");
@@ -301,54 +376,89 @@ export default function ScriptHome() {
                             </div>
                         )}
 
-                        <div className="flex flex-wrap items-center gap-2 border-t border-white/[0.06] pt-3">
-                            <div className="min-w-[180px] flex-1">
-                                <ModelPicker config={config} value={defaults.textModel} onChange={(value) => patchDefaults({ textModel: value })} capability="text" fullWidth onMissingConfig={() => openConfigDialog(true)} />
+                        <div className="flex flex-col gap-2.5 border-t border-white/[0.06] pt-3">
+                            <div className="grid gap-2 sm:grid-cols-3">
+                                <div className="flex flex-col gap-1">
+                                    <span className="px-1 text-[11px] text-neutral-400">文本模型</span>
+                                    <ModelPicker
+                                        config={config}
+                                        value={defaults.textModel}
+                                        onChange={(value) => patchDefaults({ textModel: value })}
+                                        capability="text"
+                                        fullWidth
+                                        placeholder="选择文本模型"
+                                        onMissingConfig={() => openConfigDialog(true)}
+                                    />
+                                </div>
+                                <div className="flex flex-col gap-1">
+                                    <span className="px-1 text-[11px] text-neutral-400">图片模型</span>
+                                    <ModelPicker
+                                        config={config}
+                                        value={defaults.imageModel}
+                                        onChange={(value) => patchDefaults({ imageModel: value })}
+                                        capability="image"
+                                        fullWidth
+                                        placeholder="使用画布默认图片模型"
+                                        onMissingConfig={() => openConfigDialog(true)}
+                                    />
+                                </div>
+                                <div className="flex flex-col gap-1">
+                                    <span className="px-1 text-[11px] text-neutral-400">视频模型</span>
+                                    <ModelPicker
+                                        config={config}
+                                        value={defaults.videoModel}
+                                        onChange={(value) => patchDefaults({ videoModel: value })}
+                                        capability="video"
+                                        fullWidth
+                                        placeholder="使用画布默认视频模型"
+                                        onMissingConfig={() => openConfigDialog(true)}
+                                    />
+                                </div>
                             </div>
-                            <div className="min-w-[180px] flex-1">
-                                <StyleLibraryField
-                                    selected={selectedStyle}
-                                    onChange={(preset) => patchDefaults(preset ? { visualStyle: preset.label, stylePrompt: preset.prompt } : { visualStyle: "", stylePrompt: "" })}
-                                />
-                            </div>
-                            <Select
-                                className="min-w-[140px]"
-                                value={defaults.promptMode}
-                                onChange={(value) => patchDefaults({ promptMode: value, clipMaxSeconds: Math.min(defaults.clipMaxSeconds, value === "seedance-2.5" ? 30 : 15) })}
-                                options={[
-                                    { value: "seedance-2.0", label: "Seedance 2.0" },
-                                    { value: "seedance-2.5", label: "Seedance 2.5" },
-                                ]}
-                            />
-                            {tab === "rewrite" || tab === "generate" ? (
+                            <div className="flex flex-wrap items-center gap-2">
+                                <div className="min-w-[180px] flex-1">
+                                    <StyleLibraryField
+                                        selected={selectedStyle}
+                                        onChange={(preset) => patchDefaults(preset ? { visualStyle: preset.label, stylePrompt: preset.prompt } : { visualStyle: "", stylePrompt: "" })}
+                                    />
+                                </div>
                                 <Select
-                                    className="min-w-[100px]"
-                                    value={defaults.episodeCount}
-                                    onChange={(value) => patchDefaults({ episodeCount: value })}
-                                    options={[1, 3, 6, 12, 24].map((count) => ({ value: count, label: `${count}集` }))}
+                                    className="min-w-[165px]"
+                                    value={defaults.promptMode}
+                                    onChange={(value) => patchDefaults({ promptMode: value, clipMaxSeconds: Math.min(defaults.clipMaxSeconds, value === "seedance-2.5" ? 30 : 15) })}
+                                    options={[
+                                        { value: "seedance-2.0", label: "Seedance 2.0 提示词" },
+                                        { value: "seedance-2.5", label: "Seedance 2.5 提示词" },
+                                    ]}
                                 />
-                            ) : null}
-                            <Select
-                                className="min-w-[110px]"
-                                value={defaults.scriptMode}
-                                onChange={(value) => patchDefaults({ scriptMode: value })}
-                                options={[
-                                    { value: "plot", label: "剧情模式" },
-                                    { value: "narration", label: "解说模式" },
-                                ]}
-                            />
-                            <DarkButton
-                                tone="primary"
-                                className="ml-auto"
-                                disabled={starting}
-                                onClick={() => {
-                                    localStorage.setItem(DEFAULTS_KEY, JSON.stringify(defaults));
-                                    void start();
-                                }}
-                            >
-                                {starting ? "正在创建…" : ctaLabel}
-                                <ArrowRight className="size-4" />
-                            </DarkButton>
+                                {tab === "rewrite" || tab === "generate" ? (
+                                    <EpisodeCountPicker
+                                        value={defaults.episodeCount}
+                                        onChange={(episodeCount) => patchDefaults({ episodeCount })}
+                                    />
+                                ) : null}
+                                <Select
+                                    className="min-w-[110px]"
+                                    value={defaults.scriptMode}
+                                    onChange={(value) => patchDefaults({ scriptMode: value })}
+                                    options={[
+                                        { value: "plot", label: "剧情模式" },
+                                        { value: "narration", label: "解说模式" },
+                                    ]}
+                                />
+                                <DarkButton
+                                    tone="primary"
+                                    className="ml-auto"
+                                    disabled={starting}
+                                    onClick={() => {
+                                        localStorage.setItem(DEFAULTS_KEY, JSON.stringify(defaults));
+                                        void start();
+                                    }}
+                                >
+                                    {starting ? "正在创建…" : ctaLabel}
+                                    <ArrowRight className="size-4" />
+                                </DarkButton>
+                            </div>
                         </div>
                         <input
                             ref={fileInput}

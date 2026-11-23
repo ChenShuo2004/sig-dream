@@ -1,9 +1,34 @@
 @import "tailwindcss";
+@import "antd/dist/reset.css" layer(base);
 @import "tw-animate-css";
 @import "./shadcn-variants.css";
 @source "../../../node_modules/streamdown/dist/*.js";
 
 @custom-variant dark (&:is(.dark *));
+
+@font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url("/fonts/Inter-Variable.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "JetBrains Mono";
+    font-style: normal;
+    font-weight: 400 500;
+    font-display: swap;
+    src: url("/fonts/JetBrainsMono-400.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "JetBrains Mono";
+    font-style: normal;
+    font-weight: 600 800;
+    font-display: swap;
+    src: url("/fonts/JetBrainsMono-700.woff2") format("woff2");
+}
 
 @theme inline {
     --color-background: var(--background);
@@ -14,8 +39,9 @@
     --radius-md: calc(var(--radius) - 2px);
     --radius-lg: var(--radius);
     --radius-xl: calc(var(--radius) + 4px);
-    --font-heading: var(--font-sans);
-    --font-sans: var(--font-sans);
+    --font-heading: "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "HarmonyOS Sans SC", "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+    --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "HarmonyOS Sans SC", "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -137,6 +163,16 @@
     }
     html {
         @apply font-sans;
+        font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+    }
+    code,
+    kbd,
+    pre,
+    samp {
+        font-family: var(--font-mono);
     }
 }
 
@@ -144,8 +180,13 @@
     .ai-title-aurora {
         display: inline-block;
         padding-block: 0.16em;
-        line-height: 1.18;
-        background: linear-gradient(90deg, #111827 0%, #111827 36%, #6b7280 54%, #111827 72%, #111827 100%);
+        line-height: 1.14;
+        letter-spacing: -0.048em;
+        font-weight: 780;
+        font-variation-settings: "wght" 780;
+        font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
+        font-synthesis: none;
+        background: linear-gradient(100deg, #09090b 0%, #18181b 38%, #52525b 54%, #18181b 70%, #09090b 100%);
         background-size: 220% 100%;
         -webkit-background-clip: text;
         background-clip: text;
@@ -154,7 +195,7 @@
     }
 
     .dark .ai-title-aurora {
-        background: linear-gradient(90deg, #fafaf9 0%, #fafaf9 36%, #a8a29e 54%, #fafaf9 72%, #fafaf9 100%);
+        background: linear-gradient(100deg, #ffffff 0%, #f5f5f4 38%, #a8a29e 54%, #f5f5f4 70%, #ffffff 100%);
         background-size: 220% 100%;
         -webkit-background-clip: text;
         background-clip: text;
@@ -609,4 +650,120 @@
     padding: 0.5rem 0.8rem;
     border-radius: 0.6rem;
     font-size: 0.75rem;
+}
+
+/* Light-theme semantic mapping for script & replacement studio surfaces */
+.studio-scope.studio-light .bg-\[\#141416\],
+.studio-scope.studio-light .bg-\[\#121214\],
+.studio-scope.studio-light .bg-\[\#101012\],
+.studio-scope.studio-light .bg-\[\#1b1b1e\],
+.studio-scope.studio-light .bg-\[\#1a1a1d\],
+.studio-scope.studio-light .bg-\[\#0d0d0f\],
+.studio-scope.studio-light .bg-\[\#0c0c0e\] {
+    background-color: #ffffff;
+}
+
+.studio-scope.studio-light .bg-\[\#1b1b1e\]\/95 {
+    background-color: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 8px 28px rgba(28, 25, 23, 0.12);
+}
+
+.studio-scope.studio-light .bg-black\/20,
+.studio-scope.studio-light .bg-black\/25,
+.studio-scope.studio-light .bg-black\/30,
+.studio-scope.studio-light .bg-black\/40 {
+    background-color: #f5f5f4;
+}
+
+.studio-scope.studio-light .bg-white\/\[0\.03\],
+.studio-scope.studio-light .bg-white\/\[0\.04\] {
+    background-color: rgba(28, 25, 23, 0.035);
+}
+
+.studio-scope.studio-light .bg-white\/\[0\.05\],
+.studio-scope.studio-light .bg-white\/\[0\.06\] {
+    background-color: rgba(28, 25, 23, 0.055);
+}
+
+.studio-scope.studio-light .bg-white\/\[0\.08\],
+.studio-scope.studio-light .bg-white\/\[0\.1\],
+.studio-scope.studio-light .bg-white\/10 {
+    background-color: rgba(28, 25, 23, 0.075);
+}
+
+.studio-scope.studio-light .bg-white\/\[0\.12\],
+.studio-scope.studio-light .bg-white\/\[0\.14\],
+.studio-scope.studio-light .bg-white\/\[0\.16\] {
+    background-color: rgba(28, 25, 23, 0.11);
+}
+
+.studio-scope.studio-light .border-white\/\[0\.06\],
+.studio-scope.studio-light .border-white\/\[0\.07\],
+.studio-scope.studio-light .border-white\/\[0\.08\] {
+    border-color: rgba(28, 25, 23, 0.1);
+}
+
+.studio-scope.studio-light .border-white\/\[0\.1\],
+.studio-scope.studio-light .border-white\/10,
+.studio-scope.studio-light .border-white\/15 {
+    border-color: rgba(28, 25, 23, 0.14);
+}
+
+.studio-scope.studio-light .border-white\/25,
+.studio-scope.studio-light .border-white\/30,
+.studio-scope.studio-light .border-white\/50,
+.studio-scope.studio-light .border-white\/60 {
+    border-color: rgba(28, 25, 23, 0.28);
+}
+
+.studio-scope.studio-light .border-white {
+    border-color: #1c1917;
+}
+
+.studio-scope.studio-light .hover\:border-white\/25:hover,
+.studio-scope.studio-light .hover\:border-white\/30:hover {
+    border-color: rgba(28, 25, 23, 0.26);
+}
+
+.studio-scope.studio-light .hover\:bg-white\/\[0\.06\]:hover,
+.studio-scope.studio-light .hover\:bg-white\/\[0\.08\]:hover,
+.studio-scope.studio-light .hover\:bg-white\/\[0\.1\]:hover,
+.studio-scope.studio-light .hover\:bg-white\/\[0\.14\]:hover {
+    background-color: rgba(28, 25, 23, 0.09);
+}
+
+.studio-scope.studio-light .text-neutral-100,
+.studio-scope.studio-light .\!text-neutral-100 {
+    color: #1c1917 !important;
+}
+
+.studio-scope.studio-light .text-neutral-200 {
+    color: #292524;
+}
+
+.studio-scope.studio-light .text-neutral-300 {
+    color: #57534e;
+}
+
+.studio-scope.studio-light .text-neutral-400 {
+    color: #78716c;
+}
+
+.studio-scope.studio-light .text-white:not(.studio-btn-primary):not([class*="bg-red-"]):not([class*="bg-emerald-"]):not([class*="bg-sky-"]):not([class*="bg-stone-900"]):not([class*="bg-black"]) {
+    color: #1c1917;
+}
+
+.studio-scope.studio-light .bg-gradient-to-t .text-white,
+.studio-scope.studio-light .bg-black .text-white,
+.studio-scope.studio-light .bg-black\/60 .text-white,
+.studio-scope.studio-light .bg-black\/70 .text-white {
+    color: #ffffff;
+}
+
+.studio-scope.studio-light .hover\:text-white:hover:not(.studio-btn-primary) {
+    color: #1c1917;
+}
+
+.studio-scope.studio-light .bg-white:not(.studio-btn-primary) {
+    box-shadow: 0 1px 2px rgba(28, 25, 23, 0.08);
 }

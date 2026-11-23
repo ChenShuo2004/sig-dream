@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { ChevronUp } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { useThemeStore } from "@/stores/use-theme-store";
 import { inkOnWhiteStyle } from "@/studios/components/studio-dark-ui";
 
 /** SHUO-aligned 画质 options (maps to API quality via 1k/2k/4k aliases). */
@@ -160,8 +161,20 @@ function ImageGenOptionsPortal({
         maxHeight: Math.max(240, buttonRect.top - margin * 2),
     };
 
+    const dark = useThemeStore((state) => state.theme === "dark");
+
     return createPortal(
-        <div ref={panelRef} style={style} className="overflow-auto rounded-2xl border border-white/10 bg-[#1a1a1d] p-3 text-neutral-100 shadow-[0_18px_54px_rgba(0,0,0,0.45)]" onPointerDown={(event) => event.stopPropagation()}>
+        <div
+            ref={panelRef}
+            style={style}
+            className={cn(
+                "studio-scope overflow-auto rounded-2xl border p-3",
+                dark
+                    ? "dark border-white/10 bg-[#1a1a1d] text-neutral-100 shadow-[0_18px_54px_rgba(0,0,0,0.45)]"
+                    : "studio-light border-stone-200 bg-white text-stone-900 shadow-[0_18px_54px_rgba(28,25,23,0.16)]",
+            )}
+            onPointerDown={(event) => event.stopPropagation()}
+        >
             <SectionTitle>画质</SectionTitle>
             <div className="mb-3 grid grid-cols-3 gap-1.5">
                 {IMAGE_QUALITY_OPTIONS.map((item) => {

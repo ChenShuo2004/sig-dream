@@ -1,6 +1,6 @@
 import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { Cpu } from "lucide-react";
+import { Check, Cpu } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import i18n from "@/i18n";
@@ -180,7 +180,7 @@ export function ModelPicker({ config, value, onChange, capability, className, fu
                               ) : null}
                           </div>
                           <div className="flex min-h-0 flex-1">
-                              <div className="thin-scrollbar w-[38%] shrink-0 overflow-y-auto border-r border-border/60 bg-stone-50/80 dark:bg-stone-900/40">
+                              <div className="thin-scrollbar w-[38%] shrink-0 overflow-y-auto border-r border-border/60 bg-stone-50/80 p-1 dark:bg-stone-900/40">
                                   {stations.length ? (
                                       stations.map((item) => {
                                           const active = item.key === activeStationKey;
@@ -190,21 +190,23 @@ export function ModelPicker({ config, value, onChange, capability, className, fu
                                                   key={item.key}
                                                   type="button"
                                                   className={cn(
-                                                      "flex w-full flex-col items-start gap-0.5 px-3 py-2.5 text-left text-sm",
-                                                      active ? "bg-stone-800 text-white dark:bg-stone-950 dark:text-white" : "text-stone-800 hover:bg-stone-200 dark:text-stone-100 dark:hover:bg-stone-800",
+                                                      "flex w-full flex-col items-start gap-0.5 rounded-lg border-l-2 px-2.5 py-2 text-left text-sm transition-colors",
+                                                      active
+                                                          ? "border-stone-900 bg-stone-200/80 text-stone-950 dark:border-stone-100 dark:bg-stone-800 dark:text-stone-50"
+                                                          : "border-transparent text-stone-700 hover:bg-stone-200/50 hover:text-stone-950 dark:text-stone-300 dark:hover:bg-stone-800/60 dark:hover:text-stone-100",
                                                   )}
                                                   onClick={() => setStation(item.key)}
                                               >
-                                                  <span className="font-medium">{item.label}</span>
-                                                  <span className={cn("text-[11px]", active ? "text-stone-300" : "text-stone-500 dark:text-stone-400")}>{count} 个模型</span>
+                                                  <span className={cn("font-medium", active && "font-semibold")}>{item.label}</span>
+                                                  <span className={cn("text-[11px]", active ? "text-stone-600 dark:text-stone-300" : "text-stone-500 dark:text-stone-400")}>{count} 个模型</span>
                                               </button>
                                           );
                                       })
                                   ) : (
-                                      <p className="px-3 py-4 text-sm text-stone-500">暂无供应商</p>
+                                      <p className="px-3 py-4 text-sm text-stone-500 dark:text-stone-400">暂无供应商</p>
                                   )}
                               </div>
-                              <div className="thin-scrollbar min-h-0 min-w-0 flex-1 overflow-y-auto p-1">
+                              <div className="thin-scrollbar min-h-0 min-w-0 flex-1 overflow-y-auto p-1.5">
                                   {loadError ? <p className="px-2 py-3 text-sm text-stone-800 dark:text-stone-100">{loadError}</p> : null}
                                   {visible.length ? (
                                       visible.map((model) => {
@@ -214,8 +216,10 @@ export function ModelPicker({ config, value, onChange, capability, className, fu
                                                   key={model}
                                                   type="button"
                                                   className={cn(
-                                                      "flex w-full items-center rounded-md px-2 py-1.5 text-left text-sm",
-                                                      selected ? "bg-stone-800 text-white dark:bg-stone-950 dark:text-white" : "text-stone-800 hover:bg-stone-200 dark:text-stone-100 dark:hover:bg-stone-800",
+                                                      "flex w-full items-center justify-between gap-2 rounded-lg px-2.5 py-2 text-left text-sm transition-colors",
+                                                      selected
+                                                          ? "bg-stone-900/[0.08] font-medium text-stone-950 dark:bg-stone-100/[0.12] dark:text-stone-50"
+                                                          : "text-stone-700 hover:bg-stone-900/[0.05] hover:text-stone-950 dark:text-stone-200 dark:hover:bg-stone-100/[0.08] dark:hover:text-stone-50",
                                                   )}
                                                   onClick={() => {
                                                       onChange(model);
@@ -223,6 +227,7 @@ export function ModelPicker({ config, value, onChange, capability, className, fu
                                                   }}
                                               >
                                                   <ModelLabel config={view} model={model} />
+                                                  {selected ? <Check className="size-3.5 shrink-0 text-stone-900 dark:text-stone-100" /> : null}
                                               </button>
                                           );
                                       })
@@ -294,7 +299,8 @@ function ModelLabel({ config, model }: { config: AiConfig; model: string }) {
 
 function ModelIcon({ model }: { model: string }) {
     const icon = resolveModelIcon(modelOptionName(model));
-    return icon ? <img src={icon} alt="" className="size-4 shrink-0 dark:invert" /> : <Cpu className="size-4 shrink-0 opacity-70" />;
+    const monochrome = icon === "/icons/openai.svg" || icon === "/icons/grok.svg";
+    return icon ? <img src={icon} alt="" className={cn("size-4 shrink-0", monochrome && "dark:invert")} /> : <Cpu className="size-4 shrink-0 opacity-70" />;
 }
 
 function resolveModelIcon(model: string) {

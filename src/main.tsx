@@ -1,6 +1,5 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import "antd/dist/reset.css";
 import "streamdown/styles.css";
 import "./styles/globals.css";
 import { RouterProvider } from "react-router-dom";
@@ -13,8 +12,6 @@ import { requestPersistentStorage } from "@/studios/media";
 
 initAnalytics();
 requestPersistentStorage();
-
-document.body.style.fontFamily = '"SF Pro Display","SF Pro Text","PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif';
 
 /** After deploy, old tabs may request removed hashed chunks — reload once to pick up new index.html. */
 const CHUNK_RELOAD_KEY = "canvas-app:chunk-reload-at";

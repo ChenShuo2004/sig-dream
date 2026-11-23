@@ -28,6 +28,11 @@ const neutral = {
     },
 };
 
+export const APP_FONT_SANS =
+    '"Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "HarmonyOS Sans SC", "Microsoft YaHei UI", "Microsoft YaHei", sans-serif';
+export const APP_FONT_MONO =
+    '"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace';
+
 export function getAntThemeConfig(dark: boolean): ThemeConfig {
     const color = dark ? neutral.dark : neutral.light;
 
@@ -35,6 +40,8 @@ export function getAntThemeConfig(dark: boolean): ThemeConfig {
         algorithm: dark ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
         cssVar: { key: dark ? "infinite-canvas-dark" : "infinite-canvas-light" },
         token: {
+            fontFamily: APP_FONT_SANS,
+            fontFamilyCode: APP_FONT_MONO,
             colorPrimary: color.primary,
             colorInfo: color.primary,
             colorLink: color.primary,
