@@ -1,0 +1,445 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "SigCJK";
+          src: local("PingFang SC"), local("Hiragino Sans GB"), local("STHeiti");
+          font-weight: 400 800;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background-color: #fbfbfa;
+          background-image:
+            linear-gradient(rgba(24, 24, 27, 0.045) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(24, 24, 27, 0.045) 1px, transparent 1px);
+          background-size: 36px 36px;
+          font-family: Inter, "SigCJK", sans-serif;
+          color: #111111;
+        }
+
+        /* Beat A (0.0s - 3.5s local): White Infinite Canvas Node Remix with 女主一 */
+        #s3-edit-world {
+          position: absolute;
+          inset: 0;
+        }
+        #s3-edit-top {
+          position: absolute;
+          left: 160px;
+          right: 160px;
+          top: 62px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          z-index: 10;
+        }
+        .s3-title {
+          font-size: 54px;
+          font-weight: 800;
+          letter-spacing: -0.03em;
+          color: #09090b;
+        }
+        #s3-edit-win {
+          position: absolute;
+          left: 132px;
+          right: 132px;
+          top: 156px;
+          bottom: 52px;
+          border-radius: 24px;
+          overflow: hidden;
+          background: #ffffff;
+          border: 1px solid rgba(0, 0, 0, 0.09);
+          box-shadow: 0 32px 84px rgba(15, 23, 42, 0.1);
+        }
+        #s3-edit-win img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        #s3-gen-btn {
+          position: absolute;
+          right: 160px;
+          top: 64px;
+          padding: 14px 28px;
+          border-radius: 999px;
+          background: #111111;
+          color: #ffffff;
+          font-size: 28px;
+          font-weight: 700;
+          box-shadow: 0 14px 36px rgba(0, 0, 0, 0.16);
+          z-index: 14;
+        }
+
+        /* Beat B (3.5s - 9.0s local): PAYOFF — Gallery-White Midjourney Character & Storyboard Canvas */
+        #s3-payoff-world {
+          position: absolute;
+          inset: 0;
+        }
+        #s3-payoff-top {
+          position: absolute;
+          left: 140px;
+          right: 140px;
+          top: 56px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          z-index: 15;
+        }
+        #s3-payoff-badge {
+          padding: 10px 24px;
+          border-radius: 999px;
+          background: #ffffff;
+          border: 1px solid rgba(200, 109, 68, 0.4);
+          color: #c86d44;
+          font-size: 28px;
+          font-weight: 700;
+        }
+        #s3-board {
+          position: absolute;
+          left: 96px;
+          right: 96px;
+          top: 148px;
+          bottom: 48px;
+          border-radius: 26px;
+          background: #ffffff;
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          box-shadow: 0 36px 90px rgba(15, 23, 42, 0.09);
+          overflow: hidden;
+        }
+        #s3-wires {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 2;
+          pointer-events: none;
+        }
+        .s3-col {
+          position: absolute;
+          top: 28px;
+          bottom: 28px;
+          border-radius: 20px;
+          padding: 18px;
+          background: #f8f8f7;
+          border: 1px solid rgba(0, 0, 0, 0.06);
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+          z-index: 4;
+        }
+        .s3-col-tag {
+          align-self: flex-start;
+          padding: 5px 14px;
+          border-radius: 8px;
+          background: #18181b;
+          color: #ffffff;
+          font-size: 24px;
+          font-weight: 700;
+        }
+        .s3-col-tag-warm {
+          background: #c86d44;
+        }
+        #s3-col-chars {
+          left: 28px;
+          width: 500px;
+        }
+        #s3-col-shots {
+          left: 596px;
+          width: 580px;
+        }
+        #s3-col-scenes {
+          left: 1244px;
+          width: 456px;
+        }
+        .s3-mj-card {
+          flex: 1;
+          background: #ffffff;
+          border-radius: 14px;
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          overflow: hidden;
+          position: relative;
+          box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+        }
+        .s3-mj-card img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center 20%;
+          display: block;
+        }
+        .s3-label {
+          position: absolute;
+          left: 12px;
+          bottom: 10px;
+          padding: 4px 12px;
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.92);
+          color: #111111;
+          font-size: 22px;
+          font-weight: 700;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        #s3-shots-grid {
+          flex: 1;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: 1fr 1fr;
+          gap: 14px;
+        }
+        #s3-cursor {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 72px;
+          height: 72px;
+          pointer-events: none;
+          z-index: 30;
+        }
+      </style>
+
+      <div data-hf-id="hf-h9b4" id="root" data-composition-id="s3-canvas" data-width="1920" data-height="1080">
+        <!-- Beat A (0.0s - 3.5s local): White Infinite Canvas with 女主一 Reference Remix -->
+        <div data-hf-id="hf-aad0" id="s3-edit-world" data-layout-allow-overflow>
+          <div data-hf-id="hf-qkli" id="s3-edit-top">
+            <h2 data-hf-id="hf-q27f" class="s3-title">选中角色三视图 · 直接参考改图</h2>
+          </div>
+          <div data-hf-id="hf-7iw7" id="s3-gen-btn" data-layout-ignore>↑ 连线生成分镜</div>
+          <div data-hf-id="hf-w13l" id="s3-edit-win">
+            <img data-hf-id="hf-tnki" src="assets/ui-light/canvas-edit-light.jpg" alt="白色无限画布角色参考改图" />
+          </div>
+        </div>
+
+        <!-- Beat B (3.5s - 9.0s local = 13.0s - 18.5s global): Midjourney 女主一 · 女主二 · 凯哥 Connected Canvas -->
+        <div data-hf-id="hf-y0kp" id="s3-payoff-world" data-layout-allow-overflow>
+          <div data-hf-id="hf-2mxj" id="s3-payoff-top">
+            <h2 data-hf-id="hf-d7ls" class="s3-title" data-var-text="payoff_headline">锁住角色一致性 · 连线生成全剧分镜</h2>
+            <div data-hf-id="hf-wkc1" id="s3-payoff-badge" data-layout-ignore>无限画布 · 打组连线</div>
+          </div>
+
+          <div data-hf-id="hf-xwed" id="s3-board" data-layout-allow-overflow>
+            <svg data-hf-id="hf-4k7m" id="s3-wires" viewBox="0 0 1728 884" fill="none">
+              <path data-hf-id="hf-gl2j"
+                id="s3-w1"
+                d="M 528 200 C 562 200, 562 240, 596 240"
+                stroke="#c86d44"
+                stroke-width="3.5"
+                stroke-dasharray="160"
+                stroke-dashoffset="160"
+              />
+              <path data-hf-id="hf-vwda"
+                id="s3-w2"
+                d="M 528 455 C 562 455, 562 630, 596 630"
+                stroke="#18181b"
+                stroke-width="3.5"
+                stroke-dasharray="240"
+                stroke-dashoffset="240"
+              />
+              <path data-hf-id="hf-rtfh"
+                id="s3-w3"
+                d="M 528 710 C 562 710, 562 660, 596 660"
+                stroke="#c86d44"
+                stroke-width="3.5"
+                stroke-dasharray="160"
+                stroke-dashoffset="160"
+              />
+              <path data-hf-id="hf-081n"
+                id="s3-w4"
+                d="M 1176 280 C 1210 280, 1210 260, 1244 260"
+                stroke="#18181b"
+                stroke-width="3.5"
+                stroke-dasharray="160"
+                stroke-dashoffset="160"
+              />
+              <path data-hf-id="hf-aesg"
+                id="s3-w5"
+                d="M 1176 630 C 1210 630, 1210 640, 1244 640"
+                stroke="#c86d44"
+                stroke-width="3.5"
+                stroke-dasharray="160"
+                stroke-dashoffset="160"
+              />
+            </svg>
+
+            <!-- Column 1: 女主一 · 凯哥 · 女主二 Pure-White Turnaround Sheets -->
+            <div data-hf-id="hf-u9wb" id="s3-col-chars" class="s3-col" data-layout-ignore>
+              <span data-hf-id="hf-4lnl" class="s3-col-tag">01 · 角色资产（女主一 / 凯哥 / 女主二）</span>
+              <div data-hf-id="hf-5t31" class="s3-mj-card">
+                <img data-hf-id="hf-zlap" src="assets/mj/nvzhu1-sheet.jpg" alt="女主一" />
+                <span data-hf-id="hf-mmpc" class="s3-label">女主一</span>
+              </div>
+              <div data-hf-id="hf-pswh" class="s3-mj-card">
+                <img data-hf-id="hf-zjlw" src="assets/mj/kaige-sheet.jpg" alt="凯哥" />
+                <span data-hf-id="hf-mhoe" class="s3-label">凯哥</span>
+              </div>
+              <div data-hf-id="hf-qztk" class="s3-mj-card">
+                <img data-hf-id="hf-v7lu" src="assets/mj/nvzhu2-sheet.jpg" alt="女主二" />
+                <span data-hf-id="hf-wq8k" class="s3-label">女主二</span>
+              </div>
+            </div>
+
+            <!-- Column 2: High-Color Midjourney Character Keyframes -->
+            <div data-hf-id="hf-wv1j" id="s3-col-shots" class="s3-col" data-layout-ignore>
+              <span data-hf-id="hf-aq6v" class="s3-col-tag s3-col-tag-warm">02 · 多图参考关键帧</span>
+              <div data-hf-id="hf-kxx0" id="s3-shots-grid">
+                <div data-hf-id="hf-up4a" id="s3-k1" class="s3-mj-card">
+                  <img data-hf-id="hf-ge47" src="assets/mj/shot-xiaomei.jpg" alt="水下花瓣特写" />
+                  <span data-hf-id="hf-4c6d" class="s3-label">水下特写</span>
+                </div>
+                <div data-hf-id="hf-ojeh" id="s3-k2" class="s3-mj-card">
+                  <img data-hf-id="hf-r371" src="assets/mj/shot-nvzhu1.jpg" alt="逆光胶片人像" />
+                  <span data-hf-id="hf-il9o" class="s3-label">胶片逆光</span>
+                </div>
+                <div data-hf-id="hf-nrqo" id="s3-k3" class="s3-mj-card">
+                  <img data-hf-id="hf-14n1" src="assets/mj/shot-kaige.jpg" alt="凯哥舞台光影" />
+                  <span data-hf-id="hf-afnm" class="s3-label">舞台光影</span>
+                </div>
+                <div data-hf-id="hf-jtmn" id="s3-k4" class="s3-mj-card">
+                  <img data-hf-id="hf-zhbh" src="assets/mj/shot-nvzhu2.jpg" alt="女主二定妆" />
+                  <span data-hf-id="hf-a87r" class="s3-label">暗调礼服</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Column 3: Scene & Full White Storyboard Output -->
+            <div data-hf-id="hf-zhxb" id="s3-col-scenes" class="s3-col" data-layout-ignore>
+              <span data-hf-id="hf-0hsh" class="s3-col-tag">03 · 场景与成片分镜</span>
+              <div data-hf-id="hf-fvim" id="s3-k5" class="s3-mj-card">
+                <img data-hf-id="hf-m2bg" src="assets/mj/shot-lobby.jpg" alt="水晶大堂场景" />
+                <span data-hf-id="hf-meuo" class="s3-label">大堂场景</span>
+              </div>
+              <div data-hf-id="hf-bxel" id="s3-k6" class="s3-mj-card">
+                <img data-hf-id="hf-0bda" src="assets/mj/shot-tower.jpg" alt="暴雨高塔全景" />
+                <span data-hf-id="hf-44yx" class="s3-label">高塔成片镜</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-x62p" id="s3-cursor" data-layout-ignore>
+          <svg data-hf-id="hf-j7gq" width="72" height="72" viewBox="0 0 32 32" fill="none">
+            <path data-hf-id="hf-tw3s"
+              d="M5.5 3.5L26.5 14.8C27.7 15.4 27.4 17.2 26.1 17.5L16.8 19.4L11.9 27.6C11.2 28.7 9.5 28.4 9.3 27.1L3.9 4.9C3.6 3.8 4.6 3.0 5.5 3.5Z"
+              fill="#111111"
+              stroke="#FFFFFF"
+              stroke-width="2.4"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+
+          gsap.set("#s3-payoff-world", { opacity: 0 });
+          gsap.set("#s3-cursor", { x: 1980, y: 540 });
+
+          // Beat A (0.0s -> 3.5s local): Clean arrival on White Canvas + click Generate at 2.90s (12.40s global)
+          tl.fromTo(
+            "#s3-edit-win",
+            { scale: 0.94, opacity: 0.92 },
+            { scale: 1, opacity: 1, duration: 0.38, ease: "expo.out" },
+            0,
+          );
+          tl.fromTo(
+            "#s3-cursor",
+            { x: 1980, y: 540, opacity: 1, scale: 1 },
+            { x: 1620, y: 92, opacity: 1, scale: 1, duration: 0.48, ease: "power3.out" },
+            2.4,
+          );
+          tl.fromTo(
+            "#s3-gen-btn",
+            { scale: 1, backgroundColor: "#111111" },
+            { scale: 0.92, backgroundColor: "#c86d44", duration: 0.08, ease: "power2.in" },
+            2.9,
+          );
+          tl.fromTo(
+            "#s3-gen-btn",
+            { scale: 0.92 },
+            { scale: 1.05, duration: 0.14, ease: "power2.out", immediateRender: false },
+            2.98,
+          );
+
+          // Beat B (3.50s local = 13.00s global): Pull back onto White Connected Midjourney Canvas!
+          tl.fromTo(
+            "#s3-edit-world",
+            { opacity: 1, scale: 1 },
+            { opacity: 0, scale: 0.88, duration: 0.22, ease: "power3.in" },
+            3.32,
+          );
+          tl.fromTo(
+            "#s3-cursor",
+            { opacity: 1 },
+            { opacity: 0, duration: 0.2, ease: "power2.in", immediateRender: false },
+            3.3,
+          );
+
+          tl.fromTo(
+            "#s3-payoff-world",
+            { opacity: 0, x: 0 },
+            { opacity: 1, x: 0, duration: 0.16, ease: "power2.out" },
+            3.48,
+          );
+          tl.fromTo(
+            "#s3-board",
+            { scale: 1.2, x: 240 },
+            { scale: 1, x: 0, duration: 0.62, ease: "expo.out" },
+            3.5,
+          );
+
+          // Draw Bezier wires & pop Midjourney keyframes in rhythm!
+          tl.fromTo(
+            "#s3-w1, #s3-w2, #s3-w3",
+            { strokeDashoffset: 240 },
+            { strokeDashoffset: 0, duration: 0.34, ease: "power2.out" },
+            3.56,
+          );
+          ["#s3-k1", "#s3-k2", "#s3-k3", "#s3-k4"].forEach((sel, idx) => {
+            tl.fromTo(
+              sel,
+              { scale: 0.88, opacity: 0 },
+              { scale: 1, opacity: 1, duration: 0.24, ease: "back.out(1.35)" },
+              3.62 + idx * 0.06,
+            );
+          });
+          tl.fromTo(
+            "#s3-w4, #s3-w5",
+            { strokeDashoffset: 160 },
+            { strokeDashoffset: 0, duration: 0.32, ease: "power2.out" },
+            3.82,
+          );
+          tl.fromTo(
+            "#s3-k5, #s3-k6",
+            { x: 24, opacity: 0 },
+            { x: 0, opacity: 1, duration: 0.26, stagger: 0.08, ease: "power3.out" },
+            3.88,
+          );
+
+          // Gentle gallery pan across the Midjourney keyframes (5.8s -> 8.7s local)
+          tl.fromTo(
+            "#s3-board",
+            { scale: 1, x: 0 },
+            { scale: 1.05, x: -34, duration: 2.8, ease: "power2.inOut", immediateRender: false },
+            5.8,
+          );
+
+          tl.fromTo(
+            "#s3-payoff-world",
+            { x: 0, opacity: 1 },
+            { x: -100, opacity: 0.35, duration: 0.22, ease: "power3.in", immediateRender: false },
+            8.78,
+          );
+
+          window.__timelines["s3-canvas"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

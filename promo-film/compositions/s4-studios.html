@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "SigCJK";
+          src: local("PingFang SC"), local("Hiragino Sans GB"), local("STHeiti");
+          font-weight: 400 800;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background-color: #f8f8f7;
+          background-image: radial-gradient(rgba(24, 24, 27, 0.065) 1.2px, transparent 1.2px);
+          background-size: 24px 24px;
+          font-family: Inter, "SigCJK", sans-serif;
+          color: #111111;
+        }
+        .s4-view {
+          position: absolute;
+          inset: 0;
+        }
+        .s4-top {
+          position: absolute;
+          left: 160px;
+          right: 160px;
+          top: 64px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          z-index: 10;
+        }
+        .s4-h2 {
+          font-size: 56px;
+          font-weight: 800;
+          letter-spacing: -0.03em;
+          color: #09090b;
+        }
+        .s4-tag {
+          padding: 10px 24px;
+          border-radius: 999px;
+          background: #ffffff;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          font-size: 28px;
+          font-weight: 600;
+          color: #c86d44;
+        }
+        .s4-card-win {
+          position: absolute;
+          left: 136px;
+          right: 136px;
+          top: 164px;
+          bottom: 54px;
+          border-radius: 24px;
+          overflow: hidden;
+          background: #ffffff;
+          border: 1px solid rgba(0, 0, 0, 0.09);
+          box-shadow: 0 32px 84px rgba(15, 23, 42, 0.09);
+        }
+        .s4-card-win img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+        #s4a-zoom {
+          width: 100%;
+          height: 100%;
+          transform-origin: 50% 82%;
+        }
+        #s4b-zoom {
+          width: 100%;
+          height: 100%;
+          transform-origin: 54% 44%;
+        }
+      </style>
+
+      <div data-hf-id="hf-vhn6" id="root" data-composition-id="s4-studios" data-width="1920" data-height="1080">
+        <!-- Beat 4A (0.0s - 2.5s local): Clean White 4-Workspace Studio Cards -->
+        <div data-hf-id="hf-jfbo" id="s4a" class="s4-view" data-layout-allow-overflow>
+          <div data-hf-id="hf-xymz" class="s4-top">
+            <h2 data-hf-id="hf-k2jl" class="s4-h2">内置剧本 · 复刻 · 替换三大工作室</h2>
+            <div data-hf-id="hf-v8y1" class="s4-tag" data-layout-ignore>全流程开箱即用</div>
+          </div>
+          <div data-hf-id="hf-pjvo" class="s4-card-win" data-layout-allow-overflow>
+            <div data-hf-id="hf-kew3" id="s4a-zoom">
+              <img data-hf-id="hf-cq8b" src="assets/ui-light/home-light.jpg" alt="四大核心工作区" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Beat 4B (2.5s - 5.0s local): Clean White 1,742 Open Prompt Center -->
+        <div data-hf-id="hf-s37j" id="s4b" class="s4-view" data-layout-allow-overflow>
+          <div data-hf-id="hf-cpnf" class="s4-top">
+            <h2 data-hf-id="hf-r8ei" class="s4-h2">1740+ 开源提示词 · 一键收藏复用</h2>
+            <div data-hf-id="hf-ztha" class="s4-tag" data-layout-ignore>本地持久化缓存</div>
+          </div>
+          <div data-hf-id="hf-z3j0" class="s4-card-win" data-layout-allow-overflow>
+            <div data-hf-id="hf-lxpm" id="s4b-zoom">
+              <img data-hf-id="hf-ltkr" src="assets/ui-light/prompts-light.jpg" alt="白色提示词中心" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+
+          gsap.set("#s4b", { opacity: 0 });
+
+          // 4A (0.0s -> 2.5s): Focus cleanly on the 4 white workspace studio cards!
+          tl.fromTo(
+            "#s4a",
+            { x: 60, opacity: 0.92 },
+            { x: 0, opacity: 1, duration: 0.28, ease: "expo.out" },
+            0,
+          );
+          tl.fromTo(
+            "#s4a-zoom",
+            { scale: 1.16, y: -40 },
+            { scale: 1.28, y: -64, duration: 2.3, ease: "power2.out" },
+            0,
+          );
+          tl.fromTo(
+            "#s4a",
+            { x: 0, opacity: 1 },
+            { x: -120, opacity: 0, duration: 0.18, ease: "power3.in", immediateRender: false },
+            2.28,
+          );
+
+          // 4B (2.5s -> 5.0s): Slide cleanly into White 1,742 Prompt Center (zero title overlap at 21.0s)!
+          tl.fromTo(
+            "#s4b",
+            { opacity: 0, x: 70 },
+            { opacity: 1, x: 0, duration: 0.24, ease: "expo.out" },
+            2.47,
+          );
+          tl.fromTo(
+            "#s4b-zoom",
+            { scale: 1 },
+            { scale: 1.12, duration: 2.3, ease: "power2.out" },
+            2.5,
+          );
+          tl.fromTo(
+            "#s4b",
+            { opacity: 1, scale: 1 },
+            { opacity: 0.35, scale: 0.96, duration: 0.2, ease: "power3.in", immediateRender: false },
+            4.8,
+          );
+
+          window.__timelines["s4-studios"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

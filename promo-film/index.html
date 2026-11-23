@@ -1,0 +1,299 @@
+<!doctype html>
+<html
+  lang="zh-CN"
+  data-composition-variables='[
+    {"id":"brand_name","type":"string","label":"Brand Name","default":"sig-dream · sig画布"},
+    {"id":"repo_url","type":"string","label":"GitHub Repo","default":"github.com/ChenShuo2004/sig-dream"},
+    {"id":"accent_color","type":"color","label":"Accent Color","default":"#c86d44"},
+    {"id":"hook_headline","type":"string","label":"Opening Headline","default":"从角色设定到成片，全在一张画布"},
+    {"id":"payoff_headline","type":"string","label":"Canvas Headline","default":"锁住角色一致性 · 连线生成全剧分镜"},
+    {"id":"end_claim","type":"string","label":"End Claim","default":"MIT 开源 · 零数据库 · 本地优先 AI 无限画布"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>sig-dream — Pure White Minimal Open-Source Launch Film</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "SigCJK";
+        src: local("PingFang SC"), local("Hiragino Sans GB"), local("STHeiti");
+        font-weight: 400 800;
+      }
+      :root {
+        --ground: #fbfbfa;
+        --ink: #111111;
+        --muted: #71717a;
+        --accent: var(--accent_color, #c86d44);
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #fbfbfa;
+        color: #111111;
+        font-family: Inter, "SigCJK", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      #base-ground {
+        position: absolute;
+        inset: 0;
+        background-color: #fbfbfa;
+        background-image: radial-gradient(rgba(24, 24, 27, 0.08) 1.2px, transparent 1.2px);
+        background-size: 24px 24px;
+        z-index: 0;
+      }
+      .scene-host {
+        position: absolute;
+        inset: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-r3w7"
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="28"
+      data-width="1920"
+      data-height="1080"
+      data-fps="30"
+      data-motion-blur="on"
+    >
+      <div data-hf-id="hf-i7nl" id="base-ground" data-layout-ignore></div>
+
+      <!-- 5 Ultra-Clean Gallery-White Scenes (28.0s = 14 bars @ 120 BPM) -->
+      <div data-hf-id="hf-rl6e"
+        id="s1-hook"
+        class="clip scene-host"
+        data-composition-id="s1-hook"
+        data-composition-src="compositions/s1-hook.html"
+        data-start="0"
+        data-duration="4.5"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+        style="z-index: 1"
+      ></div>
+
+      <div data-hf-id="hf-r42l"
+        id="s2-zero-db"
+        class="clip scene-host"
+        data-composition-id="s2-zero-db"
+        data-composition-src="compositions/s2-zero-db.html"
+        data-start="4.5"
+        data-duration="5"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+        style="z-index: 2"
+      ></div>
+
+      <div data-hf-id="hf-9t2h"
+        id="s3-canvas"
+        class="clip scene-host"
+        data-composition-id="s3-canvas"
+        data-composition-src="compositions/s3-canvas.html"
+        data-start="9.5"
+        data-duration="9"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+        style="z-index: 3"
+      ></div>
+
+      <div data-hf-id="hf-x6q4"
+        id="s4-studios"
+        class="clip scene-host"
+        data-composition-id="s4-studios"
+        data-composition-src="compositions/s4-studios.html"
+        data-start="18.5"
+        data-duration="5"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+        style="z-index: 4"
+      ></div>
+
+      <div data-hf-id="hf-r8g0"
+        id="s5-endcard"
+        class="clip scene-host"
+        data-composition-id="s5-endcard"
+        data-composition-src="compositions/s5-endcard.html"
+        data-start="23.5"
+        data-duration="4.5"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+        style="z-index: 5"
+      ></div>
+
+      <!-- Track 2: Clean 120 BPM Electronic Groove -->
+      <audio data-hf-id="hf-iw4s"
+        id="bgm-bed"
+        class="clip"
+        src="assets/audio/bgm-white-28s.mp3"
+        data-start="0"
+        data-duration="28"
+        data-track-index="2"
+        data-volume="0.72"
+        data-fade-in="0.06"
+        data-fade-out="1.2"
+      ></audio>
+
+      <!-- Track 3, 4, 5: Subtle Clean Foley & Beat Accents -->
+      <audio data-hf-id="hf-pi98"
+        id="sfx-s1-click"
+        class="clip"
+        src="assets/sfx/click.mp3"
+        data-start="3.83"
+        data-duration="0.37"
+        data-track-index="3"
+        data-volume="0.42"
+      ></audio>
+      <audio data-hf-id="hf-7tm5"
+        id="sfx-s1-whoosh"
+        class="clip"
+        src="assets/sfx/whoosh-short.mp3"
+        data-start="4.42"
+        data-duration="0.57"
+        data-track-index="4"
+        data-volume="0.32"
+      ></audio>
+      <audio data-hf-id="hf-94ry"
+        id="sfx-riser"
+        class="clip"
+        src="assets/sfx/riser.mp3"
+        data-start="3.0"
+        data-duration="10.03"
+        data-track-index="5"
+        data-volume="0.2"
+      ></audio>
+      <audio data-hf-id="hf-i4h5"
+        id="sfx-s2-click"
+        class="clip"
+        src="assets/sfx/click.mp3"
+        data-start="6.53"
+        data-duration="0.37"
+        data-track-index="3"
+        data-volume="0.42"
+      ></audio>
+      <audio data-hf-id="hf-7vnw"
+        id="sfx-s3-whoosh"
+        class="clip"
+        src="assets/sfx/whoosh.mp3"
+        data-start="9.45"
+        data-duration="0.57"
+        data-track-index="4"
+        data-volume="0.34"
+      ></audio>
+      <audio data-hf-id="hf-f3cp"
+        id="sfx-s3-typing"
+        class="clip"
+        src="assets/sfx/typing.mp3"
+        data-start="10.2"
+        data-duration="1.5"
+        data-track-index="3"
+        data-volume="0.28"
+      ></audio>
+      <audio data-hf-id="hf-7fq3"
+        id="sfx-s3-click"
+        class="clip"
+        src="assets/sfx/click.mp3"
+        data-start="12.43"
+        data-duration="0.37"
+        data-track-index="3"
+        data-volume="0.45"
+      ></audio>
+      <audio data-hf-id="hf-tm5n"
+        id="sfx-payoff-hit"
+        class="clip"
+        src="assets/sfx/impact-bass-2.mp3"
+        data-start="13.02"
+        data-duration="2.5"
+        data-track-index="4"
+        data-volume="0.46"
+      ></audio>
+      <audio data-hf-id="hf-z8op"
+        id="sfx-payoff-pop1"
+        class="clip"
+        src="assets/sfx/pop.mp3"
+        data-start="13.55"
+        data-duration="0.72"
+        data-track-index="3"
+        data-volume="0.28"
+      ></audio>
+      <audio data-hf-id="hf-6l54"
+        id="sfx-payoff-pop2"
+        class="clip"
+        src="assets/sfx/click-soft.mp3"
+        data-start="14.32"
+        data-duration="0.37"
+        data-track-index="3"
+        data-volume="0.3"
+      ></audio>
+      <audio data-hf-id="hf-96up"
+        id="sfx-s4-cut1"
+        class="clip"
+        src="assets/sfx/whoosh-short.mp3"
+        data-start="18.45"
+        data-duration="0.57"
+        data-track-index="4"
+        data-volume="0.32"
+      ></audio>
+      <audio data-hf-id="hf-zpgj"
+        id="sfx-s4-cut2"
+        class="clip"
+        src="assets/sfx/whoosh.mp3"
+        data-start="20.95"
+        data-duration="0.57"
+        data-track-index="4"
+        data-volume="0.32"
+      ></audio>
+      <audio data-hf-id="hf-ngj2"
+        id="sfx-s5-click"
+        class="clip"
+        src="assets/sfx/click.mp3"
+        data-start="23.78"
+        data-duration="0.37"
+        data-track-index="3"
+        data-volume="0.42"
+      ></audio>
+      <audio data-hf-id="hf-96i0"
+        id="sfx-s5-hit"
+        class="clip"
+        src="assets/sfx/impact-bass-1.mp3"
+        data-start="23.88"
+        data-duration="2.1"
+        data-track-index="4"
+        data-volume="0.42"
+      ></audio>
+    </div>
+
+    <script>
+      (() => {
+        const tl = gsap.timeline({ paused: true });
+        window.__timelines["main"] = tl;
+        tl.seek(0);
+      })();
+    </script>
+  </body>
+</html>
