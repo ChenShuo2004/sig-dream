@@ -20,7 +20,7 @@
 [![AIGC 定制平台 · 有温度AI](https://img.shields.io/badge/AIGC_%E5%AE%9A%E5%88%B6%E5%B9%B3%E5%8F%B0-%E6%9C%89%E6%B8%A9%E5%BA%A6AI-C86D44?style=for-the-badge)](https://page.shiguang.love)
 [![关注作者 X](https://img.shields.io/badge/%E5%85%B3%E6%B3%A8%E4%BD%9C%E8%80%85-%40ChenshuoAI-111111?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ChenshuoAI)
 
-[快速安装](#开箱即用下载与快速启动) · [宣传片与演示](#宣传片与功能演示) · [核心工作区](#核心工作区) · [Agent 接入](#agent-接入) · [支持模型](#支持的模型与渠道) · [AIGC 定制平台](#youwendu-aigc) · [企业版（闭源）](#企业版不开源) · [常见问题](#常见问题)
+[使用手册](docs/user-manual.md) · [快速安装](#开箱即用下载与快速启动) · [宣传片与演示](#宣传片与功能演示) · [核心工作区](#核心工作区) · [Agent 接入](#agent-接入) · [支持模型](#支持的模型与渠道) · [AIGC 定制平台](#youwendu-aigc) · [企业版（闭源）](#企业版不开源) · [常见问题](#常见问题)
 
 </div>
 
@@ -61,6 +61,8 @@
 在 Agent → 连接 中选择 Codex、Claude、Cursor、Grok Build、OpenCode、Antigravity、Muse Code 或 Pi，复制对应的 MCP 命令或配置。其他支持本地 MCP stdio 的客户端可使用通用入口。版本差异、操作步骤与验证方法见 [Agent 接入指南](docs/agent-connections.md)。
 
 ## 开箱即用下载与快速启动
+
+首次使用建议阅读 [中文使用手册](docs/user-manual.md)：包含模型配置、三大工作室操作、画布快捷键、Agent 接入、工程备份与故障排查。
 
 ### 方式一：独立桌面客户端（推荐 · 无需安装 Node.js）
 
@@ -274,6 +276,7 @@ sig-dream/
 │   └── render-demos.mjs      # Playwright + FFmpeg 模块化功能演示视频渲染脚本
 ├── tests/                    # Node 原生单元测试（node:test）
 ├── docs/
+│   ├── user-manual.md        # 中文使用手册：安装、创作流程、备份迁移与故障排查
 │   ├── agent-connections.md  # 多客户端 MCP / Agent 接入指南
 │   ├── screenshots/          # 首屏宣传动图、角色分镜海报与界面实拍
 │   └── demos/                # 1080p 开源宣传片与分模块功能演示视频
