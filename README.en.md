@@ -25,11 +25,18 @@ No PostgreSQL, no login server — download the native desktop app or portable b
 
 <br/>
 
-### 🎬 Dual 3D Cinematic Promo Films (Click Any GIF for 1080p MP4 with Sound)
-
-| ⚡ 32s Fast-Paced Highlight Cut | 🎥 68s Full Feature Overview (01–07) |
-| --- | --- |
-| [![sig-dream 32s Fast Promo](docs/screenshots/fast-hype-promo.gif)](docs/demos/00-fast-hype-promo.mp4)<br/><sub>Zero-DB launch → Infinite Canvas character consistency → 8 MCP Agents + 34+ Skills → 3 Studios showcase<br/>[Download 1080p MP4](https://github.com/ChenShuo2004/sig-dream/raw/main/docs/demos/00-fast-hype-promo.mp4) · [Repo File](docs/demos/00-fast-hype-promo.mp4)</sub> | [![sig-dream 68s Full Overview](docs/screenshots/full-overview-promo.gif)](docs/demos/00-full-overview-promo.mp4)<br/><sub>Deployment & providers → Infinite Canvas → MCP Agents → 3 Studios → Workbenches & 34+ Built-in Skills<br/>[Download 1080p MP4](https://github.com/ChenShuo2004/sig-dream/raw/main/docs/demos/00-full-overview-promo.mp4) · [Repo File](docs/demos/00-full-overview-promo.mp4)</sub> |
+<div align="center">
+  <a href="docs/demos/00-fast-hype-promo.mp4">
+    <img src="docs/screenshots/fast-hype-promo.gif" alt="sig-dream 30s 3D Cinematic Promo" width="100%" />
+  </a>
+  <p>
+    <sub>
+      🎬 <b>30s 3D Launch Film</b> (Zero-DB setup → Infinite Canvas character consistency → 8 MCP Agents + 34+ Built-in Skills → 3 Studios) ·
+      <a href="https://github.com/ChenShuo2004/sig-dream/raw/main/docs/demos/00-fast-hype-promo.mp4"><b>Download 1080p MP4 with Sound</b></a> ·
+      <a href="docs/demos/00-fast-hype-promo.mp4"><b>Repo File</b></a>
+    </sub>
+  </p>
+</div>
 
 ### 3 Built-in Studios · Real Output Previews (Click Any GIF for 1080p MP4 with Audio)
 

@@ -22,9 +22,18 @@ PostgreSQL やログイン設定なしで、デスクトップ版またはポー
 
 <br/>
 
-| ⚡ 32秒 ハイライト版（3D 映像） | 🎥 68秒 全機能紹介版（01–07） |
-| --- | --- |
-| [![32秒ハイライト版](docs/screenshots/fast-hype-promo.gif)](docs/demos/00-fast-hype-promo.mp4)<br/><sub>[1080p 音声付き MP4](docs/demos/00-fast-hype-promo.mp4)</sub> | [![68秒全機能紹介版](docs/screenshots/full-overview-promo.gif)](docs/demos/00-full-overview-promo.mp4)<br/><sub>[1080p 音声付き MP4](docs/demos/00-full-overview-promo.mp4)</sub> |
+<div align="center">
+  <a href="docs/demos/00-fast-hype-promo.mp4">
+    <img src="docs/screenshots/fast-hype-promo.gif" alt="sig-dream 30秒 3D プロモーション動画" width="100%" />
+  </a>
+  <p>
+    <sub>
+      🎬 <b>30秒 3D プロモーション動画</b> ·
+      <a href="https://github.com/ChenShuo2004/sig-dream/raw/main/docs/demos/00-fast-hype-promo.mp4"><b>1080p MP4 をダウンロード</b></a> ·
+      <a href="docs/demos/00-fast-hype-promo.mp4"><b>リポジトリファイル</b></a>
+    </sub>
+  </p>
+</div>
 
 ### 3 つのスタジオ実測デモ（クリックで 1080p 音声付き MP4 を再生）
 

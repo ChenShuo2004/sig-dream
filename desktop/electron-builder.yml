@@ -23,6 +23,8 @@ extraResources:
     to: app-runtime/dist
   - from: ../server
     to: app-runtime/server
+  - from: ../.agents/skills
+    to: app-runtime/.agents/skills
 
 asar: true
 

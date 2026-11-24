@@ -22,9 +22,18 @@ PostgreSQL이나 로그인 없이 데스크톱 앱 또는 포터블 패키지를
 
 <br/>
 
-| ⚡ 32초 하이라이트 3D 프로모 | 🎥 68초 전체 기능 소개 (01–07) |
-| --- | --- |
-| [![32초 하이라이트](docs/screenshots/fast-hype-promo.gif)](docs/demos/00-fast-hype-promo.mp4)<br/><sub>[1080p 음성 MP4](docs/demos/00-fast-hype-promo.mp4)</sub> | [![68초 전체 기능](docs/screenshots/full-overview-promo.gif)](docs/demos/00-full-overview-promo.mp4)<br/><sub>[1080p 음성 MP4](docs/demos/00-full-overview-promo.mp4)</sub> |
+<div align="center">
+  <a href="docs/demos/00-fast-hype-promo.mp4">
+    <img src="docs/screenshots/fast-hype-promo.gif" alt="sig-dream 30초 3D 프로모션 영상" width="100%" />
+  </a>
+  <p>
+    <sub>
+      🎬 <b>30초 3D 프로모션 영상</b> ·
+      <a href="https://github.com/ChenShuo2004/sig-dream/raw/main/docs/demos/00-fast-hype-promo.mp4"><b>1080p MP4 다운로드</b></a> ·
+      <a href="docs/demos/00-fast-hype-promo.mp4"><b>저장소 파일</b></a>
+    </sub>
+  </p>
+</div>
 
 ### 3대 스튜디오 실전 결과 미리보기 (클릭 시 1080p 음성 MP4 재생)
 

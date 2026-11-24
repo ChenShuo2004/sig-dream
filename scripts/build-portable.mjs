@@ -23,6 +23,10 @@ mkdirSync(stageDir, { recursive: true });
 cpSync(join(rootDir, "release/canvas-agent.tgz"), join(stageDir, "canvas-agent.tgz"));
 cpSync(distDir, join(stageDir, "dist"), { recursive: true });
 cpSync(serverDir, join(stageDir, "server"), { recursive: true });
+if (existsSync(join(rootDir, ".agents", "skills"))) {
+    mkdirSync(join(stageDir, ".agents"), { recursive: true });
+    cpSync(join(rootDir, ".agents", "skills"), join(stageDir, ".agents", "skills"), { recursive: true });
+}
 cpSync(join(rootDir, "src/styles/LICENSE.shadcn.md"), join(stageDir, "LICENSE.shadcn.md"));
 cpSync(join(rootDir, "LICENSE"), join(stageDir, "LICENSE"));
 cpSync(join(rootDir, "LICENSE.upstream-infinite-canvas"), join(stageDir, "LICENSE.upstream-infinite-canvas"));

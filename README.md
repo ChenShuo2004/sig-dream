@@ -25,11 +25,18 @@
 
 <br/>
 
-### 🎬 双版本 3D 电影级宣传片（点击动图看 1080p 有声高清 MP4）
-
-| ⚡ 32 秒爽点快节奏版（3D 高燃速览） | 🎥 68 秒功能全面介绍版（01–07 全模块精讲） |
-| --- | --- |
-| [![sig-dream 32秒爽点快节奏宣传片](docs/screenshots/fast-hype-promo.gif)](docs/demos/00-fast-hype-promo.mp4)<br/><sub>零数据库开箱 → 无限画布锁角色 → 8 大 MCP Agent + 34+ 内置 Skill → 三大工作室高能三连切<br/>[下载 1080p 有声 MP4](https://github.com/ChenShuo2004/sig-dream/raw/main/docs/demos/00-fast-hype-promo.mp4) · [仓库文件](docs/demos/00-fast-hype-promo.mp4)</sub> | [![sig-dream 68秒功能全面介绍宣传片](docs/screenshots/full-overview-promo.gif)](docs/demos/00-full-overview-promo.mp4)<br/><sub>三端部署与多渠道 → 无限画布 → MCP Agent → 剧本/复刻/替换工作室 → 独立工作台与 34+ 内置技能<br/>[下载 1080p 有声 MP4](https://github.com/ChenShuo2004/sig-dream/raw/main/docs/demos/00-full-overview-promo.mp4) · [仓库文件](docs/demos/00-full-overview-promo.mp4)</sub> |
+<div align="center">
+  <a href="docs/demos/00-fast-hype-promo.mp4">
+    <img src="docs/screenshots/fast-hype-promo.gif" alt="sig-dream 30 秒 3D 爽点快节奏宣传片" width="100%" />
+  </a>
+  <p>
+    <sub>
+      🎬 <b>30 秒 3D 高燃宣传片</b>（零数据库开箱 → 无限画布锁角色 → 8 大 MCP Agent + 34+ 内置 Skill → 三大工作室实拍） ·
+      <a href="https://github.com/ChenShuo2004/sig-dream/raw/main/docs/demos/00-fast-hype-promo.mp4"><b>下载 1080p 有声高清 MP4</b></a> ·
+      <a href="docs/demos/00-fast-hype-promo.mp4"><b>仓库文件</b></a>
+    </sub>
+  </p>
+</div>
 
 ### 三大工作室实拍效果直览（点击动图看 1080p 有声成片）
 
