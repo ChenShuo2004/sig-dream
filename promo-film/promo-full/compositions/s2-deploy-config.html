@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "SigCJK";
+          src: local("PingFang SC"), local("Hiragino Sans GB"), local("STHeiti");
+          font-weight: 400 900;
+        }
+        #root {
+          position: absolute; inset: 0; overflow: hidden;
+          background: radial-gradient(circle at 35% 50%, #191032 0%, #06050c 55%, #020204 100%);
+          font-family: Inter, "SigCJK", sans-serif; color: #ffffff;
+          perspective: 1600px;
+        }
+        #stage-left {
+          position: absolute; left: 80px; top: 140px; width: 1080px; height: 800px;
+          transform-style: preserve-3d;
+        }
+        #card-3d {
+          width: 100%; height: 100%; border-radius: 26px; overflow: hidden;
+          border: 1.5px solid rgba(167, 139, 250, 0.35);
+          box-shadow: 0 50px 140px rgba(0, 0, 0, 0.9), 0 0 80px rgba(139, 92, 246, 0.22);
+          position: relative;
+        }
+        #card-3d img { width: 100%; height: 100%; object-fit: cover; }
+        .sheen {
+          position: absolute; top: -20%; left: -60%; width: 45%; height: 150%;
+          background: linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.14) 50%, transparent 80%);
+          transform: skewX(-18deg);
+        }
+        #right-copy {
+          position: absolute; right: 100px; top: 160px; width: 610px; z-index: 15;
+          display: flex; flex-direction: column; gap: 20px;
+        }
+        .kicker {
+          align-self: flex-start; padding: 8px 20px; border-radius: 999px;
+          background: rgba(139, 92, 246, 0.2); border: 1px solid rgba(167, 139, 250, 0.5);
+          color: #d8b4fe; font-size: 26px; font-weight: 700;
+        }
+        .h1 { font-size: 62px; font-weight: 900; line-height: 1.15; letter-spacing: -0.03em; }
+        .glow {
+          background: linear-gradient(90deg, #c084fc 0%, #38bdf8 100%);
+          -webkit-background-clip: text; color: transparent;
+        }
+        .list { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
+        .item {
+          padding: 18px 24px; border-radius: 16px;
+          background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(167, 139, 250, 0.22);
+        }
+        .item h3 { font-size: 28px; font-weight: 800; color: #f4f4f5; margin-bottom: 4px; }
+        .item p { font-size: 24px; color: #a1a1aa; }
+      </style>
+
+      <div id="root" data-composition-id="s2-deploy-config" data-start="0" data-duration="7.5" data-width="1920" data-height="1080">
+        <div id="stage-left">
+          <div id="card-3d">
+            <img src="assets/ui/provider-modal.png" alt="provider config" />
+            <div class="sheen" id="sh2"></div>
+          </div>
+        </div>
+
+        <div id="right-copy">
+          <div class="kicker">01 / 07 · 开箱即用与多渠道</div>
+          <div class="h1">零数据库运维<br /><span class="glow">多模型</span>自由组合</div>
+          <div class="list">
+            <div class="item"><h3>三端桌面版 / Web 便携 / Docker</h3><p>免安装数据库与登录服务，打开即用</p></div>
+            <div class="item"><h3>主流模型渠道 + 本地 CORS 代理</h3><p>OpenAI / Gemini / 火山方舟 / RunningHub</p></div>
+            <div class="item"><h3>IndexedDB + WebDAV 隐私备份</h3><p>工程与 API Key 100% 留在本机</p></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (() => {
+          const root = document.currentScript.closest("[data-composition-id]") || document;
+          const tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(root.querySelector("#card-3d"), { rotateY: 30, rotateX: 10, x: -120, opacity: 0 }, { rotateY: 14, rotateX: 4, x: 0, opacity: 1, duration: 1.05, ease: "expo.out" }, 0.05);
+          tl.to(root.querySelector("#card-3d"), { rotateY: 6, rotateX: 2, scale: 1.08, duration: 5.8, ease: "power1.inOut" }, 1.1);
+          tl.fromTo(root.querySelector("#sh2"), { x: 0 }, { x: 2100, duration: 2.2, ease: "power2.inOut" }, 1.0);
+          tl.fromTo(root.querySelector(".kicker"), { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4 }, 0.15);
+          tl.fromTo(root.querySelector(".h1"), { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "expo.out" }, 0.25);
+          tl.fromTo(root.querySelectorAll(".item"), { x: 36, opacity: 0 }, { x: 0, opacity: 1, duration: 0.42, stagger: 0.14, ease: "power3.out" }, 0.5);
+
+          window.__timelines["s2-deploy-config"] = tl;
+          tl.seek(0);
+        })();
+      </script>
+    </template>
+  </body>
+</html>

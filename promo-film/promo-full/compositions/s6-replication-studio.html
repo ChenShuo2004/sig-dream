@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "SigCJK";
+          src: local("PingFang SC"), local("Hiragino Sans GB"), local("STHeiti");
+          font-weight: 400 900;
+        }
+        #root {
+          position: absolute; inset: 0; overflow: hidden;
+          background: radial-gradient(circle at 32% 50%, #1d1138 0%, #06050c 54%, #020204 100%);
+          font-family: Inter, "SigCJK", sans-serif; color: #ffffff;
+          perspective: 1600px;
+        }
+        #head {
+          position: absolute; left: 110px; top: 52px; right: 110px;
+          display: flex; align-items: center; justify-content: space-between; z-index: 20;
+        }
+        .kicker {
+          padding: 8px 20px; border-radius: 999px;
+          background: rgba(139, 92, 246, 0.22); border: 1px solid rgba(167, 139, 250, 0.5);
+          color: #d8b4fe; font-size: 26px; font-weight: 700;
+        }
+        .htitle { font-size: 46px; font-weight: 900; letter-spacing: -0.03em; }
+        .glow {
+          background: linear-gradient(90deg, #c084fc 0%, #38bdf8 100%);
+          -webkit-background-clip: text; color: transparent;
+        }
+        #left-vid {
+          position: absolute; left: 110px; top: 155px; width: 1050px; height: 820px;
+          border-radius: 26px; overflow: hidden;
+          border: 1.5px solid rgba(167, 139, 250, 0.4);
+          box-shadow: 0 44px 120px rgba(0, 0, 0, 0.9), 0 0 80px rgba(139, 92, 246, 0.22);
+        }
+        #left-vid video { width: 100%; height: 100%; object-fit: cover; }
+        .vtag {
+          position: absolute; left: 24px; bottom: 24px; padding: 10px 22px; border-radius: 12px;
+          background: rgba(5, 5, 10, 0.84); border: 1px solid rgba(255, 255, 255, 0.16);
+          font-size: 26px; font-weight: 700;
+        }
+        #right {
+          position: absolute; right: 90px; top: 155px; width: 630px;
+          display: flex; flex-direction: column; gap: 18px; transform-style: preserve-3d;
+        }
+        #rep-ui {
+          height: 360px; border-radius: 22px; overflow: hidden;
+          border: 1.5px solid rgba(167, 139, 250, 0.35);
+          box-shadow: 0 32px 90px rgba(0, 0, 0, 0.85);
+        }
+        #rep-ui img { width: 100%; height: 100%; object-fit: cover; }
+        #rep-refs {
+          height: 215px; display: flex; gap: 12px; padding: 10px; border-radius: 18px;
+          background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(167, 139, 250, 0.25);
+        }
+        #rep-refs img { flex: 1; width: 50%; height: 100%; object-fit: cover; border-radius: 12px; }
+        #note {
+          padding: 22px 26px; border-radius: 18px;
+          background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(167, 139, 250, 0.25);
+          font-size: 26px; line-height: 1.48; color: #d4d4d8;
+        }
+        #note b { color: #ffffff; }
+      </style>
+
+      <div id="root" data-composition-id="s6-replication-studio" data-start="0" data-duration="8" data-width="1920" data-height="1080">
+        <div id="head">
+          <div class="kicker">05 / 07 · 复刻工作室</div>
+          <div class="htitle">拆解原片动作运镜 · <span class="glow">锁定主角复刻</span></div>
+        </div>
+
+        <div id="left-vid">
+          <video id="vid-s6" class="clip" src="assets/clips/replication-demo.mp4" muted data-start="0" data-duration="8"></video>
+          <div class="vtag">16:9 电影级高速追逐复刻实拍</div>
+        </div>
+
+        <div id="right">
+          <div id="rep-ui"><img src="assets/ui/studio-replication-dark.png" alt="replication dark" /></div>
+          <div id="rep-refs">
+            <img src="assets/mj/nvzhu1-sheet.jpg" alt="hero sheet" />
+            <img src="assets/studio/rep-asset-1.png" alt="scene ref" />
+          </div>
+          <div id="note"><b>逐段可控：</b>导入参考视频自动拆解镜头与提示词脚本，锁定三视图主角，支持按修改意见单段重新生成。</div>
+        </div>
+      </div>
+
+      <script>
+        (() => {
+          const root = document.currentScript.closest("[data-composition-id]") || document;
+          const tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(root.querySelector("#head"), { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4 }, 0.05);
+          tl.fromTo(root.querySelector("#left-vid"), { rotateY: 20, x: -60, opacity: 0 }, { rotateY: 6, x: 0, opacity: 1, duration: 0.9, ease: "expo.out" }, 0.12);
+          tl.to(root.querySelector("#left-vid"), { rotateY: 2, scale: 1.03, duration: 6.2, ease: "power1.inOut" }, 1.05);
+          tl.fromTo(root.querySelector("#rep-ui"), { rotateY: -20, x: 60, opacity: 0 }, { rotateY: -6, x: 0, opacity: 1, duration: 0.85, ease: "expo.out" }, 0.2);
+          tl.fromTo(root.querySelector("#rep-refs"), { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45 }, 0.5);
+          tl.fromTo(root.querySelector("#note"), { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4 }, 0.72);
+
+          window.__timelines["s6-replication-studio"] = tl;
+          tl.seek(0);
+        })();
+      </script>
+    </template>
+  </body>
+</html>

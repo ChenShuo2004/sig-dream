@@ -22,18 +22,9 @@ PostgreSQL やログイン設定なしで、デスクトップ版またはポー
 
 <br/>
 
-<div align="center">
-  <a href="docs/demos/00-open-source-launch.mp4">
-    <img src="docs/screenshots/open-source-promo.gif" alt="sig-dream 33秒 1080p プロモーション動画" width="100%" />
-  </a>
-  <p>
-    <sub>
-      🎬 <b>機能総合デモ · 33秒 1080p 音声付きプロモーション動画</b> ·
-      <a href="https://github.com/ChenShuo2004/sig-dream/raw/main/docs/demos/00-open-source-launch.mp4"><b>MP4 をダウンロード</b></a> ·
-      <a href="docs/demos/00-open-source-launch.mp4"><b>リポジトリファイル</b></a>
-    </sub>
-  </p>
-</div>
+| ⚡ 32秒 ハイライト版（3D 映像） | 🎥 68秒 全機能紹介版（01–07） |
+| --- | --- |
+| [![32秒ハイライト版](docs/screenshots/fast-hype-promo.gif)](docs/demos/00-fast-hype-promo.mp4)<br/><sub>[1080p 音声付き MP4](docs/demos/00-fast-hype-promo.mp4)</sub> | [![68秒全機能紹介版](docs/screenshots/full-overview-promo.gif)](docs/demos/00-full-overview-promo.mp4)<br/><sub>[1080p 音声付き MP4](docs/demos/00-full-overview-promo.mp4)</sub> |
 
 ### 3 つのスタジオ実測デモ（クリックで 1080p 音声付き MP4 を再生）
 
@@ -97,15 +88,15 @@ npm run dev
 | --- | --- |
 | [![03](docs/demos/03-script-studio.gif)](docs/demos/03-script-studio.mp4) | [![04](docs/demos/04-replication-and-replacement.gif)](docs/demos/04-replication-and-replacement.mp4) |
 
-| 05 · 1,700+ プロンプト集＆ローカルアセット | ノード参照編集 |
+| 05 · 34+ 内蔵クリエイティブ＆動画 Skill | ノード参照編集 |
 | --- | --- |
-| [![05](docs/demos/05-prompts-and-assets.gif)](docs/demos/05-prompts-and-assets.mp4) | ![](docs/screenshots/canvas-edit-light.jpg) |
+| ![](docs/screenshots/skills-center-dark.jpg) | ![](docs/screenshots/canvas-edit-light.jpg) |
 
 ## 主な機能
 
 - **無限キャンバス（`/canvas`）**：画像・動画・テキストノードの接続、グループ参照、マスク編集、Canvas Agent 連携。
 - **3 つのスタジオ（`/studio/*`）**：脚本スタジオ（キャラ・背景・絵コンテ一括生成）、リメイクスタジオ、差し替えスタジオ。
-- **1,700+ プロンプト集 & ローカルアセット（`/prompts`・`/assets`）**：すべてのデータと API キーはローカル IndexedDB / LocalStorage に保存され、JSON エクスポート / インポートや WebDAV 同期に対応。
+- **34+ 内蔵 Skill センター & ローカルアセット（`/skills`・`/assets`）**：動画制作ワークフロー・解剖学/絵コンテ技法・18 の動画/3D エンジン Skill を `.agents/skills/` に標準搭載。すべてのデータと API キーはローカル IndexedDB に保存。
 - **内蔵ローカル CORS プロキシ（[`server/proxy.mjs`](server/proxy.mjs)）**：OpenAI 互換 / Gemini / DeepSeek / 火山エンジン（Seedance 2.0） / RunningHub などを追加バックエンドなしで利用可能。
 
 ## エンタープライズ版（クローズドソース）

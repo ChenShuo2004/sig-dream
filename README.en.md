@@ -6,7 +6,7 @@
 
 **An open-source, zero-database, ready-to-run local-first AI infinite canvas & creative video studio**
 
-Chain **AI image generation, multi-reference editing, video generation, 1,700+ open-source prompts, and Canvas Agent** on one infinite canvas — with built-in **Script**, **Replication**, and **Replacement** studios.  
+Chain **AI image generation, multi-reference editing, video generation, 34+ built-in creative & animation Skills, and 8 MCP Canvas Agents** on one infinite canvas — with built-in **Script**, **Replication**, and **Replacement** studios.  
 No PostgreSQL, no login server — download the native desktop app or portable bundle, add your API key, and start creating in 30 seconds.
 
 [![中文](https://img.shields.io/badge/%E4%B8%AD%E6%96%87-27272a?style=for-the-badge)](README.md)
@@ -25,18 +25,11 @@ No PostgreSQL, no login server — download the native desktop app or portable b
 
 <br/>
 
-<div align="center">
-  <a href="docs/demos/00-open-source-launch.mp4">
-    <img src="docs/screenshots/open-source-promo.gif" alt="sig-dream 33s Open-Source Launch Film" width="100%" />
-  </a>
-  <p>
-    <sub>
-      🎬 <b>33s Open-Source Launch Film</b> (character sheets → infinite canvas → Seedance 2.5 action replication) ·
-      <a href="https://github.com/ChenShuo2004/sig-dream/raw/main/docs/demos/00-open-source-launch.mp4"><b>Download 1080p MP4 with Sound</b></a> ·
-      <a href="docs/demos/00-open-source-launch.mp4"><b>Repo File</b></a>
-    </sub>
-  </p>
-</div>
+### 🎬 Dual 3D Cinematic Promo Films (Click Any GIF for 1080p MP4 with Sound)
+
+| ⚡ 32s Fast-Paced Highlight Cut | 🎥 68s Full Feature Overview (01–07) |
+| --- | --- |
+| [![sig-dream 32s Fast Promo](docs/screenshots/fast-hype-promo.gif)](docs/demos/00-fast-hype-promo.mp4)<br/><sub>Zero-DB launch → Infinite Canvas character consistency → 8 MCP Agents + 34+ Skills → 3 Studios showcase<br/>[Download 1080p MP4](https://github.com/ChenShuo2004/sig-dream/raw/main/docs/demos/00-fast-hype-promo.mp4) · [Repo File](docs/demos/00-fast-hype-promo.mp4)</sub> | [![sig-dream 68s Full Overview](docs/screenshots/full-overview-promo.gif)](docs/demos/00-full-overview-promo.mp4)<br/><sub>Deployment & providers → Infinite Canvas → MCP Agents → 3 Studios → Workbenches & 34+ Built-in Skills<br/>[Download 1080p MP4](https://github.com/ChenShuo2004/sig-dream/raw/main/docs/demos/00-full-overview-promo.mp4) · [Repo File](docs/demos/00-full-overview-promo.mp4)</sub> |
 
 ### 3 Built-in Studios · Real Output Previews (Click Any GIF for 1080p MP4 with Audio)
 
@@ -47,7 +40,7 @@ No PostgreSQL, no login server — download the native desktop app or portable b
 ## Why sig-dream?
 
 - **True out-of-the-box setup**: No PostgreSQL, Redis, or account server. Ships as **native macOS / Windows / Linux desktop installers**, a **zero-install Web Portable bundle**, and a **one-command Docker Compose setup**.
-- **End-to-end creative studio**: Goes beyond a node canvas with built-in **Script, Replication, and Replacement studios**, **1,700+ curated prompts** (with multi-CDN fallback caching), and **Canvas Agent**.
+- **End-to-end creative studio + 34+ Built-in Skills**: Includes **Script, Replication, and Replacement studios**, **Canvas Agent (8 MCP clients)**, and a **Built-in Skills Center (`/skills`)** synced to `.agents/skills/` with 14 creative workflows, `anatomy` & `video-shotcraft`, plus 18 motion/3D engine skills (Remotion, Motion Canvas, Anime.js, Manim, Three.js, Blender, Godot, etc.).
 - **Local-first & private**: Projects, studio documents, local assets, and API keys stay in local IndexedDB / LocalStorage with JSON / `.zip` export/import and optional WebDAV sync. A zero-dependency local CORS proxy ([`server/proxy.mjs`](server/proxy.mjs)) handles providers that block direct browser calls.
 
 ---
@@ -114,12 +107,12 @@ npm run dev
   </picture>
   <p>
     <sub>
-      <b>sig-dream Home Overview</b>: Jump straight into Infinite Canvas, Script / Replication / Replacement Studios, 1,700+ Prompt Library, and Local Assets (adaptive Light & Dark themes)
+      <b>sig-dream Home Overview</b>: Jump straight into Infinite Canvas, Script / Replication / Replacement Studios, 34+ Built-in Skills Center, and Local Assets (adaptive Light & Dark themes)
     </sub>
   </p>
 </div>
 
-- **Modular Walkthroughs (6 clips · 1080p)**: All clips below feature real end-to-end workflows and generated outputs (inline looping previews; click any preview to open the full `1080p` MP4 with audio):
+- **Modular Walkthroughs & Core UI (1080p)**: All clips below feature real end-to-end workflows and generated outputs (click any preview to open the full `1080p` MP4 with audio):
 
 | 01 · Zero-DB Setup & Multi-Provider Config | 02 · Infinite Canvas Orchestration |
 | --- | --- |
@@ -129,9 +122,9 @@ npm run dev
 | --- | --- |
 | [![03 Script Studio](docs/demos/03-script-studio.gif)](docs/demos/03-script-studio.mp4)<br/><sub>Extract 2K character/scene/prop sheets, build 16-clip storyboards, and render Seedance 2.5 clips · [1080p MP4](docs/demos/03-script-studio.mp4)</sub> | [![04 Replication Studio](docs/demos/04-replication-studio.gif)](docs/demos/04-replication-studio.mp4)<br/><sub>Analyze camera motion, lock a new character sheet, and render 16:9 action-replicated clips · [1080p MP4](docs/demos/04-replication-studio.mp4)</sub> |
 
-| 05 · Replacement Studio: Subject Swap & Voice Clone | 06 · 1,700+ Prompt Library & Local Assets |
+| 05 · Replacement Studio: Subject Swap & Voice Clone | 06 · 34+ Built-in Creative & Animation Skills |
 | --- | --- |
-| [![05 Replacement Studio](docs/demos/06-replacement-studio.gif)](docs/demos/06-replacement-studio.mp4)<br/><sub>Auto-detect subjects, drag-to-box pixel-accurate swap with preserved hands/lighting, and IndexTTS voice clone · [1080p MP4](docs/demos/06-replacement-studio.mp4)</sub> | [![06 Prompts & Assets](docs/demos/05-prompts-and-assets.gif)](docs/demos/05-prompts-and-assets.mp4)<br/><sub>Search 1,740+ prompts, save to local assets, and reuse across workbenches · [1080p MP4](docs/demos/05-prompts-and-assets.mp4)</sub> |
+| [![05 Replacement Studio](docs/demos/06-replacement-studio.gif)](docs/demos/06-replacement-studio.mp4)<br/><sub>Auto-detect subjects, drag-to-box pixel-accurate swap with preserved hands/lighting, and IndexTTS voice clone · [1080p MP4](docs/demos/06-replacement-studio.mp4)</sub> | ![06 Built-in Skills Center](docs/screenshots/skills-center-dark.jpg)<br/><sub>34 built-in creative workflows, anatomy/shotcraft & 18 motion/3D engines synced to `.agents/skills/` for MCP Agents</sub> |
 
 ---
 
@@ -144,8 +137,8 @@ npm run dev
 | **Replication Studio** | `/studio/replication` | Break down reference videos into shot-by-shot prompts and regenerate individual segments. |
 | **Replacement Studio** | `/studio/replacement` | Swap subjects/voices or clone voice timbre across supported providers. |
 | **Image & Video** | `/image` · `/video` | Dedicated generation workbenches with first/last-frame & multi-reference modes and automatic task resumption. |
-| **Prompt Library** | `/prompts` | Browse and filter 1,700+ open-source prompts; copy or save directly to local assets. |
-| **Local Assets** | `/assets` | Organize reusable images, videos, and text snippets locally in your browser. |
+| **Built-in Skills** | `/skills` | 34 preloaded creative & animation Skills (synced to `.agents/skills/`) with category filters, one-click copy, and direct MCP Agent support. |
+| **Local Assets** | `/assets` | Organize reusable images, videos, and character sheets locally in your browser. |
 
 ---
 

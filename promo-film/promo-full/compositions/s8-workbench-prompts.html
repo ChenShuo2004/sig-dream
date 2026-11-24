@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "SigCJK";
+          src: local("PingFang SC"), local("Hiragino Sans GB"), local("STHeiti");
+          font-weight: 400 900;
+        }
+        #root {
+          position: absolute; inset: 0; overflow: hidden;
+          background: radial-gradient(circle at 50% 45%, #1c1036 0%, #06050c 54%, #020204 100%);
+          font-family: Inter, "SigCJK", sans-serif; color: #ffffff;
+          perspective: 1600px;
+        }
+        #head {
+          position: absolute; left: 110px; top: 52px; right: 110px;
+          display: flex; align-items: center; justify-content: space-between; z-index: 20;
+        }
+        .kicker {
+          padding: 8px 20px; border-radius: 999px;
+          background: rgba(139, 92, 246, 0.22); border: 1px solid rgba(167, 139, 250, 0.5);
+          color: #d8b4fe; font-size: 26px; font-weight: 700;
+        }
+        .htitle { font-size: 46px; font-weight: 900; letter-spacing: -0.03em; }
+        .glow {
+          background: linear-gradient(90deg, #c084fc 0%, #38bdf8 100%);
+          -webkit-background-clip: text; color: transparent;
+        }
+        .duo {
+          position: absolute; left: 110px; right: 110px; top: 155px; height: 825px;
+          display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px;
+          transform-style: preserve-3d;
+        }
+        .card {
+          border-radius: 24px; overflow: hidden;
+          background: rgba(255, 255, 255, 0.04);
+          border: 1.5px solid rgba(167, 139, 250, 0.35);
+          box-shadow: 0 36px 100px rgba(0, 0, 0, 0.85);
+          display: flex; flex-direction: column;
+        }
+        .img-wrap { flex: 1; overflow: hidden; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: left top; }
+        .meta { padding: 22px 26px; }
+        .meta h3 { font-size: 30px; font-weight: 800; color: #ffffff; margin-bottom: 6px; }
+        .meta p { font-size: 24px; color: #a1a1aa; line-height: 1.42; }
+        #beat-b { opacity: 0; z-index: 8; }
+      </style>
+
+      <div id="root" data-composition-id="s8-workbench-prompts" data-start="0" data-duration="8" data-width="1920" data-height="1080">
+        <div id="head">
+          <div class="kicker">07 / 07 · 独立工作台 · 内置技能中心 · 资产库</div>
+          <div class="htitle">极速创作台 + <span class="glow">34 个内置创作与动效 Skill</span></div>
+        </div>
+
+        <div id="beat-a" class="duo" style="z-index: 4">
+          <div class="card c-l">
+            <div class="img-wrap"><img src="assets/ui-v033/image-workbench-dark.jpg" alt="image workbench dark" /></div>
+            <div class="meta"><h3>独立生图工作台 (/image)</h3><p>三栏极速生图、@引用参考图与本地资产，记录自动保存。</p></div>
+          </div>
+          <div class="card c-r">
+            <div class="img-wrap"><img src="assets/ui-v033/video-workbench-dark.jpg" alt="video workbench dark" /></div>
+            <div class="meta"><h3>视频创作台 (/video)</h3><p>首尾帧与多参考视频生成、刷新续查远端任务与精准截帧。</p></div>
+          </div>
+        </div>
+
+        <div id="beat-b" class="duo">
+          <div class="card b-l">
+            <div class="img-wrap"><img src="assets/ui-v033/skills-center-dark.jpg" alt="built-in skills dark" /></div>
+            <div class="meta"><h3>34 个内置创作与动效 Skill (/skills)</h3><p>内置陈硕创作流、解剖/分镜工艺与 Remotion / Manim / Three.js / Blender 等 18 大引擎。</p></div>
+          </div>
+          <div class="card b-r">
+            <div class="img-wrap"><img src="assets/ui-v033/assets-dark.jpg" alt="assets dark" /></div>
+            <div class="meta"><h3>本地资产库 (/assets)</h3><p>集中管理常用角色图、场景图、视频与角色设定，跨工作台复用。</p></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (() => {
+          const root = document.currentScript.closest("[data-composition-id]") || document;
+          const tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(root.querySelector("#head"), { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4 }, 0.05);
+          tl.fromTo(root.querySelector(".c-l"), { rotateY: 16, y: 36, opacity: 0 }, { rotateY: 5, y: 0, opacity: 1, duration: 0.75, ease: "expo.out" }, 0.12);
+          tl.fromTo(root.querySelector(".c-r"), { rotateY: -16, y: 36, opacity: 0 }, { rotateY: -5, y: 0, opacity: 1, duration: 0.75, ease: "expo.out" }, 0.22);
+
+          tl.to(root.querySelector("#beat-a"), { opacity: 0, scale: 0.94, duration: 0.35, ease: "power2.in" }, 3.85);
+          tl.fromTo(root.querySelector("#beat-b"), { opacity: 0 }, { opacity: 1, duration: 0.3 }, 4.05);
+          tl.fromTo(root.querySelector(".b-l"), { rotateY: 16, y: 36, opacity: 0 }, { rotateY: 5, y: 0, opacity: 1, duration: 0.75, ease: "expo.out" }, 4.05);
+          tl.fromTo(root.querySelector(".b-r"), { rotateY: -16, y: 36, opacity: 0 }, { rotateY: -5, y: 0, opacity: 1, duration: 0.75, ease: "expo.out" }, 4.15);
+
+          window.__timelines["s8-workbench-prompts"] = tl;
+          tl.seek(0);
+        })();
+      </script>
+    </template>
+  </body>
+</html>

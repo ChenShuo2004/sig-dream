@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "SigCJK";
+          src: local("PingFang SC"), local("Hiragino Sans GB"), local("STHeiti");
+          font-weight: 400 900;
+        }
+        #root {
+          position: absolute; inset: 0; overflow: hidden;
+          background: radial-gradient(circle at 72% 45%, #1c1036 0%, #06050c 52%, #020204 100%);
+          font-family: Inter, "SigCJK", sans-serif; color: #ffffff;
+          perspective: 1600px;
+        }
+        #left-copy {
+          position: absolute; left: 110px; top: 150px; width: 680px; z-index: 15;
+          display: flex; flex-direction: column; gap: 22px;
+        }
+        .kicker {
+          align-self: flex-start; padding: 8px 22px; border-radius: 999px;
+          background: rgba(139, 92, 246, 0.2); border: 1px solid rgba(167, 139, 250, 0.5);
+          color: #d8b4fe; font-size: 26px; font-weight: 700;
+        }
+        .title { font-size: 70px; font-weight: 900; line-height: 1.15; letter-spacing: -0.03em; }
+        .glow-word {
+          background: linear-gradient(90deg, #c084fc 0%, #38bdf8 100%);
+          -webkit-background-clip: text; color: transparent;
+        }
+        #chips { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 8px; }
+        .chip {
+          padding: 16px 22px; border-radius: 14px;
+          background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(167, 139, 250, 0.28);
+          font-size: 28px; font-weight: 700; color: #f4f4f5;
+          display: flex; align-items: center; justify-content: space-between;
+        }
+        .dot { width: 12px; height: 12px; border-radius: 50%; background: #38bdf8; box-shadow: 0 0 14px #38bdf8; }
+        #panel-stage {
+          position: absolute; right: 70px; top: 110px; width: 980px; height: 860px;
+          transform-style: preserve-3d;
+        }
+        #panel-3d {
+          width: 100%; height: 100%; border-radius: 26px; overflow: hidden;
+          border: 1.5px solid rgba(167, 139, 250, 0.38);
+          box-shadow: 0 50px 140px rgba(0, 0, 0, 0.9), 0 0 80px rgba(139, 92, 246, 0.24);
+          position: relative;
+        }
+        #panel-3d img { width: 100%; height: 100%; object-fit: cover; object-position: right center; }
+        .sheen {
+          position: absolute; top: -20%; left: -60%; width: 45%; height: 150%;
+          background: linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.14) 50%, transparent 80%);
+          transform: skewX(-18deg); pointer-events: none;
+        }
+      </style>
+
+      <div id="root" data-composition-id="f3-agent-mcp" data-start="0" data-duration="5" data-width="1920" data-height="1080">
+        <div id="left-copy">
+          <div class="kicker">v0.3.3 · 8 大 MCP AGENT + 34+ 内置 SKILL</div>
+          <div class="title">AI Agent 携内置技能<br /><span class="glow-word">直连操控</span>画布</div>
+          <div id="chips">
+            <div class="chip"><span>Codex</span><span class="dot"></span></div>
+            <div class="chip"><span>Claude Code</span><span class="dot"></span></div>
+            <div class="chip"><span>Cursor</span><span class="dot"></span></div>
+            <div class="chip"><span>Antigravity</span><span class="dot"></span></div>
+            <div class="chip"><span>Grok Build</span><span class="dot"></span></div>
+            <div class="chip"><span>OpenCode / Pi</span><span class="dot"></span></div>
+          </div>
+        </div>
+
+        <div id="panel-stage">
+          <div id="panel-3d">
+            <img id="mcp-img" src="assets/ui-v033/agent-connect-dark.jpg" alt="Agent MCP" />
+            <div class="sheen" id="sheen-mcp"></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (() => {
+          const root = document.currentScript.closest("[data-composition-id]") || document;
+          const tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(
+            root.querySelector("#panel-3d"),
+            { rotateY: -32, rotateX: 12, x: 140, opacity: 0 },
+            { rotateY: -14, rotateX: 4, x: 0, opacity: 1, duration: 0.95, ease: "expo.out" },
+            0.05
+          );
+          tl.to(root.querySelector("#panel-3d"), { rotateY: -6, rotateX: 2, scale: 1.07, duration: 3.6, ease: "power1.inOut" }, 1.0);
+          tl.fromTo(root.querySelector("#sheen-mcp"), { x: 0 }, { x: 2000, duration: 2.0, ease: "power2.inOut" }, 0.8);
+
+          tl.fromTo(root.querySelector(".kicker"), { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35 }, 0.1);
+          tl.fromTo(root.querySelector(".title"), { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.48, ease: "expo.out" }, 0.2);
+          tl.fromTo(root.querySelectorAll(".chip"), { x: -32, opacity: 0 }, { x: 0, opacity: 1, duration: 0.34, stagger: 0.06, ease: "power3.out" }, 0.45);
+
+          window.__timelines["f3-agent-mcp"] = tl;
+          tl.seek(0);
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -22,18 +22,9 @@ PostgreSQL이나 로그인 없이 데스크톱 앱 또는 포터블 패키지를
 
 <br/>
 
-<div align="center">
-  <a href="docs/demos/00-open-source-launch.mp4">
-    <img src="docs/screenshots/open-source-promo.gif" alt="sig-dream 33초 1080p 프로모션 영상" width="100%" />
-  </a>
-  <p>
-    <sub>
-      🎬 <b>전체 기능 데모 · 33초 1080p 사운드 포함 프로모션 영상</b> ·
-      <a href="https://github.com/ChenShuo2004/sig-dream/raw/main/docs/demos/00-open-source-launch.mp4"><b>MP4 직접 다운로드</b></a> ·
-      <a href="docs/demos/00-open-source-launch.mp4"><b>저장소 파일</b></a>
-    </sub>
-  </p>
-</div>
+| ⚡ 32초 하이라이트 3D 프로모 | 🎥 68초 전체 기능 소개 (01–07) |
+| --- | --- |
+| [![32초 하이라이트](docs/screenshots/fast-hype-promo.gif)](docs/demos/00-fast-hype-promo.mp4)<br/><sub>[1080p 음성 MP4](docs/demos/00-fast-hype-promo.mp4)</sub> | [![68초 전체 기능](docs/screenshots/full-overview-promo.gif)](docs/demos/00-full-overview-promo.mp4)<br/><sub>[1080p 음성 MP4](docs/demos/00-full-overview-promo.mp4)</sub> |
 
 ### 3대 스튜디오 실전 결과 미리보기 (클릭 시 1080p 음성 MP4 재생)
 
@@ -97,15 +88,15 @@ npm run dev
 | --- | --- |
 | [![03](docs/demos/03-script-studio.gif)](docs/demos/03-script-studio.mp4) | [![04](docs/demos/04-replication-and-replacement.gif)](docs/demos/04-replication-and-replacement.mp4) |
 
-| 05 · 1,700+ 프롬프트 & 로컬 자산 | 노드 참조 편집 |
+| 05 · 34+ 내장 창작 & 모션 Skill 센터 | 노드 참조 편집 |
 | --- | --- |
-| [![05](docs/demos/05-prompts-and-assets.gif)](docs/demos/05-prompts-and-assets.mp4) | ![](docs/screenshots/canvas-edit-light.jpg) |
+| ![](docs/screenshots/skills-center-dark.jpg) | ![](docs/screenshots/canvas-edit-light.jpg) |
 
 ## 주요 기능
 
 - **무한 캔버스 (`/canvas`)**: 이미지·영상·텍스트 노드 연결, 그룹 참조, 마스크 편집, Canvas Agent 협업.
 - **3대 스튜디오 (`/studio/*`)**: 대본 스튜디오(캐릭터/배경/스토리보드 생성), 복제 스튜디오, 교체 스튜디오.
-- **1,700+ 프롬프트 & 로컬 자산 (`/prompts`, `/assets`)**: 모든 데이터와 API 키는 로컬 IndexedDB / LocalStorage에 저장되며 JSON 내보내기/가져오기 및 WebDAV 동기화를 지원합니다.
+- **34+ 내장 Skill 센터 & 로컬 자산 (`/skills`, `/assets`)**: 창작 워크플로우, 해부학/스토리보드 기법 및 18개 모션·3D 엔진 Skill을 `.agents/skills/`에 기본 내장. 모든 데이터와 API 키는 로컬 IndexedDB에 안전하게 보관됩니다.
 - **내장 로컬 CORS 프록시 ([`server/proxy.mjs`](server/proxy.mjs))**: OpenAI 호환 / Gemini / DeepSeek / Volcengine (Seedance 2.0) / RunningHub 등을 별도 백엔드 없이 바로 호출할 수 있습니다.
 
 ## 엔터프라이즈 에디션 (비공개 상용)

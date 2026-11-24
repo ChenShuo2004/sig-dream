@@ -6,7 +6,7 @@
 
 **开源、零数据库、开箱即用的本地优先 AI 无限画布与视频创作工作室**
 
-在一张无限画布上串起 **AI 生图、多图参考改图、视频生成、1700+ 开源提示词库与 Canvas Agent**，内置 **剧本 / 复刻 / 替换** 三大视频创作工作流。  
+在一张无限画布上串起 **AI 生图、多图参考改图、视频生成、34+ 内置创作与动效 Skill、8 大 MCP Canvas Agent**，内置 **剧本 / 复刻 / 替换** 三大视频创作工作流。  
 无需 PostgreSQL，无需注册登录 —— 下载独立桌面客户端或 Web 便携包，填入模型 API Key 即可在 30 秒内开始创作。
 
 [![中文](https://img.shields.io/badge/%E4%B8%AD%E6%96%87-111111?style=for-the-badge)](README.md)
@@ -25,18 +25,11 @@
 
 <br/>
 
-<div align="center">
-  <a href="docs/demos/00-open-source-launch.mp4">
-    <img src="docs/screenshots/open-source-promo.gif" alt="sig-dream 33 秒纯白极简宣传片" width="100%" />
-  </a>
-  <p>
-    <sub>
-      🎬 <b>33 秒纯白实机宣传片</b>（角色三视图设定 → 无限画布连线 → LibTV Seedance 2.5 动作复刻实拍） ·
-      <a href="https://github.com/ChenShuo2004/sig-dream/raw/main/docs/demos/00-open-source-launch.mp4"><b>下载 1080p 有声高清 MP4</b></a> ·
-      <a href="docs/demos/00-open-source-launch.mp4"><b>仓库文件</b></a>
-    </sub>
-  </p>
-</div>
+### 🎬 双版本 3D 电影级宣传片（点击动图看 1080p 有声高清 MP4）
+
+| ⚡ 32 秒爽点快节奏版（3D 高燃速览） | 🎥 68 秒功能全面介绍版（01–07 全模块精讲） |
+| --- | --- |
+| [![sig-dream 32秒爽点快节奏宣传片](docs/screenshots/fast-hype-promo.gif)](docs/demos/00-fast-hype-promo.mp4)<br/><sub>零数据库开箱 → 无限画布锁角色 → 8 大 MCP Agent + 34+ 内置 Skill → 三大工作室高能三连切<br/>[下载 1080p 有声 MP4](https://github.com/ChenShuo2004/sig-dream/raw/main/docs/demos/00-fast-hype-promo.mp4) · [仓库文件](docs/demos/00-fast-hype-promo.mp4)</sub> | [![sig-dream 68秒功能全面介绍宣传片](docs/screenshots/full-overview-promo.gif)](docs/demos/00-full-overview-promo.mp4)<br/><sub>三端部署与多渠道 → 无限画布 → MCP Agent → 剧本/复刻/替换工作室 → 独立工作台与 34+ 内置技能<br/>[下载 1080p 有声 MP4](https://github.com/ChenShuo2004/sig-dream/raw/main/docs/demos/00-full-overview-promo.mp4) · [仓库文件](docs/demos/00-full-overview-promo.mp4)</sub> |
 
 ### 三大工作室实拍效果直览（点击动图看 1080p 有声成片）
 
@@ -47,7 +40,7 @@
 ## 核心亮点
 
 - **真正开箱即用，零数据库运维**：不依赖 PostgreSQL、Redis 或账号后端。提供 **macOS / Windows / Linux 原生桌面安装包**、**免 `npm install` Web 便携包** 与 **Docker 一键启动**，打开填入 API Key 即可出图出片。
-- **从灵感到成片的一体化工作台**：不止是自由节点画布，还内置 **剧本工作室、复刻工作室、替换工作室** 与 **1700+ 开源提示词中心**（内置 GitHub + jsDelivr 多源自动容灾缓存），覆盖角色设定、分镜拆解、多图改图到视频生成。
+- **从灵感到成片的一体化工作台 + 34+ 内置创作与动效 Skill**：内置 **剧本 / 复刻 / 替换三大工作室** 与 **内置技能中心 (`/skills`)**，预置 14 个视频与内容创作工作流、`anatomy` 人体解剖与 `video-shotcraft` 电影分镜工艺，以及 Remotion、Motion Canvas、Motion、Ola、Anime.js、Manim、Shifty、Two.js、Lottie Web、TweenJS、LUME、gifenc、Konva、Blender、Three.js、Godot、Babylon.js、Proton 共 18 大视频/动效/3D 引擎 Skill，同步落盘 `.agents/skills/` 供 MCP Agent 直接调用。
 - **100% 本地优先与隐私可控**：所有画布工程、工作室文档、本地资产与 API Key 均保存在本机 IndexedDB / LocalStorage，支持一键导出/导入 JSON 与 `.zip` 项目包，可选配置 WebDAV 跨设备同步；内置零依赖本地 CORS 代理 [`server/proxy.mjs`](server/proxy.mjs)，不经过任何第三方账号服务器。
 
 ---
@@ -120,12 +113,12 @@ npm run dev
   </picture>
   <p>
     <sub>
-      <b>sig-dream 首页总览</b>：一键直达无限画布、剧本 / 复刻 / 替换三大创作工作室、1700+ 开源提示词中心与本地资产库（支持浅色 / 深色双主题）
+      <b>sig-dream 首页总览</b>：一键直达无限画布、剧本 / 复刻 / 替换三大创作工作室、34+ 内置创作与动效 Skill 中心与本地资产库（支持浅色 / 深色双主题）
     </sub>
   </p>
 </div>
 
-- **分模块实机演示（6 支 · 1080p）**：以下模块短片均基于真实工作流与成片实测渲染（页面内直接循环播放动图，点击任意画面或链接可查看 `1080p` 有声高清 MP4）：
+- **分模块实机演示与核心界面（1080p）**：以下演示均基于真实工作流与成片实测渲染（点击动图可查看 `1080p` 有声高清 MP4）：
 
 | 01 · 零数据库启动与多渠道接入 | 02 · 无限画布多模态节点编排 |
 | --- | --- |
@@ -135,9 +128,9 @@ npm run dev
 | --- | --- |
 | [![03 剧本工作室](docs/demos/03-script-studio.gif)](docs/demos/03-script-studio.mp4)<br/><sub>导入剧本自动提取角色/场景/道具 2K 设定图，16 段分镜一键生成 Seedance 2.5 实拍成片 · [1080p MP4](docs/demos/03-script-studio.mp4)</sub> | [![04 复刻工作室](docs/demos/04-replication-studio.gif)](docs/demos/04-replication-studio.mp4)<br/><sub>拆解动作参考与运镜节奏，锁定三视图主角生成 16:9 电影级高速追逐复刻成片 · [1080p MP4](docs/demos/04-replication-studio.mp4)</sub> |
 
-| 05 · 替换工作室：人物框选替换与声音克隆 | 06 · 1700+ 开源提示词库与本地资产闭环 |
+| 05 · 替换工作室：人物框选替换与声音克隆 | 06 · 34+ 内置创作与动效 Skill 中心 |
 | --- | --- |
-| [![05 替换工作室](docs/demos/06-replacement-studio.gif)](docs/demos/06-replacement-studio.mp4)<br/><sub>自动识别原片人物，拖拽角色卡像素级替换并保持手部/遮挡/光影一致，支持 IndexTTS 声音克隆 · [1080p MP4](docs/demos/06-replacement-studio.mp4)</sub> | [![06 1700+ 提示词库与本地资产](docs/demos/05-prompts-and-assets.gif)](docs/demos/05-prompts-and-assets.mp4)<br/><sub>聚合 1740+ 条高质量提示词，秒级筛选收藏至本地资产库并跨工作台复用 · [1080p MP4](docs/demos/05-prompts-and-assets.mp4)</sub> |
+| [![05 替换工作室](docs/demos/06-replacement-studio.gif)](docs/demos/06-replacement-studio.mp4)<br/><sub>自动识别原片人物，拖拽角色卡像素级替换并保持手部/遮挡/光影一致，支持 IndexTTS 声音克隆 · [1080p MP4](docs/demos/06-replacement-studio.mp4)</sub> | ![06 34+ 内置创作与动效 Skill 中心](docs/screenshots/skills-center-dark.jpg)<br/><sub>内置 14 个创作工作流 + 解剖/分镜工艺 + Remotion/Motion Canvas/Manim/Three.js/Blender 等 18 大引擎 Skill，同步赋能 MCP Agent</sub> |
 
 ---
 
@@ -150,8 +143,8 @@ npm run dev
 | **复刻工作室** | `/studio/replication` | 导入参考视频自动拆解镜头与提示词脚本，逐段复刻生成，支持按修改意见对单段重新生成。 |
 | **替换工作室** | `/studio/replacement` | 支持「视频人物与声音替换」与「仅声音克隆」双模式，跨多模型渠道完成主体替换与成片合成。 |
 | **生图 / 视频工作台** | `/image` · `/video` | 独立三栏快速生图与首尾帧 / 多参考视频创作台，刷新页面自动续查远端任务，支持视频首帧/尾帧/当前帧截取。 |
-| **提示词中心** | `/prompts` | 实时聚合 7 大开源提示词源（1740+ 条），支持分类与标签过滤，一键复制或收藏至本地资产库。 |
-| **本地资产库** | `/assets` | 在本机浏览器集中管理常用角色图、场景图、视频与提示词模板，支持打包导出与跨画布复用。 |
+| **内置技能中心** | `/skills` | 内置 34 个创作与动效 Skill（含 14 个创作工作流、`anatomy` / `video-shotcraft` 与 18 大视频/动效/3D 引擎），支持分类检索、一键复制指令并同步 `.agents/skills/` 供 MCP Agent 调用。 |
+| **本地资产库** | `/assets` | 在本机浏览器集中管理常用角色图、场景图、视频与角色设定，支持打包导出与跨画布复用。 |
 
 ---
 
@@ -211,7 +204,7 @@ npm run version:sync -- 0.3.2
 | 能力维度 | 社区开源版（本仓库 · MIT） | 企业版（闭源 · 不开源） |
 | --- | --- | --- |
 | 源码与授权 | MIT 开源，单机开箱即用 | 闭源商业授权，源码不开源 |
-| 无限画布与工作室 | 无限画布、生图/改图/视频、1700+ 提示词库、剧本/复刻/替换工作室 | 包含社区版全部能力 + 团队画布共享与全流程分组生产编排 |
+| 无限画布与工作室 | 无限画布、生图/改图/视频、34+ 内置创作与动效 Skill、剧本/复刻/替换工作室 | 包含社区版全部能力 + 团队画布共享与全流程分组生产编排 |
 | 运行与桌面端 | Web 便携包、Docker、macOS / Windows / Linux 单机桌面版 | 团队桌面客户端：直连局域网 NAS 素材库，原片直接拖进剪映/PR/达芬奇 |
 | 局域网素材库与文件机 | 本地 IndexedDB 存储 + JSON/WebDAV 备份 | PostgreSQL 元数据 + 局域网文件机（NAS 直传、自动缩略图与 H.264 预览，原片不出内网） |
 | 团队权限与审计 | 无需登录（单人使用） | 双素材库域隔离、4 种角色 / 30 项精细权限点、全量操作审计日志 |
@@ -271,9 +264,9 @@ sig-dream/
 </details>
 
 <details>
-<summary><b>3. 国内网络下打开「提示词中心」加载慢或连不上 GitHub Raw 怎么办？</b></summary>
+<summary><b>3. 内置的 34 个创作与动效 Skill 存在哪里？MCP Agent 怎么调用？</b></summary>
 
-内置提示词加载器已支持 `raw.githubusercontent.com` 失败时自动切换至 `cdn.jsdelivr.net` / `fastly.jsdelivr.net` 镜像源，并在本地 IndexedDB 持久化缓存成功拉取的词库。你也可以在「设置 → 提示词来源」中自定义或新增私有 JSON 源。
+所有内置 Skill 均已同步落盘在仓库 `.agents/skills/<skill-name>/SKILL.md` 并内置于应用 `/skills` 技能中心。你既可以在页面里一键复制触发词或完整 `SKILL.md` 指令，也可以在 **Agent → 连接** 接入 Codex / Claude / Cursor / Antigravity 等 MCP 客户端后直接按 `$skill-name` 调用。
 
 </details>
 

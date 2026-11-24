@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "SigCJK";
+          src: local("PingFang SC"), local("Hiragino Sans GB"), local("STHeiti");
+          font-weight: 400 900;
+        }
+        #root {
+          position: absolute; inset: 0; overflow: hidden;
+          background: #030306; font-family: Inter, "SigCJK", sans-serif; color: #ffffff;
+          perspective: 1600px;
+        }
+        .beat { position: absolute; inset: 0; overflow: hidden; transform-style: preserve-3d; }
+        .bg-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        .scrim {
+          position: absolute; inset: 0; z-index: 3;
+          background: linear-gradient(90deg, rgba(3, 3, 8, 0.9) 0%, rgba(3, 3, 8, 0.35) 52%, rgba(3, 3, 8, 0.15) 100%);
+        }
+        .copy-box {
+          position: absolute; left: 110px; bottom: 110px; z-index: 10; max-width: 1100px;
+          display: flex; flex-direction: column; gap: 14px;
+        }
+        .pill {
+          align-self: flex-start; padding: 8px 22px; border-radius: 999px;
+          background: rgba(139, 92, 246, 0.25); border: 1px solid rgba(167, 139, 250, 0.6);
+          color: #e9d5ff; font-size: 26px; font-weight: 800;
+        }
+        .h1 {
+          font-size: 68px; font-weight: 900; line-height: 1.15; letter-spacing: -0.03em;
+          text-shadow: 0 12px 36px rgba(0, 0, 0, 0.9);
+        }
+        .glow-word {
+          background: linear-gradient(90deg, #c084fc 0%, #38bdf8 100%);
+          -webkit-background-clip: text; color: transparent;
+        }
+        .thumbs {
+          position: absolute; left: 110px; top: 90px; display: flex; gap: 16px; z-index: 10;
+        }
+        .thumb {
+          width: 185px; height: 124px; border-radius: 14px; overflow: hidden;
+          border: 1.5px solid rgba(167, 139, 250, 0.45);
+          box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+        }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; }
+        #b3-bg {
+          position: absolute; inset: 0;
+          background: radial-gradient(circle at 70% 50%, #23113d 0%, #050509 62%);
+        }
+        #phone-3d {
+          position: absolute; right: 170px; top: 76px; width: 522px; height: 928px;
+          border-radius: 30px; overflow: hidden; z-index: 8;
+          border: 2px solid rgba(167, 139, 250, 0.45);
+          box-shadow: 0 40px 110px rgba(0, 0, 0, 0.88), 0 0 80px rgba(139, 92, 246, 0.25);
+        }
+        #phone-3d video { width: 100%; height: 100%; object-fit: cover; }
+        #ref-3d {
+          position: absolute; left: 110px; top: 120px; width: 340px; height: 440px;
+          border-radius: 20px; overflow: hidden; z-index: 8;
+          border: 1.5px solid rgba(167, 139, 250, 0.5);
+          box-shadow: 0 28px 70px rgba(0, 0, 0, 0.8);
+        }
+        #ref-3d img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+      </style>
+
+      <div id="root" data-composition-id="f4-studios-montage" data-start="0" data-duration="11.5" data-width="1920" data-height="1080">
+        <!-- Beat 1 [0 - 3.8s]: Script Studio -->
+        <div id="beat-1" class="beat" style="z-index: 1">
+          <video id="vid-s" class="clip bg-video" src="assets/clips/script-demo.mp4" muted data-start="0" data-duration="3.8"></video>
+          <div class="scrim"></div>
+          <div class="thumbs" id="t1">
+            <div class="thumb"><img src="assets/studio/script-char-1.png" /></div>
+            <div class="thumb"><img src="assets/studio/script-char-2.png" /></div>
+            <div class="thumb"><img src="assets/studio/script-scene-1.png" /></div>
+            <div class="thumb"><img src="assets/studio/script-scene-2.png" /></div>
+          </div>
+          <div class="copy-box" id="c1">
+            <div class="pill">01 · 剧本工作室</div>
+            <div class="h1">10 万字剧本<br /><span class="glow-word">直出分镜成片</span></div>
+          </div>
+        </div>
+
+        <!-- Beat 2 [3.8 - 7.6s]: Replication Studio -->
+        <div id="beat-2" class="beat" style="z-index: 2; opacity: 0">
+          <video id="vid-r" class="clip bg-video" src="assets/clips/replication-demo.mp4" muted data-start="3.8" data-duration="3.8" data-hf-media-start-basis="local"></video>
+          <div class="scrim"></div>
+          <div class="thumbs" id="t2">
+            <div class="thumb"><img src="assets/mj/nvzhu1-sheet.jpg" /></div>
+            <div class="thumb"><img src="assets/studio/rep-asset-1.png" /></div>
+          </div>
+          <div class="copy-box" id="c2">
+            <div class="pill">02 · 复刻工作室</div>
+            <div class="h1">拆解动作运镜<br /><span class="glow-word">锁定主角复刻</span></div>
+          </div>
+        </div>
+
+        <!-- Beat 3 [7.6 - 11.5s]: Replacement Studio -->
+        <div id="beat-3" class="beat" style="z-index: 3; opacity: 0">
+          <div id="b3-bg"></div>
+          <div id="ref-3d"><img src="assets/mj/nvzhu2-sheet.jpg" /></div>
+          <div id="phone-3d">
+            <video id="vid-p" class="clip" src="assets/clips/replacement-demo.mp4" muted data-start="7.6" data-duration="3.9" data-hf-media-start-basis="local"></video>
+          </div>
+          <div class="copy-box" id="c3">
+            <div class="pill">03 · 替换工作室</div>
+            <div class="h1">人物像素级替换<br /><span class="glow-word">+ IndexTTS 声音克隆</span></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (() => {
+          const root = document.currentScript.closest("[data-composition-id]") || document;
+          const tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(root.querySelector("#c1"), { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "expo.out" }, 0.08);
+          tl.fromTo(root.querySelectorAll("#t1 .thumb"), { y: -24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, stagger: 0.06 }, 0.15);
+
+          tl.set(root.querySelector("#beat-1"), { opacity: 0 }, 3.8);
+          tl.set(root.querySelector("#beat-2"), { opacity: 1 }, 3.8);
+          tl.fromTo(root.querySelector("#c2"), { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.42, ease: "expo.out" }, 3.88);
+          tl.fromTo(root.querySelectorAll("#t2 .thumb"), { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, stagger: 0.08 }, 3.92);
+
+          tl.set(root.querySelector("#beat-2"), { opacity: 0 }, 7.6);
+          tl.set(root.querySelector("#beat-3"), { opacity: 1 }, 7.6);
+          tl.fromTo(root.querySelector("#phone-3d"), { rotateY: -22, x: 80, opacity: 0 }, { rotateY: -8, x: 0, opacity: 1, duration: 0.55, ease: "expo.out" }, 7.62);
+          tl.fromTo(root.querySelector("#ref-3d"), { rotateY: 16, y: -24, opacity: 0 }, { rotateY: 8, y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 7.7);
+          tl.fromTo(root.querySelector("#c3"), { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.42, ease: "expo.out" }, 7.72);
+
+          window.__timelines["f4-studios-montage"] = tl;
+          tl.seek(0);
+        })();
+      </script>
+    </template>
+  </body>
+</html>

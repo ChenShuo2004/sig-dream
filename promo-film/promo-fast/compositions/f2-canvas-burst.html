@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "SigCJK";
+          src: local("PingFang SC"), local("Hiragino Sans GB"), local("STHeiti");
+          font-weight: 400 900;
+        }
+        #root {
+          position: absolute; inset: 0; overflow: hidden;
+          background: radial-gradient(circle at 38% 50%, #1d1138 0%, #06050c 52%, #020204 100%);
+          font-family: Inter, "SigCJK", sans-serif; color: #ffffff;
+          perspective: 1600px;
+        }
+        #phase-1 {
+          position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+          transform-style: preserve-3d; z-index: 4;
+        }
+        #canvas-3d {
+          width: 1460px; height: 820px; border-radius: 24px; overflow: hidden;
+          border: 1.5px solid rgba(167, 139, 250, 0.35);
+          box-shadow: 0 50px 140px rgba(0, 0, 0, 0.9), 0 0 80px rgba(139, 92, 246, 0.25);
+          position: relative;
+        }
+        #canvas-3d img { width: 100%; height: 100%; object-fit: cover; }
+        .p1-copy {
+          position: absolute; left: 110px; bottom: 110px; z-index: 12;
+          font-size: 64px; font-weight: 900; line-height: 1.15;
+          text-shadow: 0 10px 36px rgba(0, 0, 0, 0.95);
+        }
+        .glow-word {
+          background: linear-gradient(90deg, #c084fc 0%, #38bdf8 100%);
+          -webkit-background-clip: text; color: transparent;
+        }
+        #phase-2 {
+          position: absolute; inset: 0; z-index: 10; opacity: 0;
+          transform-style: preserve-3d;
+        }
+        #board-3d {
+          position: absolute; left: 110px; top: 150px; width: 1700px; height: 820px;
+          transform-style: preserve-3d;
+        }
+        #p2-head {
+          position: absolute; left: 110px; top: 52px; right: 110px;
+          display: flex; align-items: center; justify-content: space-between; z-index: 20;
+        }
+        #p2-title { font-size: 56px; font-weight: 900; letter-spacing: -0.03em; }
+        #p2-tag {
+          padding: 10px 24px; border-radius: 999px;
+          background: rgba(139, 92, 246, 0.22); border: 1px solid rgba(167, 139, 250, 0.5);
+          color: #e9d5ff; font-size: 26px; font-weight: 700;
+        }
+        #wires { position: absolute; inset: 0; width: 1700px; height: 820px; z-index: 2; }
+        .wire {
+          fill: none; stroke: #a855f7; stroke-width: 3.5; stroke-linecap: round;
+          filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.8));
+          stroke-dasharray: 850; stroke-dashoffset: 850;
+        }
+        #chars {
+          position: absolute; left: 0; top: 0; width: 410px; height: 820px;
+          display: flex; flex-direction: column; gap: 20px; z-index: 4;
+        }
+        .char-card {
+          flex: 1; border-radius: 18px; overflow: hidden; background: #14141c;
+          border: 1.5px solid rgba(167, 139, 250, 0.35);
+          box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7); position: relative;
+        }
+        .char-card img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+        .c-pill {
+          position: absolute; left: 14px; bottom: 12px; padding: 5px 14px; border-radius: 8px;
+          background: rgba(5, 5, 10, 0.84); border: 1px solid rgba(255, 255, 255, 0.16);
+          font-size: 24px; font-weight: 700; color: #f4f4f5;
+        }
+        #shots {
+          position: absolute; left: 560px; top: 0; width: 1140px; height: 820px;
+          display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr);
+          gap: 20px; z-index: 4;
+        }
+        .shot {
+          border-radius: 18px; overflow: hidden;
+          border: 1.5px solid rgba(255, 255, 255, 0.16);
+          box-shadow: 0 24px 64px rgba(0, 0, 0, 0.75);
+        }
+        .shot img { width: 100%; height: 100%; object-fit: cover; }
+      </style>
+
+      <div id="root" data-composition-id="f2-canvas-burst" data-start="0" data-duration="6.5" data-width="1920" data-height="1080">
+        <div id="phase-1">
+          <div id="canvas-3d">
+            <img src="assets/ui/canvas-edit-dark.png" alt="infinite canvas dark" />
+          </div>
+          <div class="p1-copy">界面结构清晰<br /><span class="glow-word">多模态节点</span>自由连线</div>
+        </div>
+
+        <div id="phase-2">
+          <div id="p2-head">
+            <div id="p2-title">锁住角色一致 · <span class="glow-word">一键连出全剧分镜</span></div>
+            <div id="p2-tag">多图参考改图 · 局部遮罩 · 整组生成</div>
+          </div>
+          <div id="board-3d">
+            <svg id="wires" viewBox="0 0 1700 820">
+              <path class="wire" d="M 410 130 C 485 130, 485 200, 560 200" />
+              <path class="wire" d="M 410 130 C 485 130, 485 620, 560 620" />
+              <path class="wire" d="M 410 410 C 485 410, 485 200, 560 200" />
+              <path class="wire" d="M 410 410 C 485 410, 485 620, 560 620" />
+              <path class="wire" d="M 410 690 C 485 690, 485 620, 560 620" />
+            </svg>
+            <div id="chars">
+              <div class="char-card"><img src="assets/mj/nvzhu1-sheet.jpg" /><div class="c-pill">女主一 · 三视图</div></div>
+              <div class="char-card"><img src="assets/mj/kaige-sheet.jpg" /><div class="c-pill">凯哥 · 三视图</div></div>
+              <div class="char-card"><img src="assets/mj/nvzhu2-sheet.jpg" /><div class="c-pill">女主二 · 三视图</div></div>
+            </div>
+            <div id="shots">
+              <div class="shot"><img src="assets/mj/shot-xiaomei.jpg" /></div>
+              <div class="shot"><img src="assets/mj/shot-nvzhu1.jpg" /></div>
+              <div class="shot"><img src="assets/mj/shot-kaige.jpg" /></div>
+              <div class="shot"><img src="assets/mj/shot-nvzhu2.jpg" /></div>
+              <div class="shot"><img src="assets/mj/shot-lobby.jpg" /></div>
+              <div class="shot"><img src="assets/mj/shot-tower.jpg" /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (() => {
+          const root = document.currentScript.closest("[data-composition-id]") || document;
+          const tl = gsap.timeline({ paused: true });
+
+          // Phase 1: 3D tilted dark infinite canvas sweep [0 - 2.4s]
+          tl.fromTo(
+            root.querySelector("#canvas-3d"),
+            { rotateY: 22, rotateX: 10, scale: 0.9, opacity: 0 },
+            { rotateY: 8, rotateX: 3, scale: 1.08, opacity: 1, duration: 1.1, ease: "expo.out" },
+            0
+          );
+          tl.to(root.querySelector("#canvas-3d"), { rotateY: -6, scale: 1.16, duration: 1.3, ease: "power1.inOut" }, 1.1);
+          tl.fromTo(root.querySelector(".p1-copy"), { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 0.25);
+
+          // Whip transition into Phase 2 [2.4s]
+          tl.to(root.querySelector("#phase-1"), { opacity: 0, scale: 0.88, duration: 0.32, ease: "power3.in" }, 2.25);
+          tl.fromTo(root.querySelector("#phase-2"), { opacity: 0 }, { opacity: 1, duration: 0.25 }, 2.45);
+          tl.fromTo(
+            root.querySelector("#board-3d"),
+            { rotateY: -18, rotateX: 8, scale: 0.92 },
+            { rotateY: -4, rotateX: 2, scale: 1, duration: 1.2, ease: "expo.out" },
+            2.45
+          );
+          tl.to(root.querySelector("#board-3d"), { rotateY: 4, scale: 1.04, duration: 2.8, ease: "power1.inOut" }, 3.65);
+
+          tl.fromTo(root.querySelectorAll(".char-card"), { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.42, stagger: 0.08, ease: "expo.out" }, 2.5);
+          tl.to(root.querySelectorAll(".wire"), { strokeDashoffset: 0, duration: 0.55, stagger: 0.05, ease: "power2.out" }, 2.7);
+          tl.fromTo(root.querySelectorAll(".shot"), { scale: 0.8, y: 30, opacity: 0 }, { scale: 1, y: 0, opacity: 1, duration: 0.45, stagger: 0.07, ease: "back.out(1.2)" }, 2.85);
+
+          window.__timelines["f2-canvas-burst"] = tl;
+          tl.seek(0);
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,13 +1,12 @@
-import { ArrowRight, CheckCircle2, Clapperboard, Copy, FileText, ImagePlus, Images, KeyRound, Maximize2, Settings, Sparkles, UserRoundCog, Video } from "lucide-react";
-import { type ReactNode, useEffect, useState } from "react";
-import { App, Button, Image, Tag } from "antd";
+import { ArrowRight, CheckCircle2, Clapperboard, Copy, ImagePlus, Images, KeyRound, Maximize2, Settings, Sparkles, UserRoundCog, Video } from "lucide-react";
+import { type ReactNode } from "react";
+import { Button, Tag } from "antd";
 import { useNavigate } from "react-router-dom";
 import { Trans, useTranslation } from "react-i18next";
 
 import { APP_VERSION } from "@/constant/env";
-import i18n from "@/i18n";
+import { BUILTIN_SKILLS } from "@/data/builtin-skills";
 import { cn } from "@/lib/utils";
-import { fetchPrompts, type Prompt } from "@/services/api/prompts";
 import { useConfigStore } from "@/stores/use-config-store";
 
 function Highlighter({ action, color, children }: { action: "highlight" | "underline"; color: string; children?: ReactNode }) {
@@ -65,26 +64,28 @@ const WORKSPACES = [
 const QUICK_TOOLS = [
     { key: "image", path: "/image", icon: ImagePlus, labelKey: "home.quickTools.image" },
     { key: "video", path: "/video", icon: Video, labelKey: "home.quickTools.video" },
-    { key: "prompts", path: "/prompts", icon: FileText, labelKey: "home.quickTools.prompts" },
+    { key: "skills", path: "/skills", icon: Sparkles, labelKey: "home.quickTools.skills" },
     { key: "assets", path: "/assets", icon: Images, labelKey: "home.quickTools.assets" },
 ] as const;
 
+const FEATURED_SKILL_SLUGS = [
+    "cs-auto-videl",
+    "anatomy",
+    "video-shotcraft",
+    "remotion-skills",
+    "motion-canvas",
+    "animejs",
+    "manim",
+    "threejs",
+];
+
 export default function IndexPage() {
-    const { message } = App.useApp();
     const { t } = useTranslation();
     const navigate = useNavigate();
     const channels = useConfigStore((state) => state.config.channels);
     const openConfigDialog = useConfigStore((state) => state.openConfigDialog);
     const configuredCount = channels.filter((channel) => channel.baseUrl.trim() && channel.apiKey.trim()).length;
-    const [promptShowcase, setPromptShowcase] = useState<Prompt[]>([]);
-    const [previewIndex, setPreviewIndex] = useState(0);
-    const [previewOpen, setPreviewOpen] = useState(false);
-
-    useEffect(() => {
-        void fetchPrompts({ pageSize: 12 })
-            .then((data) => setPromptShowcase(data.items))
-            .catch((error) => message.error(error instanceof Error ? error.message : i18n.t("home.promptError")));
-    }, [message]);
+    const featuredSkills = BUILTIN_SKILLS.filter((item) => FEATURED_SKILL_SLUGS.includes(item.slug));
 
     return (
         <main className="relative h-full overflow-y-auto bg-background bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:18px_18px] text-stone-950 dark:bg-[radial-gradient(rgba(245,245,244,.14)_1px,transparent_1px)] dark:text-stone-100">
@@ -269,7 +270,7 @@ export default function IndexPage() {
                         </div>
                         <Button
                             type="link"
-                            onClick={() => navigate("/prompts")}
+                            onClick={() => navigate("/skills")}
                             className="!px-0 self-start sm:self-end"
                             icon={<ArrowRight className="size-4" />}
                             iconPlacement="end"
@@ -278,43 +279,38 @@ export default function IndexPage() {
                         </Button>
                     </div>
 
-                    {promptShowcase.length > 0 ? (
-                        <div className="grid auto-rows-[210px] gap-4 md:grid-cols-4">
-                            {promptShowcase.map((item, index) => (
-                                <button
-                                    key={item.id}
-                                    type="button"
-                                    onClick={() => {
-                                        setPreviewIndex(index);
-                                        setPreviewOpen(true);
-                                    }}
-                                    className={cn(
-                                        "group relative cursor-pointer overflow-hidden rounded-xl border border-stone-200 bg-stone-100 text-left dark:border-stone-800 dark:bg-stone-900",
-                                        index === 0 && "md:col-span-2 md:row-span-2",
-                                        index === 3 && "md:col-span-2",
-                                    )}
-                                >
-                                    <img
-                                        src={item.coverUrl}
-                                        alt={item.title}
-                                        loading="lazy"
-                                        className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                                    />
-                                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/35 to-transparent p-4 text-white">
-                                        <div className="mb-2 flex flex-wrap gap-1.5">
-                                            {item.tags.slice(0, 2).map((tag) => (
-                                                <Tag key={tag} variant="filled" className="m-0 bg-white/15 text-[11px] text-white backdrop-blur">
-                                                    {tag}
-                                                </Tag>
-                                            ))}
-                                        </div>
-                                        <h3 className="text-sm font-medium">{item.title}</h3>
-                                        <p className="mt-1 line-clamp-2 text-xs leading-5 text-white/75">{item.prompt}</p>
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                        {featuredSkills.map((skill) => (
+                            <button
+                                key={skill.slug}
+                                type="button"
+                                onClick={() => navigate("/skills")}
+                                className="group flex cursor-pointer flex-col justify-between rounded-xl border border-stone-200/90 bg-white/85 p-4 text-left shadow-xs backdrop-blur transition hover:-translate-y-0.5 hover:border-violet-500/50 hover:shadow-md dark:border-stone-800 dark:bg-stone-900/80 dark:hover:border-violet-400/50"
+                            >
+                                <div>
+                                    <div className="flex items-center justify-between gap-2">
+                                        <span className="font-mono text-xs font-semibold text-violet-600 dark:text-violet-300">
+                                            {skill.trigger}
+                                        </span>
+                                        <ArrowRight className="size-3.5 text-stone-400 transition group-hover:translate-x-0.5 group-hover:text-stone-900 dark:group-hover:text-white" />
                                     </div>
-                                </button>
-                            ))}
-                        </div>
-                    ) : null}
+                                    <h3 className="mt-2 text-sm font-semibold text-stone-950 dark:text-stone-100">
+                                        {skill.title}
+                                    </h3>
+                                    <p className="mt-1.5 line-clamp-2 text-xs leading-5 text-stone-500 dark:text-stone-400">
+                                        {skill.summary}
+                                    </p>
+                                </div>
+                                <div className="mt-3 flex flex-wrap gap-1">
+                                    {skill.tags.slice(0, 2).map((tag) => (
+                                        <Tag key={tag} className="m-0 text-[11px]">
+                                            {tag}
+                                        </Tag>
+                                    ))}
+                                </div>
+                            </button>
+                        ))}
+                    </div>
                 </section>
 
                 <footer className="mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-stone-200/80 pt-6 text-xs text-stone-500 dark:border-stone-800/80 dark:text-stone-400">
@@ -331,21 +327,6 @@ export default function IndexPage() {
                     </a>
                 </footer>
             </div>
-
-            <Image.PreviewGroup
-                preview={{
-                    open: previewOpen,
-                    current: previewIndex,
-                    onOpenChange: setPreviewOpen,
-                    onChange: setPreviewIndex,
-                }}
-            >
-                <div className="hidden">
-                    {promptShowcase.map((item) => (
-                        <Image key={item.id} src={item.coverUrl} alt={item.title} />
-                    ))}
-                </div>
-            </Image.PreviewGroup>
         </main>
     );
 }

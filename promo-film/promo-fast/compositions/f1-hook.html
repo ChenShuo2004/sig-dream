@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "SigCJK";
+          src: local("PingFang SC"), local("Hiragino Sans GB"), local("STHeiti");
+          font-weight: 400 900;
+        }
+        #root {
+          position: absolute; inset: 0; overflow: hidden;
+          background: radial-gradient(circle at 65% 48%, #1a1033 0%, #07060d 50%, #020204 100%);
+          font-family: Inter, "SigCJK", sans-serif; color: #ffffff;
+          perspective: 1500px;
+        }
+        .ambient-glow {
+          position: absolute; width: 920px; height: 920px; border-radius: 50%;
+          right: -120px; top: 80px;
+          background: radial-gradient(circle, rgba(139, 92, 246, 0.28) 0%, rgba(139, 92, 246, 0) 68%);
+          filter: blur(40px); pointer-events: none;
+        }
+        #stage-3d {
+          position: absolute; left: 540px; top: 130px; width: 1320px; height: 800px;
+          transform-style: preserve-3d;
+        }
+        #ui-slab {
+          position: relative; width: 100%; height: 100%; border-radius: 26px; overflow: hidden;
+          border: 1.5px solid rgba(167, 139, 250, 0.35);
+          box-shadow: 0 50px 140px rgba(0, 0, 0, 0.9), 0 0 90px rgba(139, 92, 246, 0.22);
+          background: #0c0c10;
+        }
+        #ui-slab img { width: 100%; height: 100%; object-fit: cover; object-position: left top; }
+        .sheen {
+          position: absolute; top: -20%; left: -60%; width: 45%; height: 150%;
+          background: linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.16) 50%, transparent 80%);
+          transform: skewX(-18deg); pointer-events: none;
+        }
+        #copy-left {
+          position: absolute; left: 110px; top: 340px; width: 560px; z-index: 20;
+          display: flex; flex-direction: column; gap: 18px;
+        }
+        .brand-mini {
+          display: flex; align-items: center; gap: 14px;
+          font-size: 28px; font-weight: 700; color: #c4b5fd; letter-spacing: 0.04em;
+        }
+        .brand-mini img { width: 42px; height: 42px; border-radius: 10px; }
+        .headline {
+          font-size: 72px; font-weight: 900; line-height: 1.15; letter-spacing: -0.03em;
+          text-shadow: 0 12px 40px rgba(0, 0, 0, 0.85);
+        }
+        .glow-word {
+          background: linear-gradient(90deg, #c084fc 0%, #818cf8 55%, #38bdf8 100%);
+          -webkit-background-clip: text; color: transparent;
+        }
+        .subline { font-size: 30px; color: #a1a1aa; font-weight: 500; }
+      </style>
+
+      <div id="root" data-composition-id="f1-hook" data-start="0" data-duration="4.5" data-width="1920" data-height="1080">
+        <div class="ambient-glow"></div>
+
+        <div id="copy-left">
+          <div class="brand-mini"><img src="assets/brand/icon.png" /><span>SIG-DREAM v0.3.3</span></div>
+          <div class="headline">零数据库<br /><span class="glow-word">30 秒</span>即刻开箱</div>
+          <div class="subline">开源 · 本地优先 AI 无限画布</div>
+        </div>
+
+        <div id="stage-3d">
+          <div id="ui-slab">
+            <img src="assets/ui-v033/home-dark.jpg" alt="sig-dream home" />
+            <div class="sheen" id="sheen-1"></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (() => {
+          const root = document.currentScript.closest("[data-composition-id]") || document;
+          const tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(
+            root.querySelector("#ui-slab"),
+            { rotateY: -36, rotateX: 14, z: -260, x: 180, opacity: 0 },
+            { rotateY: -18, rotateX: 6, z: 0, x: 0, opacity: 1, duration: 1.15, ease: "expo.out" },
+            0.05
+          );
+          tl.to(
+            root.querySelector("#ui-slab"),
+            { rotateY: -10, rotateX: 3, scale: 1.08, x: -40, duration: 2.8, ease: "power1.inOut" },
+            1.15
+          );
+          tl.to(
+            root.querySelector("#ui-slab"),
+            { rotateY: 16, x: -240, opacity: 0, duration: 0.45, ease: "power3.in" },
+            4.0
+          );
+
+          tl.fromTo(root.querySelector("#sheen-1"), { x: 0 }, { x: 2200, duration: 2.2, ease: "power2.inOut" }, 0.6);
+
+          tl.fromTo(root.querySelector(".brand-mini"), { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 0.25);
+          tl.fromTo(root.querySelector(".headline"), { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "expo.out" }, 0.4);
+          tl.fromTo(root.querySelector(".subline"), { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45 }, 0.65);
+
+          window.__timelines["f1-hook"] = tl;
+          tl.seek(0);
+        })();
+      </script>
+    </template>
+  </body>
+</html>

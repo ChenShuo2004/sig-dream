@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "SigCJK";
+          src: local("PingFang SC"), local("Hiragino Sans GB"), local("STHeiti");
+          font-weight: 400 900;
+        }
+        #root {
+          position: absolute; inset: 0; overflow: hidden;
+          background: radial-gradient(circle at 50% 45%, #1c1036 0%, #06050c 54%, #020204 100%);
+          font-family: Inter, "SigCJK", sans-serif; color: #ffffff;
+          perspective: 1600px;
+        }
+        #head {
+          position: absolute; left: 110px; top: 52px; right: 110px;
+          display: flex; align-items: center; justify-content: space-between; z-index: 20;
+        }
+        .kicker {
+          padding: 8px 20px; border-radius: 999px;
+          background: rgba(139, 92, 246, 0.22); border: 1px solid rgba(167, 139, 250, 0.5);
+          color: #d8b4fe; font-size: 26px; font-weight: 700;
+        }
+        .htitle { font-size: 46px; font-weight: 900; letter-spacing: -0.03em; }
+        .glow {
+          background: linear-gradient(90deg, #c084fc 0%, #38bdf8 100%);
+          -webkit-background-clip: text; color: transparent;
+        }
+        #part-a { position: absolute; inset: 0; z-index: 4; transform-style: preserve-3d; }
+        #canvas-slab {
+          position: absolute; left: 130px; top: 150px; width: 1660px; height: 760px;
+          border-radius: 26px; overflow: hidden;
+          border: 1.5px solid rgba(167, 139, 250, 0.35);
+          box-shadow: 0 50px 140px rgba(0, 0, 0, 0.9), 0 0 80px rgba(139, 92, 246, 0.22);
+        }
+        #canvas-slab img { width: 100%; height: 100%; object-fit: cover; }
+        #strip {
+          position: absolute; left: 130px; right: 130px; bottom: 52px;
+          display: flex; gap: 18px;
+        }
+        .pill {
+          flex: 1; text-align: center; padding: 16px; border-radius: 14px;
+          background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(167, 139, 250, 0.25);
+          font-size: 26px; font-weight: 700; color: #f4f4f5;
+        }
+        #part-b { position: absolute; inset: 0; z-index: 10; opacity: 0; transform-style: preserve-3d; }
+        #board { position: absolute; left: 110px; top: 155px; width: 1700px; height: 820px; transform-style: preserve-3d; }
+        #wires { position: absolute; inset: 0; width: 1700px; height: 820px; z-index: 2; }
+        .wire {
+          fill: none; stroke: #a855f7; stroke-width: 3.5; stroke-linecap: round;
+          filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.8));
+          stroke-dasharray: 850; stroke-dashoffset: 850;
+        }
+        #chars { position: absolute; left: 0; top: 0; width: 410px; height: 820px; display: flex; flex-direction: column; gap: 20px; z-index: 4; }
+        .c-card { flex: 1; border-radius: 18px; overflow: hidden; border: 1.5px solid rgba(167, 139, 250, 0.35); position: relative; }
+        .c-card img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+        .c-tag { position: absolute; left: 14px; bottom: 12px; padding: 5px 14px; border-radius: 8px; background: rgba(5, 5, 10, 0.85); font-size: 24px; font-weight: 700; }
+        #shots { position: absolute; left: 560px; top: 0; width: 1140px; height: 820px; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr); gap: 20px; z-index: 4; }
+        .shot { border-radius: 18px; overflow: hidden; border: 1.5px solid rgba(255, 255, 255, 0.16); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75); }
+        .shot img { width: 100%; height: 100%; object-fit: cover; }
+      </style>
+
+      <div id="root" data-composition-id="s3-canvas" data-start="0" data-duration="9" data-width="1920" data-height="1080">
+        <div id="head">
+          <div class="kicker">02 / 07 · 无限画布多模态编排</div>
+          <div class="htitle">自由连线 · 多图改图 · <span class="glow">锁定角色一致性</span></div>
+        </div>
+
+        <div id="part-a">
+          <div id="canvas-slab"><img src="assets/ui/canvas-edit-dark.png" alt="canvas dark" /></div>
+          <div id="strip">
+            <div class="pill">图文 / 视频 / 音频自由连线</div>
+            <div class="pill">多图参考改图与局部遮罩</div>
+            <div class="pill">节点打组与整组引用生成</div>
+          </div>
+        </div>
+
+        <div id="part-b">
+          <div id="board">
+            <svg id="wires" viewBox="0 0 1700 820">
+              <path class="wire" d="M 410 130 C 485 130, 485 200, 560 200" />
+              <path class="wire" d="M 410 130 C 485 130, 485 620, 560 620" />
+              <path class="wire" d="M 410 410 C 485 410, 485 200, 560 200" />
+              <path class="wire" d="M 410 410 C 485 410, 485 620, 560 620" />
+              <path class="wire" d="M 410 690 C 485 690, 485 620, 560 620" />
+            </svg>
+            <div id="chars">
+              <div class="c-card"><img src="assets/mj/nvzhu1-sheet.jpg" /><div class="c-tag">女主一 · 三视图</div></div>
+              <div class="c-card"><img src="assets/mj/kaige-sheet.jpg" /><div class="c-tag">凯哥 · 三视图</div></div>
+              <div class="c-card"><img src="assets/mj/nvzhu2-sheet.jpg" /><div class="c-tag">女主二 · 三视图</div></div>
+            </div>
+            <div id="shots">
+              <div class="shot"><img src="assets/mj/shot-xiaomei.jpg" /></div>
+              <div class="shot"><img src="assets/mj/shot-nvzhu1.jpg" /></div>
+              <div class="shot"><img src="assets/mj/shot-kaige.jpg" /></div>
+              <div class="shot"><img src="assets/mj/shot-nvzhu2.jpg" /></div>
+              <div class="shot"><img src="assets/mj/shot-lobby.jpg" /></div>
+              <div class="shot"><img src="assets/mj/shot-tower.jpg" /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (() => {
+          const root = document.currentScript.closest("[data-composition-id]") || document;
+          const tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(root.querySelector("#canvas-slab"), { rotateY: 16, rotateX: 8, scale: 0.92, opacity: 0 }, { rotateY: 4, rotateX: 2, scale: 1, opacity: 1, duration: 1.0, ease: "expo.out" }, 0.05);
+          tl.to(root.querySelector("#canvas-slab"), { rotateY: -4, scale: 1.05, duration: 2.5, ease: "power1.inOut" }, 1.05);
+          tl.fromTo(root.querySelectorAll(".pill"), { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, stagger: 0.08 }, 0.4);
+
+          tl.to(root.querySelector("#part-a"), { opacity: 0, scale: 0.92, duration: 0.35, ease: "power2.in" }, 3.45);
+          tl.fromTo(root.querySelector("#part-b"), { opacity: 0 }, { opacity: 1, duration: 0.3 }, 3.65);
+          tl.fromTo(root.querySelector("#board"), { rotateY: -16, rotateX: 6, scale: 0.94 }, { rotateY: -3, rotateX: 1, scale: 1, duration: 1.2, ease: "expo.out" }, 3.65);
+          tl.to(root.querySelector("#board"), { rotateY: 3, scale: 1.03, duration: 3.8, ease: "power1.inOut" }, 4.85);
+
+          tl.fromTo(root.querySelectorAll(".c-card"), { x: -48, opacity: 0 }, { x: 0, opacity: 1, duration: 0.4, stagger: 0.08, ease: "expo.out" }, 3.72);
+          tl.to(root.querySelectorAll(".wire"), { strokeDashoffset: 0, duration: 0.55, stagger: 0.06, ease: "power2.out" }, 3.9);
+          tl.fromTo(root.querySelectorAll(".shot"), { scale: 0.85, y: 26, opacity: 0 }, { scale: 1, y: 0, opacity: 1, duration: 0.42, stagger: 0.07, ease: "back.out(1.2)" }, 4.1);
+
+          window.__timelines["s3-canvas"] = tl;
+          tl.seek(0);
+        })();
+      </script>
+    </template>
+  </body>
+</html>
