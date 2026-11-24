@@ -6,7 +6,7 @@
 
 **데이터베이스 없이 바로 실행하는 로컬 우선 오픈소스 AI 무한 캔버스 & 영상 스튜디오**
 
-AI 이미지 생성, 다중 참조 편집, 영상 생성, 1,700+ 프롬프트 라이브러리, Canvas Agent를 하나의 무한 캔버스에 통합하고 **대본 / 복제 / 교체** 3대 스튜디오를 내장했습니다.  
+AI 이미지 생성, 다중 참조 편집, 영상 생성, 34+ 내장 크리에이티브·모션 Skill, 8대 MCP Canvas Agent를 하나의 무한 캔버스에 통합하고 **대본 / 복제 / 교체** 3대 스튜디오를 내장했습니다.  
 PostgreSQL이나 로그인 없이 데스크톱 앱 또는 포터블 패키지를 실행하고 API 키만 입력하면 30초 만에 시작할 수 있습니다.
 
 [![中文](https://img.shields.io/badge/%E4%B8%AD%E6%96%87-27272a?style=for-the-badge)](README.md)
@@ -83,7 +83,7 @@ npm run dev
     <img src="docs/screenshots/home-overview-light.jpg" alt="sig-dream 홈 화면: 대본, 캔버스, 완성 영상을 한곳에서" width="100%" />
   </picture>
   <p>
-    <sub><b>sig-dream 홈 화면</b>: 무한 캔버스, 대본 / 복제 / 교체 3대 스튜디오, 1,700+ 프롬프트 라이브러리, 로컬 자산 허브 (라이트 / 다크 테마 지원)</sub>
+    <sub><b>sig-dream 홈 화면</b>: 무한 캔버스, 대본 / 복제 / 교체 3대 스튜디오, 34+ 내장 Skill 센터, 로컬 자산 허브 (라이트 / 다크 테마 지원)</sub>
   </p>
 </div>
 

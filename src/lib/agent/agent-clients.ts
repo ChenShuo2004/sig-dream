@@ -1,5 +1,5 @@
 /** External MCP clients share the existing Canvas Agent bridge, independent of the chat runtime. */
-export const CANVAS_AGENT_PACKAGE = "https://github.com/ChenShuo2004/sig-dream/releases/download/v0.3.3/sig-dream-canvas-agent-0.3.3.tgz";
+export const CANVAS_AGENT_PACKAGE = "https://github.com/ChenShuo2004/sig-dream/releases/download/v0.3.4/sig-dream-canvas-agent-0.3.4.tgz";
 export const CANVAS_AGENT_ARGS = ["--yes", "--package", CANVAS_AGENT_PACKAGE, "--", "canvas-agent", "mcp"];
 export const CANVAS_AGENT_START = `npx --yes --package ${CANVAS_AGENT_PACKAGE} -- canvas-agent`;
 

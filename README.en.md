@@ -76,7 +76,7 @@ Download the installer for your OS from [**GitHub Releases (Latest)**](https://g
 
 ### Option 2: Web Portable Bundle (No `npm install` · Requires Node.js 20+)
 
-Download `sig-dream-*-web-portable.zip` (~2.7 MB) from [**Releases**](https://github.com/ChenShuo2004/sig-dream/releases/latest), unzip, and run:
+Download `sig-dream-*-web-portable.zip` (~3.1 MB) from [**Releases**](https://github.com/ChenShuo2004/sig-dream/releases/latest), unzip, and run:
 
 - **macOS**: Double-click `启动-macOS.command`
 - **Windows**: Double-click `启动-Windows.bat`
@@ -183,7 +183,7 @@ npm run desktop:win
 npm run desktop:linux
 
 # Sync version across package.json, desktop/package.json, and VERSION
-npm run version:sync -- 0.3.2
+npm run version:sync -- 0.3.4
 ```
 
 ---
@@ -203,7 +203,7 @@ Infinite Canvas × LAN Asset Library × Cross-Platform Team Desktop
 | Feature | Community Edition (This Repo · MIT) | Enterprise Edition (Closed-Source) |
 | --- | --- | --- |
 | License | MIT open source, ready-to-run locally | Commercial closed-source license (source not public) |
-| Canvas & Studios | Infinite canvas, image/video gen, 1,700+ prompts, Script/Replication/Replacement studios | Everything in Community + shared team canvases & full-pipeline production orchestration |
+| Canvas & Studios | Infinite canvas, image/video gen, 34+ built-in creative & motion skills, Script/Replication/Replacement studios | Everything in Community + shared team canvases & full-pipeline production orchestration |
 | Distribution & Desktop | Web Portable, Docker, standalone macOS / Windows / Linux desktop app | Team desktop client with LAN NAS library & direct drag-to-NLE editing |
 | LAN Asset Hub & NAS | Local IndexedDB storage + JSON / WebDAV backup | PostgreSQL metadata + LAN file machine (NAS direct transfer, auto thumbnails & H.264 previews; originals stay on LAN) |
 | Permissions & Audit | No login required (single user) | Dual isolated libraries, 4 roles / 30 granular permissions, full operation audit logs |

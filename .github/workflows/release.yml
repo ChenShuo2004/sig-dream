@@ -259,7 +259,7 @@ jobs:
           {
             echo "## sig-dream ${GITHUB_REF_NAME} · 开箱即用社区开源版"
             echo ""
-            echo "> 零数据库、本地优先的 AI 无限画布与视频创作工作室（内置 **无限画布 / 剧本工作室 / 复刻工作室 / 替换工作室 / 1700+ 提示词库**）。"
+            echo "> 零数据库、本地优先的 AI 无限画布与视频创作工作室（内置 **无限画布 / 剧本工作室 / 复刻工作室 / 替换工作室 / 34+ 创作与动效 Skill / 8 大 MCP Canvas Agent**）。"
             echo "> 无需 PostgreSQL、Redis 或登录服务，所有画布工程、本地资产与 API Key 均保存在本机。"
             echo ""
             if [ -n "$changelog_section" ]; then

@@ -31,6 +31,7 @@ cpSync(join(rootDir, "src/styles/LICENSE.shadcn.md"), join(stageDir, "LICENSE.sh
 cpSync(join(rootDir, "LICENSE"), join(stageDir, "LICENSE"));
 cpSync(join(rootDir, "LICENSE.upstream-infinite-canvas"), join(stageDir, "LICENSE.upstream-infinite-canvas"));
 mkdirSync(join(stageDir, "docs"));
+cpSync(join(rootDir, "docs/user-manual.md"), join(stageDir, "docs/user-manual.md"));
 cpSync(join(rootDir, "docs/agent-connections.md"), join(stageDir, "docs/agent-connections.md"));
 cpSync(join(rootDir, "docs/launch-readiness.md"), join(stageDir, "docs/launch-readiness.md"));
 
@@ -116,6 +117,11 @@ const quickGuide = `sig-dream v${version} · 开箱即用 Web 便携版
 
 启动后会自动打开浏览器（默认 http://localhost:3000，如端口被占用会自动顺延）。
 打开页面后点击右上角设置图标，填入你的模型渠道（Base URL + API Key）即可开始创作。
+
+内置资源：
+- 34 个创作与动效 Skill：位于 .agents/skills/，并在页面「技能中心（#/skills）」可视化浏览与一键复制
+- 完整中文使用手册：docs/user-manual.md
+- 多客户端 MCP Agent 接入指南：docs/agent-connections.md
 
 数据安全：
 所有画布工程、素材和 API Key 仅保存在本机浏览器的 IndexedDB / LocalStorage，不上传任何第三方服务器。

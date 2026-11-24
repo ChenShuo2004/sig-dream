@@ -78,7 +78,7 @@
 
 ### 方式二：Web 便携包（免 `npm install` · 仅需 Node.js 20+）
 
-在 [**Releases**](https://github.com/ChenShuo2004/sig-dream/releases/latest) 下载 `sig-dream-*-web-portable.zip`（约 2.7 MB），解压后直接双击启动：
+在 [**Releases**](https://github.com/ChenShuo2004/sig-dream/releases/latest) 下载 `sig-dream-*-web-portable.zip`（约 3.1 MB），解压后直接双击启动：
 
 - **macOS**：双击 `启动-macOS.command`
 - **Windows**：双击 `启动-Windows.bat`
@@ -189,10 +189,10 @@ npm run desktop:win     # 打包 Windows NSIS 安装包与便携 zip
 npm run desktop:linux   # 打包 Linux AppImage / deb
 
 # 6. 发版前一键同步根包、桌面包与 VERSION 版本号
-npm run version:sync -- 0.3.2
+npm run version:sync -- 0.3.4
 ```
 
-推送与版本号一致的 `v*` Git 标签（如 `git tag v0.3.2 && git push origin main --tags`）即可触发 [`.github/workflows/release.yml`](.github/workflows/release.yml)，自动完成类型检查、单测、Web 便携包与三端桌面安装包构建、SHA-256 校验生成并发布至 GitHub Releases。
+推送与版本号一致的 `v*` Git 标签（如 `git tag v0.3.4 && git push origin main --tags`）即可触发 [`.github/workflows/release.yml`](.github/workflows/release.yml)，自动完成类型检查、单测、Web 便携包与三端桌面安装包构建、SHA-256 校验生成并发布至 GitHub Releases。
 
 ---
 
@@ -226,7 +226,8 @@ npm run version:sync -- 0.3.2
 
 ```text
 sig-dream/
-├── src/                      # React 19 + TypeScript + Vite 7 前端（首页、无限画布、三大工作室、提示词库、资产库）
+├── src/                      # React 19 + TypeScript + Vite 7 前端（首页、无限画布、三大工作室、34+ 内置技能中心、资产库）
+├── .agents/skills/           # 34 个内置创作与动效 Skill（同步打包至桌面端、Web 便携包与 Docker 镜像）
 ├── public/                   # 静态资源与品牌图标
 ├── packages/canvas-agent/    # 本地 MCP / Canvas Agent 桥接与协同运行时
 ├── server/

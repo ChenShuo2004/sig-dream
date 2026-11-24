@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v0.3.4 - 2026-11-24
+
++ [新增] 内置技能中心（`/skills`）与 34 个创作/动效 Skill，覆盖 14 个视频与内容创作工作流、`anatomy` 人体解剖、`video-shotcraft` 电影分镜以及 Remotion / Motion Canvas / Manim / Three.js / Blender 等 18 大引擎，同步落盘 `.agents/skills/` 并打包进桌面端、Web 便携包与 Docker 镜像，供 MCP Agent 直接调用。
++ [新增] 新增完整中文使用手册（`docs/user-manual.md`），并在四语 README 首屏上线 30 秒 3D 高燃宣传片与剧本 / 复刻 / 替换三大工作室实拍成片演示。
++ [优化] 升级三大工作室浅色主题对比度、模型控制与分集设置体验；统一应用与页面品牌标题为 `sig-dream`，修复首屏标题裁切。
++ [变更] 移除旧版外部提示词中心入口，原 `#/prompts` 路径平滑跳转至内置技能中心 `#/skills`。
+
 ## v0.3.3 - 2026-11-21
 
 + [新增] Codex、Claude、Cursor、Grok Build、OpenCode、Antigravity、Muse Code、Pi 与通用 MCP 配置；保留 OpenCode 新旧版本差异和客户端测试入口。

@@ -1,22 +1,21 @@
-# 上线检查：多 Agent 画布接入
+# 上线检查：sig-dream v0.3.4 发布准备
 
-检查日期：2026-11-21。目标版本：v0.3.3。此轮没有提交、推送、打标签或发布。
+检查日期：2026-11-24。目标版本：v0.3.4。此轮已完成本地版本号同步、四语 README 与使用手册更新、Web 便携包及 macOS (arm64/x64) 桌面安装包构建与核心验证；尚未自动提交、推送或打标签发布。
 
 ## 状态
 
-本地代码和候选产物已补齐主要上线阻塞：维护版 Canvas MCP、stdio 与 Streamable HTTP 接入、外网访问鉴权、代理 SSRF 防护、依赖升级、测试门禁和桌面签名配置。核心本地检查通过。发布仍需远端 CI、Docker 引擎以及真实平台/客户端验收；不能据协议兼容测试宣称八个品牌客户端已经逐一实测。
+本地代码、说明文档与候选产物已就绪：全仓版本同步至 `v0.3.4`，内置 34 个创作与动效 Skill（同步打包至桌面端、Web 便携包与 Docker 镜像），移除了旧版提示词中心入口并更新了四语 README、`CHANGELOG.md`、`docs/user-manual.md` 与 Release Notes 模板。核心本地检查全部通过。发布仍需推送代码并打 `v0.3.4` 标签触发远端 CI（Windows / Linux / macOS 四平台桌面包、Docker 鉴权门禁与草稿 Release）；不能据协议兼容测试宣称八个品牌客户端已经逐一实测。
 
 ## 本地已验证
 
-- 根项目、桌面项目依赖审计均为 0 项；锁文件安装可用。版本同步校验 v0.3.3 通过。
-- `npm run typecheck`、`npm test`、`npm run build` 通过；单元测试包含登录会话、跨站请求、DNS 重绑定/私网目标和代理体积限制。
-- `npm run test:smoke` 15/15；`npm run test:agent:ui` 覆盖 10 个配置入口、中英文、剪贴板和窄屏。
-- `npm run test:agent:bridge` 使用隔离画布验证 stdio、Token 鉴权 HTTP MCP、34 个工具、输入上限和实际打包 tarball 的 npx 执行。外部客户端未触发 Codex 初始化，也没有调用生成。
-- `npm run test:portable` 验证解压后独立运行、接入指南、配置入口和默认回环监听。
+- `npm run verify:release` 校验 `v0.3.4` 根/桌面/Agent 包、锁文件、VERSION、发布 URL 和 YAML 语法通过。
+- `npm run typecheck`、`npm test`（13/13）、`npm run build`、`npm run build:portable` 全部通过。
+- `npm run test:agent:ui` 覆盖 10 个配置入口、中英文、剪贴板和窄屏，无页面异常。
+- `npm run test:agent:bridge` 使用隔离画布验证 stdio、Token 鉴权 HTTP MCP、34 个工具、输入上限和实际打包 `sig-dream-canvas-agent-0.3.4.tgz` 的 npx 执行。
+- `npm run test:portable` 验证 `sig-dream-0.3.4-web-portable` 解压后独立运行、接入指南、配置入口和默认回环监听。
 - `npm run test:public` 验证 Basic 登录、HttpOnly 会话 Cookie、Provider Bearer 兼容和私网代理目标拦截。
-- Electron 45.4.1 的 macOS arm64 目录包启动验收通过；桌面与 Web 依赖审计均为 0 项。
-- `scripts/verify-release.mjs` 校验根/桌面/Agent 包、锁文件、VERSION、发布 URL 和 YAML 语法。
-- 全站冒烟为 15/15、无页面脚本异常；有一个第三方 X 图片 403（页面有回退），以及两条浏览器跨源资源拦截日志。
+- Electron 45.4.1 的 `v0.3.4` macOS arm64 / x64 桌面安装包（`.dmg` / `.zip`）已构建，macOS arm64 目录包启动验收通过，且桌面包与便携包均已确认内置 34 个 `.agents/skills/` 技能。
+- 本地候选产物校验清单已写入 `release/SHA256SUMS-v0.3.4-local.txt`。
 
 测试结果不代表另外七款品牌应用已用真实账号逐一连接，也不代表 Windows、Linux 或 Intel Mac 安装器已在本地启动验收。具体单次报告在 `release/agent-connections/` 和 `release/smoke-test/`。
 

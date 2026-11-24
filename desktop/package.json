@@ -1,6 +1,6 @@
 {
   "name": "sig-dream-desktop",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "sig-dream · Zero-database, local-first AI infinite canvas & creative studio desktop app",
   "private": true,
   "type": "module",
